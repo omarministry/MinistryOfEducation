@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite guice-stage="DEVELOPMENT" name="Failed suite [SuiteLogin]">
+  <test name="TestLogin(failed)">
+    <classes>
+      <class name="GAGERegression.TC0002_MyAccountSponsorPIN">
+        <methods>
+          <include name="report"/>
+          <include name="verifyLoginWithValidCredentials"/>
+          <include name="endTest"/>
+          <include name="setup"/>
+        </methods>
+      </class> <!-- GAGERegression.TC0002_MyAccountSponsorPIN -->
+      <class name="GAGERegression.TC0005_GrantsAndBonuses">
+        <methods>
+          <include name="setup"/>
+          <include name="endTest"/>
+          <include name="report"/>
+          <include name="verifyLoginWithValidCredentials"/>
+        </methods>
+      </class> <!-- GAGERegression.TC0005_GrantsAndBonuses -->
+      <class name="GAGERegression.TC0008_EditMailingAddress">
+        <methods>
+          <include name="verifyLoginWithValidCredentials"/>
+          <include name="report"/>
+          <include name="endTest"/>
+          <include name="setup"/>
+        </methods>
+      </class> <!-- GAGERegression.TC0008_EditMailingAddress -->
+      <class name="GAGERegression.TC0007_SponsorInfo">
+        <methods>
+          <include name="setup"/>
+          <include name="report"/>
+          <include name="endTest"/>
+          <include name="verifyLoginWithValidCredentials"/>
+        </methods>
+      </class> <!-- GAGERegression.TC0007_SponsorInfo -->
+      <class name="GAGERegression.TC0004_VerifyRegistration">
+        <methods>
+          <include name="setup"/>
+          <include name="report"/>
+          <include name="endTest"/>
+          <include name="verifyLoginWithValidCredentials"/>
+        </methods>
+      </class> <!-- GAGERegression.TC0004_VerifyRegistration -->
+      <class name="GAGERegression.TC0006_MessageCentre">
+        <methods>
+          <include name="setup"/>
+          <include name="report"/>
+          <include name="endTest"/>
+          <include name="verifyLoginWithValidCredentials"/>
+        </methods>
+      </class> <!-- GAGERegression.TC0006_MessageCentre -->
+      <class name="GAGERegression.TC0009_EditBankInfo">
+        <methods>
+          <include name="verifyLoginWithValidCredentials"/>
+          <include name="report"/>
+          <include name="setup"/>
+          <include name="endTest"/>
+        </methods>
+      </class> <!-- GAGERegression.TC0009_EditBankInfo -->
+    </classes>
+  </test> <!-- TestLogin(failed) -->
+</suite> <!-- Failed suite [SuiteLogin] -->

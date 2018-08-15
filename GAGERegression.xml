@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="SuiteLogin">
+  <test name="TestLogin">
+    <classes>
+<!--        <class name="GAGERegression.TC0001_GageOneKeySignUp"/> -->
+       <class name="GAGERegression.TC0002_MyAccountSponsorPIN"/>
+       <class name="GAGERegression.TC0004_VerifyRegistration"/>
+       <class name="GAGERegression.TC0005_GrantsAndBonuses"/>
+       <class name="GAGERegression.TC0006_MessageCentre"/>
+       <class name="GAGERegression.TC0007_SponsorInfo"/>
+       <class name="GAGERegression.TC0008_EditMailingAddress"/>
+       <class name="GAGERegression.TC0009_EditBankInfo"/>
+
+    </classes>
+  </test> <!-- TestLogin -->
+</suite> <!-- SuiteLogin -->
