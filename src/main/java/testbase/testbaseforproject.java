@@ -1,6 +1,7 @@
 package testbase;
 
 import java.io.File;
+import java.util.Random;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
@@ -330,6 +331,13 @@ public class testbaseforproject {
 		driver.quit();
 		init();
 		System.out.println("Home Page URL accesseed....");
+	}
+	
+	public String randomNumber() {
+		Random rand = new Random();
+		int random = rand.nextInt(900) + 100;
+		String randomString = Integer.toString(random);
+		return randomString;
 	}
 		
 }
