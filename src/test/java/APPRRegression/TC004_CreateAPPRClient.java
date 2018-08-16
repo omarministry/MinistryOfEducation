@@ -53,6 +53,7 @@ public class TC004_CreateAPPRClient extends testbaseforproject{
 		alne = new APPRLeftNavElements(driver);
 		alne.APPRClientEntry.click();
 		Thread.sleep(1000);
+		//test
 		
 		//Start entering SIN number
 		acce = new APPRCreateClientElements(driver);
