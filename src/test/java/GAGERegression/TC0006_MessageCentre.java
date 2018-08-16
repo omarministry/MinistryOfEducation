@@ -82,7 +82,8 @@ public class TC0006_MessageCentre extends testbaseforproject{
 		logger.log(LogStatus.PASS, "Back to Message Centre Message page");
 		
 		//Thread.sleep(10000);
-		
+		//Testing...
+		//Testing 2.....
 		
 		} catch (Exception e) {
 			logger.log(LogStatus.FAIL, " Test is NOT successful due to the following exception " + logger.addScreenCapture(testbaseforproject.screenshot()));
