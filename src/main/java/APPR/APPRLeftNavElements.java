@@ -25,6 +25,9 @@ public class APPRLeftNavElements extends testbaseforproject {
 		
 		@FindBy (xpath="/html/body/table[8]/tbody/tr/td[1]/table/tbody/tr[19]/td/a")
 		public WebElement APPRVendorTDALeftNav;
+		
+		@FindBy (xpath="/html/body/table[8]/tbody/tr/td[1]/table/tbody/tr[27]/td/a")
+		public WebElement APPRClientEntry;
 
 }
 
