@@ -19,14 +19,18 @@ import com.relevantcodes.extentreports.LogStatus;
 import APPR.APPRCreateSponsorElements;
 import APPR.APPRLeftNavElements;
 import APPR.APPRLoginPageElements;
+import support.ReadWriteDataToExcel;
 import testbase.testbaseforproject;
 
 public class TC003_CreateAPPRSponsor extends testbaseforproject {
-	
+	public static String sponsorID;
 	APPRLoginPageElements alpe;
 	APPRCreateSponsorElements acse;
 	APPRLeftNavElements alne;
 	
+	public String getSponsorID() {
+		return sponsorID;
+	}
 	
 	@BeforeClass
 	public void setup() {
@@ -42,7 +46,7 @@ public class TC003_CreateAPPRSponsor extends testbaseforproject {
 		
 		alpe = new APPRLoginPageElements(driver);
 		
-		driver.navigate().to("javascript:document.getElementById('overridelink').click()");
+		//driver.navigate().to("javascript:document.getElementById('overridelink').click()");
 		Thread.sleep(2000);
 		String username = config.getProperty("userNameAPPR");
 		String password = config.getProperty("PasswordAPPR");
@@ -91,7 +95,7 @@ public class TC003_CreateAPPRSponsor extends testbaseforproject {
 		
 		
 		//Type TOSS Code
-		acse.APPRTossCodeCreateSponsor.sendKeys("415A");
+		acse.APPRTossCodeCreateSponsor.sendKeys("268R");
 		logger.log(LogStatus.PASS, "Entred TOSS Code");
 		System.out.println("Toss Code");
 		Thread.sleep(2000);
@@ -257,13 +261,15 @@ public class TC003_CreateAPPRSponsor extends testbaseforproject {
 		logger.log(LogStatus.PASS, "Submitted");
 		System.out.println("Submitted");
 		
-		String SponsorID = acse.APPRSponsorID.getText().trim();
-		logger.log(LogStatus.INFO, SponsorID);
-		System.out.println("Sponsor ID: " + SponsorID);
+		sponsorID = acse.APPRSponsorID.getText().trim();
+		logger.log(LogStatus.INFO, sponsorID);
+		System.out.println("Sponsor ID: " + sponsorID);
 		
-//		config.setProperty("SponsorIDByAutomation", SponsorID);
-		
-		System.out.println("Property set for sponsorID in config file");
+		String filePath = System.getProperty("user.dir") + "\\src";
+		ReadWriteDataToExcel dataExcel = new ReadWriteDataToExcel();
+		dataExcel.writeExcel(filePath, "Data.xlsx", "Sponsor", sponsorID);
+		System.out.println("Sponsor ID is written to the file");
+		logger.log(LogStatus.PASS, "Sponsor ID is written to the file");
 		
 		} catch (Exception e) {
 			

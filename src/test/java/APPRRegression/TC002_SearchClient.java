@@ -9,6 +9,7 @@ import org.testng.annotations.Test;
 
 import com.relevantcodes.extentreports.LogStatus;
 
+import APPR.APPRLeftNavElements;
 import APPR.ClientSearchElementsOnRight;
 
 import testbase.homepage;
@@ -18,6 +19,7 @@ public class TC002_SearchClient extends testbaseforproject {
 	
 	homepage homepage;
 	//LeftNavElementsUnderSearch lne;
+	APPRLeftNavElements alne;
 	ClientSearchElementsOnRight cse;
 	
 	@BeforeClass
@@ -32,8 +34,12 @@ public class TC002_SearchClient extends testbaseforproject {
 	
 		logger = report.startTest("Search a Client");
 		homepage = new homepage(driver);
-				
-		driver.navigate().to("javascript:document.getElementById('overridelink').click()");
+		
+		String browser = config.getProperty("browser");
+		if(browser.equalsIgnoreCase("IE")) {
+			driver.navigate().to("javascript:document.getElementById('overridelink').click()");
+		}
+
 		Thread.sleep(5000);
 		homepage.apprLogin("DSAH10047", "Password");
 		
@@ -41,6 +47,9 @@ public class TC002_SearchClient extends testbaseforproject {
 		
 		//lne = new LeftNavElementsUnderSearch(driver);
 		//lne.client.click();
+		alne = new APPRLeftNavElements(driver);
+		alne.APPRclientLeftNav.click();
+		
 		logger.log(LogStatus.PASS, "Clicked on Client");
 		Thread.sleep(10000);
 		cse = new ClientSearchElementsOnRight(driver);

@@ -23,5 +23,9 @@ public class ClientSearchElementsOnRight extends testbaseforproject {
 		
 		@FindBy(xpath="//form[@name='ClientSearchForm']/fieldset/table[6]/tbody/tr[2]/td[2]")
 		public WebElement clientSearchResultsBottom;
+		
+		@FindBy(xpath="html/body/table[8]/tbody/tr/td[4]/form/fieldset/table[6]/tbody/tr[1]/td/a")
+		public WebElement clientSearchResultClickableName;
+		
 	
 }

@@ -13,9 +13,16 @@ import APPR.APPRCreateClientElements;
 import APPR.APPRCreateSponsorElements;
 import APPR.APPRLeftNavElements;
 import APPR.APPRLoginPageElements;
+import support.ReadWriteDataToExcel;
 import testbase.testbaseforproject;
 
 public class TC004_CreateAPPRClient extends testbaseforproject{
+	public static String clientID;
+	
+	public String getClientID() {
+		return clientID;
+	}
+	
 	APPRLoginPageElements alpe;
 	APPRLeftNavElements alne;
 	APPRCreateClientElements acce;
@@ -26,7 +33,7 @@ public class TC004_CreateAPPRClient extends testbaseforproject{
 	}
 
 	@Test
-	public void verifyLoginWithValidCredentials() throws Throwable {
+	public void createClientFlow() throws Throwable {
 		
 		try {
 	
@@ -174,10 +181,15 @@ public class TC004_CreateAPPRClient extends testbaseforproject{
 		AssertTextPresentmethodWithExtendPassFail(applicationSummaryTxt, "Application Summary");
 		logger.log(LogStatus.PASS, "Land on Application Summary page");
 		
-		String clientID = acce.APPRClientID.getText();
+		clientID = acce.APPRClientID.getText();
 		System.out.println("New created Client ID: " + clientID);
 		logger.log(LogStatus.PASS, "Created a client successfully with ID: " + clientID);
 		
+		String filePath = System.getProperty("user.dir") + "\\src";
+		ReadWriteDataToExcel dataExcel = new ReadWriteDataToExcel();
+		dataExcel.writeExcel(filePath, "Data.xlsx", "Client", clientID);
+		System.out.println("Client ID is written to the file");
+		logger.log(LogStatus.PASS, "Client ID is written to the file");
 		
 		}catch (Exception e) {
 			
