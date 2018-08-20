@@ -23,8 +23,8 @@ public class APPRLeftNavElements extends testbaseforproject {
 		@FindBy(xpath="html/body/table[8]/tbody/tr/td[1]/table/tbody/tr[30]/td/a") 
 		public WebElement APPRSponsorLeftNav;
 		
-		//---Program Entry
-		@FindBy(xpath="/html/body/table[8]/tbody/tr/td[1]/table/tbody/tr[27]/td/a") 
-		public WebElement APPRClientEntry;
+		@FindBy (xpath="/html/body/table[8]/tbody/tr/td[1]/table/tbody/tr[19]/td/a")
+		public WebElement APPRVendorTDALeftNav;
+
 }
 
