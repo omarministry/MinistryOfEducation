@@ -35,9 +35,9 @@ WebDriverWait wait = new WebDriverWait(driver, 90);
 		
 		
 		
-		public void apprLogin(String emailAddress, String password) throws InterruptedException {
+		public void apprLogin(String userID, String password) throws InterruptedException {
 			
-			ApprLoginUserName.sendKeys(emailAddress);
+			ApprLoginUserName.sendKeys(userID);
 			logger.log(LogStatus.PASS, "Login page displayed successfully");
 			logger.log(LogStatus.INFO, "Entered User name");
 			ApprLoginPassword.sendKeys(password);

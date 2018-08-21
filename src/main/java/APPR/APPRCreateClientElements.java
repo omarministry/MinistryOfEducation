@@ -13,9 +13,9 @@ public class APPRCreateClientElements extends testbaseforproject{
 		PageFactory.initElements(driver, this);
 	}
 	
-		//============= xPaths of Create Client page (Sponsor/Employer Search) Elements ==============
+		//============= xPaths of Create Client page Elements ==============
 	
-		//--- Elements under Sponsor/Employer Search ---
+		//--- Elements under Client Search ---
 		@FindBy(xpath="//*[@id=\"sin1\"]") 
 		public WebElement APPRClientSearchSIN1;
 	

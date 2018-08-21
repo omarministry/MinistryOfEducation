@@ -2,28 +2,28 @@
 <testng-results skipped="0" failed="0" ignored="0" total="1" passed="1">
   <reporter-output>
   </reporter-output>
-  <suite name="Default suite" duration-ms="43347" started-at="2018-08-13T20:01:08Z" finished-at="2018-08-13T20:01:51Z">
+  <suite name="Default suite" duration-ms="20615" started-at="2018-08-20T19:27:45Z" finished-at="2018-08-20T19:28:06Z">
     <groups>
     </groups>
-    <test name="Default test" duration-ms="43347" started-at="2018-08-13T20:01:08Z" finished-at="2018-08-13T20:01:51Z">
-      <class name="GAGERegression.TC0005_GrantsAndBonuses">
-        <test-method status="PASS" signature="report()[pri:0, instance:GAGERegression.TC0005_GrantsAndBonuses@5e3a8624]" name="report" is-config="true" duration-ms="247" started-at="2018-08-13T16:01:08Z" finished-at="2018-08-13T16:01:08Z">
+    <test name="Default test" duration-ms="20615" started-at="2018-08-20T19:27:45Z" finished-at="2018-08-20T19:28:06Z">
+      <class name="APPRRegression.TC007_SearchFormDocument">
+        <test-method status="PASS" signature="report()[pri:0, instance:APPRRegression.TC007_SearchFormDocument@5e3a8624]" name="report" is-config="true" duration-ms="99" started-at="2018-08-20T15:27:45Z" finished-at="2018-08-20T15:27:45Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- report -->
-        <test-method status="PASS" signature="setup()[pri:0, instance:GAGERegression.TC0005_GrantsAndBonuses@5e3a8624]" name="setup" is-config="true" duration-ms="2737" started-at="2018-08-13T16:01:08Z" finished-at="2018-08-13T16:01:11Z">
+        <test-method status="PASS" signature="setup()[pri:0, instance:APPRRegression.TC007_SearchFormDocument@5e3a8624]" name="setup" is-config="true" duration-ms="2054" started-at="2018-08-20T15:27:45Z" finished-at="2018-08-20T15:27:47Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setup -->
-        <test-method status="PASS" signature="verifyLoginWithValidCredentials()[pri:0, instance:GAGERegression.TC0005_GrantsAndBonuses@5e3a8624]" name="verifyLoginWithValidCredentials" duration-ms="39519" started-at="2018-08-13T16:01:11Z" finished-at="2018-08-13T16:01:50Z">
+        <test-method status="PASS" signature="verifySearchFormDocument()[pri:0, instance:APPRRegression.TC007_SearchFormDocument@5e3a8624]" name="verifySearchFormDocument" duration-ms="17739" started-at="2018-08-20T15:27:47Z" finished-at="2018-08-20T15:28:05Z">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- verifyLoginWithValidCredentials -->
-        <test-method status="PASS" signature="endTest()[pri:0, instance:GAGERegression.TC0005_GrantsAndBonuses@5e3a8624]" name="endTest" is-config="true" duration-ms="831" started-at="2018-08-13T16:01:50Z" finished-at="2018-08-13T16:01:51Z">
+        </test-method> <!-- verifySearchFormDocument -->
+        <test-method status="PASS" signature="endTest()[pri:0, instance:APPRRegression.TC007_SearchFormDocument@5e3a8624]" name="endTest" is-config="true" duration-ms="710" started-at="2018-08-20T15:28:05Z" finished-at="2018-08-20T15:28:06Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- endTest -->
-      </class> <!-- GAGERegression.TC0005_GrantsAndBonuses -->
+      </class> <!-- APPRRegression.TC007_SearchFormDocument -->
     </test> <!-- Default test -->
   </suite> <!-- Default suite -->
 </testng-results>
