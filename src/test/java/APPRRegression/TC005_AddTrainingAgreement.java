@@ -1,5 +1,8 @@
 package APPRRegression;
 
+import org.apache.poi.util.SystemOutLogger;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -27,7 +30,7 @@ public class TC005_AddTrainingAgreement extends testbaseforproject{
 	}
 
 	@Test
-	public void createClientFlow() throws Throwable {
+	public void fullClientFlow() throws Throwable {
 		
 		try {
 	
@@ -58,11 +61,13 @@ public class TC005_AddTrainingAgreement extends testbaseforproject{
 		//Search Client by ID get from the excel file
 		String filePath = System.getProperty("user.dir") + "\\src";
 		ReadWriteDataToExcel dataExcel = new ReadWriteDataToExcel();
-		String clientID = dataExcel.readExcel(filePath, "Data.xlsx", "Client");
+		int clientIDValue = dataExcel.readExcel(filePath, "Data.xlsx", "Client");
+		String clientID = Integer.toString(clientIDValue);
 		cseor = new ClientSearchElementsOnRight(driver);
 		cseor.clientID.sendKeys(clientID);
 		cseor.SearchButtonClientSearch.click();
 		cseor.clientSearchResultClickableName.click();
+		System.out.println("Search client successfully");
 		Thread.sleep(1000);
 		
 		//On Client General Tab
@@ -74,6 +79,7 @@ public class TC005_AddTrainingAgreement extends testbaseforproject{
 		
 		//On Client Program Participation tab
 		acte.APPRClientProgramParticipationTab.click();
+		System.out.println("Program Participation tab clicked");
 		Thread.sleep(1000);
 		String programParticipationTxt = acte.APPRClientProgramParticipationTxt.getText().trim();
 		AssertTextPresentmethodWithExtendPassFail(programParticipationTxt, "Program Participation");
@@ -83,6 +89,7 @@ public class TC005_AddTrainingAgreement extends testbaseforproject{
 		acte.APPRClientProgramParticipationCheckbox.click();
 		acte.APPRClientProgramParticipationAddTAOption.click();
 		acte.APPRClientProgramParticipationGoButton.click();
+		System.out.println("Add new Training Agreement option clicked");
 		Thread.sleep(1000);
 		
 		//On Add New training agreement page
@@ -91,6 +98,7 @@ public class TC005_AddTrainingAgreement extends testbaseforproject{
 		logger.log(LogStatus.PASS, "Landing on Add new TA page");
 		acte.APPRClientPPAddNewTAYesRadioButton.click();
 		acte.APPRClientPPAddNewTASearchSponsorButton.click();
+		System.out.println("Search Sponsor button clicked");
 		Thread.sleep(1000);
 		
 		//On Search sponsor page
@@ -99,13 +107,15 @@ public class TC005_AddTrainingAgreement extends testbaseforproject{
 		logger.log(LogStatus.PASS, "Landing on Search Sponsor page");
 		
 		//Read sponsor from data file and search
-		String sponsorID = dataExcel.readExcel(filePath, "Data.xlsx", "Sponsor");
+		int sponsorIDvalue = dataExcel.readExcel(filePath, "Data.xlsx", "Sponsor");
+		String sponsorID = Integer.toString(sponsorIDvalue);
 		acte.APPRClientPPAddNewTASponsorIDField.sendKeys(sponsorID);
 		acte.APPRClientPPAddNewTASponsorSearchButton.click();
 		Thread.sleep(1000);
 		
 		acte.APPRClientPPAddNewTASponsorSearchRadioButton.click();
 		acte.APPRClientPPAddNewTASponsorSearchReturnButton.click();
+		System.out.println("Sponsor was selected successfully");
 		logger.log(LogStatus.PASS, "Sponsor was selected successfully");
 		Thread.sleep(1000);
 		
@@ -113,14 +123,17 @@ public class TC005_AddTrainingAgreement extends testbaseforproject{
 		acte.APPRClientPPAddNewTADayofEmployed.sendKeys("01");
 		acte.APPRClientPPAddNewTAMonthofEmployed.sendKeys("12");
 		acte.APPRClientPPAddNewTAYearofEmployed.sendKeys("2017");
+		System.out.println("Employed date entered");
 		
 		//Enter Registration Date
 		acte.APPRClientPPAddNewTADayofReg.sendKeys("02");
 		acte.APPRClientPPAddNewTAMonthofReg.sendKeys("12");
 		acte.APPRClientPPAddNewTAYearofReg.sendKeys("2017");
+		System.out.println("Registration date entered");
 		
 		//Save Training Agreement
 		acte.APPRClientPPAddNewTASaveButton.click();
+		System.out.println("Save button clicked");
 		Thread.sleep(2000);
 		
 		//Back to Program Participation tab
@@ -136,24 +149,156 @@ public class TC005_AddTrainingAgreement extends testbaseforproject{
 		//Check TA status is Pending
 		String TAstatus = acte.APPRClientTAStatus.getText().trim();
 		AssertTextPresentmethodWithExtendPassFail(TAstatus, "Pending");
+		System.out.println("TA status is: " + TAstatus);
 		logger.log(LogStatus.PASS, "TA status is: " + TAstatus);
 		
 		//Register TA
 		acte.APPRClientTACheckbox.click();
 		acte.APPRClientTARegisterOption.click();
 		acte.APPRClientTAGoButton.click();
+		System.out.println("Register TA option selected");
 		Thread.sleep(1000);
 		
 		//Go to Change TA status page
 		acte.APPRClientTAConsultantSelection.click();
 		acte.APPRClientTASaveButton.click();
+		System.out.println("Change status Save button clicked");
 		Thread.sleep(1000);
 		
 		//Go back to TA page
 		acte.APPRClientTANav.click();
 		TAstatus = acte.APPRClientTAStatus.getText().trim();
 		AssertTextPresentmethodWithExtendPassFail(TAstatus, "Registered");
+		System.out.println("TA status is: " + TAstatus);
 		logger.log(LogStatus.PASS, "TA status has been changed to: " + TAstatus);
+		
+		//Go to Schooling tab
+		acte.APPRClientSchoolingTab.click();
+		Thread.sleep(1000);
+		String schoolingTxt = acte.APPRClientSchoolingTxt.getText().trim();
+		AssertTextPresentmethodWithExtendPassFail(schoolingTxt, "Schooling");
+		System.out.println("Schooling Tab clicked");
+		logger.log(LogStatus.PASS, "Land on Schooling tab");
+		
+		//Schedule level 1 class to the client and complete it
+		completeAClass("level1ClassID");
+		System.out.println("--------- Level 1 completed --------");
+		logger.log(LogStatus.PASS, "Level 1 completed");
+		
+		//Schedule level2 class to the client and complete it
+		completeAClass("level2ClassID");
+		System.out.println("--------- Level 2 completed --------");
+		logger.log(LogStatus.PASS, "Level 2 completed");
+		
+		//Schedule level3 class to the client and complete it
+		completeAClass("level3ClassID");
+		System.out.println("--------- Level 3 completed --------");
+		logger.log(LogStatus.PASS, "Level 3 completed");
+		
+		//Go to Reportable Subjects Tab
+		acte.APPRClientReportableSubjectsTab.click();
+		Thread.sleep(1000);
+		String reportableSubjectTxt = acte.APPRClientReportableSubjectTxt.getText().trim();
+		AssertTextPresentmethodWithExtendPassFail(reportableSubjectTxt, "Reportable Subject");
+		System.out.println("On Reportable Subject page");
+		logger.log(LogStatus.PASS, "Land on Reportable subjects page");
+		
+		//Expand Level 1 and validate all subjects status
+		acte.APPRClientRSExpandLevel1.click();
+		
+		System.out.println("---- Level 1 ----");
+		
+		for(int i = 3; i <= 10; i++) {
+			String xpathSubject = "tbody/tr[" + i + "]/td[2]";
+			String xpathStatus = "tbody/tr[" + i + "]/td[3]";
+			WebElement columnSubject = acte.APPRClientRSTableLevel1.findElement(By.xpath(xpathSubject));
+			WebElement columnStatus = acte.APPRClientRSTableLevel1.findElement(By.xpath(xpathStatus));
+			String subject = columnSubject.getText().trim();
+			String status = columnStatus.getText().trim();
+			System.out.println(subject + " --> " + status);
+			logger.log(LogStatus.PASS, subject + " --> " + status);
+		}
+		
+		System.out.println("---- Level 2 ----");
+		acte.APPRClientRSExpandLevel2.click();
+		for(int i = 3; i <= 10; i++) {
+			String xpathSubject = "tbody/tr[" + i + "]/td[2]";
+			String xpathStatus = "tbody/tr[" + i + "]/td[3]";
+			WebElement columnSubject = acte.APPRClientRSTableLevel2.findElement(By.xpath(xpathSubject));
+			WebElement columnStatus = acte.APPRClientRSTableLevel2.findElement(By.xpath(xpathStatus));
+			String subject = columnSubject.getText().trim();
+			String status = columnStatus.getText().trim();
+			System.out.println(subject + " --> " + status);
+			logger.log(LogStatus.PASS, subject + " --> " + status);
+		}
+		
+		System.out.println("---- Level 3 ----");
+		acte.APPRClientRSExpandLevel3.click();
+		for(int i = 3; i <= 10; i++) {
+			String xpathSubject = "tbody/tr[" + i + "]/td[2]";
+			String xpathStatus = "tbody/tr[" + i + "]/td[3]";
+			WebElement columnSubject = acte.APPRClientRSTableLevel3.findElement(By.xpath(xpathSubject));
+			WebElement columnStatus = acte.APPRClientRSTableLevel3.findElement(By.xpath(xpathStatus));
+			String subject = columnSubject.getText().trim();
+			String status = columnStatus.getText().trim();
+			System.out.println(subject + " --> " + status);
+			logger.log(LogStatus.PASS, subject + " --> " + status);
+		}
+		
+		//Go to Skills tab
+		acte.APPRClientSkillsTab.click();
+		Thread.sleep(1000);
+		String skillsTxt = acte.APPRClientSkillsTxt.getText().trim();
+		AssertTextPresentmethodWithExtendPassFail(skillsTxt, "Skills");
+		System.out.println("On Skills page");
+		logger.log(LogStatus.PASS, "Land on Skills page");
+		
+		//Complete all selected skills
+		acte.APPRClientSkillsSelectAll.click();
+		acte.APPRClientSkillsCompleteSkillOption.click();
+		acte.APPRClientSkillsGoButton.click();
+		Thread.sleep(1000);
+		System.out.println("Complete all selected skills option clicked");
+		logger.log(LogStatus.PASS, "Complete all selected skills option clicked");
+		
+		//Change the status of all skills
+		String changeStatusTxt = acte.APPRClientSkillsChangeStatusTxt.getText().trim();
+		AssertTextPresentmethodWithExtendPassFail(changeStatusTxt, "Change Status");
+		acte.APPRClientSkillsChangeStatusSaveButton.click();
+		acte.APPRClientSkillsNav.click();
+		Thread.sleep(1000);
+		
+		String skillsNoneTxt = acte.APPRClientSkillsNoneTxt.getText().trim();
+		AssertTextPresentmethodWithExtendPassFail(skillsNoneTxt, "None");
+		System.out.println("The skill set is: " + skillsNoneTxt);
+		logger.log(LogStatus.PASS, "The skill set is: " + skillsNoneTxt);
+		System.out.println("All skills are completed");
+		logger.log(LogStatus.PASS, "All skills are completed");
+		
+		//Go to Completion tab
+		acte.APPRClientCompletionTab.click();
+		Thread.sleep(1000);
+		String completionTxt = acte.APPRClientCompletionTxt.getText().trim();
+		AssertTextPresentmethodWithExtendPassFail(completionTxt, "Completion");
+		System.out.println("On Completion page");
+		logger.log(LogStatus.PASS, "Land on Completion page");
+		
+		//Complete the Completion activities
+		acte.APPRClientCompletionTSSignedOffCheckbox.click();
+		acte.APPRClientCompletionDurationMetRadioButton.click();
+		acte.APPRClientCompletionProofOfCompletionSelection.click();
+		String uploadFilePath = System.getProperty("user.dir") + "\\src\\fileUpload.txt";
+		acte.APPRClientCompletionUploadButton.sendKeys(uploadFilePath);
+		System.out.println("File Upload successfully");
+		logger.log(LogStatus.PASS, "File upload successfully");
+		
+		acte.APPRClientCompletionReviewer.sendKeys("Dan");
+		acte.APPRClientCompletionSaveButton.click();
+		System.out.println("Completion Save button clicked");
+		logger.log(LogStatus.PASS, "Completion Save button clicked");
+
+		
+		
 		
 		}catch (Exception e) {
 			
@@ -171,5 +316,117 @@ public class TC005_AddTrainingAgreement extends testbaseforproject{
 		report.endTest(logger);
 		report.flush();
 		driver.quit();
+	}
+	
+	public void completeClassChangeStatus() throws InterruptedException {
+		String changeStatusTxt = acte.APPRClientSchoolingClassChangeStatusTxt.getText().trim();
+		AssertTextPresentmethodWithExtendPassFail(changeStatusTxt, "Change Status");
+		System.out.println("On class change status page");
+		logger.log(LogStatus.PASS, "Land on class change status page");
+		acte.APPRClientSchoolingClassChangeStatusSaveButton.click();
+		System.out.println("Change Status Save button clicked");
+		
+		//Go back to View Class list page
+		acte.APPRClientSchoolingClassListNav.click();
+		Thread.sleep(1000);
+	}
+	
+	public void completeAClass(String inputClassID) throws InterruptedException {
+		acte.APPRClientSchoolingScheduleClassOption.click();
+		acte.APPRClientSchoolingGoButton.click();
+		System.out.println("Schedule client to a class option selected");
+		logger.log(LogStatus.PASS, "Schedule client to a class option selected");
+		Thread.sleep(1000);
+		
+		//Go to Class Search page
+		String classSearchTxt = acte.APPRClientSchoolingClassSearchTxt.getText().trim();
+		AssertTextPresentmethodWithExtendPassFail(classSearchTxt, "Class Search");
+		System.out.println("On class search page");
+		logger.log(LogStatus.PASS, "Land on Class Search page");
+		
+		//Search a class
+		String classID = config.getProperty(inputClassID);
+		acte.APPRClientSchoolingClassIDField.sendKeys(classID);
+		acte.APPRClientSchoolingClassSearchButton.click();
+		System.out.println("Class search button clicked");
+		logger.log(LogStatus.PASS, "Class search button clicked");
+		
+		//Select the searched class
+		acte.APPRClientSchoolingClassRadioButton.click();
+		acte.APPRClientSchoolingClassReturnButton.click();
+		System.out.println("Return class button clicked");
+		logger.log(LogStatus.PASS, "Return class button clicked");
+		Thread.sleep(1000);
+		
+		//Validate the status of the client in a class
+		String classStatus = acte.APPRClientSchoolingStatusOffered.getText().trim();
+		AssertTextPresentmethodWithExtendPassFail(classStatus, "Offered");
+		System.out.println("The class status is: " + classStatus);
+		logger.log(LogStatus.PASS, "Class Status is: " + classStatus);
+		
+		//Go to class list page
+		acte.APPRClientSchoolingClassLink.click();
+		Thread.sleep(1000);
+		String classListTxt = acte.APPRClientSchoolingClassListTxt.getText().trim();
+		AssertTextPresentmethodWithExtendPassFail(classListTxt, "View Class List");
+		System.out.println("On View Class List page");
+		logger.log(LogStatus.PASS, "Land on View Class List page");
+		
+		//Filter client by status Offer and confirm client to class
+		acte.APPRClientSchoolingClassStatusOffered.click();
+		Thread.sleep(1000);
+		acte.APPRClientSchoolingClassClientSelectCheckbox.click();
+		acte.APPRClientSchoolingClassConfirmOption.click();
+		acte.APPRClientSchoolingClassListGoButton.click();
+		System.out.println("Confirm client to class option selected");
+		logger.log(LogStatus.PASS, "Confirm client to class option selected");
+		Thread.sleep(1000);
+		
+		//Save class change status
+		completeClassChangeStatus();
+		
+		//Filter client by status Confirmed and enroll client
+		acte.APPRClientSchoolingClassStatusConfirmed.click();
+		Thread.sleep(1000);
+		acte.APPRClientSchoolingClassClientSelectCheckbox.click();
+		acte.APPRClientSchoolingClassEnrollOption.click();
+		acte.APPRClientSchoolingClassListGoButton.click();
+		System.out.println("Enroll client to class option selected");
+		logger.log(LogStatus.PASS, "Enroll client to class option selected");
+		Thread.sleep(1000);
+		
+		//Save class change status
+		completeClassChangeStatus();
+		
+		//Filter client by status Enrolled and validate client
+		acte.APPRClientSchoolingClassStatusEnrolled.click();
+		Thread.sleep(1000);
+		acte.APPRClientSchoolingClassClientSelectCheckbox.click();
+		acte.APPRClientSchoolingClassValidateOption.click();
+		acte.APPRClientSchoolingClassListGoButton.click();
+		System.out.println("Validate client to class option selected");
+		logger.log(LogStatus.PASS, "Validate client to class option selected");
+		Thread.sleep(1000);
+		
+		//Save class change status
+		completeClassChangeStatus();
+		
+		//Filter client by status Validated and indicate client as Passed
+		acte.APPRClientSchoolingClassStatusValidated.click();
+		Thread.sleep(1000);
+		acte.APPRClientSchoolingClassClientSelectCheckbox.click();
+		acte.APPRClientSchoolingClassPassOption.click();
+		acte.APPRClientSchoolingClassListGoButton.click();
+		System.out.println("Record selected client as passed option selected");
+		logger.log(LogStatus.PASS, "Record selected client as passed option selected");
+		Thread.sleep(1000);
+		
+		//Go back to Schooling page
+		acte.APPRClientSchoolingNav.click();
+		Thread.sleep(1000);
+		
+		//Validate the status of the client in a class
+		classStatus = acte.APPRClientSchoolingStatusCompleted.getText().trim();
+		AssertTextPresentmethodWithExtendPassFail(classStatus, "Completed");
 	}
 }

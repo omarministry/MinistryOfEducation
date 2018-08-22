@@ -2,18 +2,12 @@ package APPRRegression;
 
 import java.awt.AWTException;
 
-import org.openqa.selenium.Dimension;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import com.github.javafaker.Faker;
 import com.github.javafaker.IdNumber;
-import com.github.javafaker.Number;
 import com.relevantcodes.extentreports.LogStatus;
 
 import APPR.APPRCreateSponsorElements;
@@ -58,7 +52,7 @@ public class TC003_CreateAPPRSponsor extends testbaseforproject {
 		String workQueTxt = alpe.ApprSuccessWorkQuesText.getText().trim();
 		AssertTextPresentmethodWithExtendPassFail(workQueTxt, "Work Queues");
 		
-		//Start the Process of creating Sponosor in APPR
+		//Start the Process of creating Sponsor in APPR
 		alne = new APPRLeftNavElements(driver);
 		alne.APPRSponsorLeftNav.click();
 		Thread.sleep(1000);
@@ -267,7 +261,8 @@ public class TC003_CreateAPPRSponsor extends testbaseforproject {
 		
 		String filePath = System.getProperty("user.dir") + "\\src";
 		ReadWriteDataToExcel dataExcel = new ReadWriteDataToExcel();
-		dataExcel.writeExcel(filePath, "Data.xlsx", "Sponsor", sponsorID);
+		int value = Integer.parseInt(sponsorID);
+		dataExcel.writeExcel(filePath, "Data.xlsx", "Sponsor", value);
 		System.out.println("Sponsor ID is written to the file");
 		logger.log(LogStatus.PASS, "Sponsor ID is written to the file");
 		

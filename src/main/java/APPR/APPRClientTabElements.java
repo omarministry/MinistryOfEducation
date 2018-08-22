@@ -156,4 +156,163 @@ public class APPRClientTabElements extends testbaseforproject{
 		@FindBy(xpath="/html/body/table[4]/tbody/tr/td[3]/a[3]") 
 		public WebElement APPRClientTANav;
 		
+		//============= xPaths of Schooling Tabs Elements ==============
+		
+		//--- Elements under Schooling page ---
+		@FindBy(xpath="/html/body/table[8]/tbody/tr/td[4]/form/table[1]/tbody/tr/td") 
+		public WebElement APPRClientSchoolingTxt;
+		
+		@FindBy(xpath="//*[@id=\"what\"]/option[3]") 
+		public WebElement APPRClientSchoolingScheduleClassOption;
+		
+		@FindBy(xpath="/html/body/table[8]/tbody/tr/td[4]/form/table[4]/tbody/tr/td[3]/input") 
+		public WebElement APPRClientSchoolingGoButton;
+		
+		@FindBy(xpath="/html/body/table[8]/tbody/tr/td[4]/form/table[14]/tbody/tr[3]/td[2]/a") 
+		public WebElement APPRClientSchoolingClassLink;
+		
+		@FindBy(xpath="/html/body/table[8]/tbody/tr/td[4]/form/table[14]/tbody/tr[11]/td[3]/a") 
+		public WebElement APPRClientSchoolingStatusOffered;
+		
+		@FindBy(xpath="/html/body/table[8]/tbody/tr/td[4]/form/table[12]/tbody/tr[11]/td[3]/a") 
+		public WebElement APPRClientSchoolingStatusCompleted;
+		
+		//--- Elements under Class Search page ---
+		@FindBy(xpath="/html/body/table[8]/tbody/tr/td[4]/table/tbody/tr/td") 
+		public WebElement APPRClientSchoolingClassSearchTxt;
+		
+		@FindBy(xpath="//*[@id=\"class\"]") 
+		public WebElement APPRClientSchoolingClassIDField;
+		
+		@FindBy(xpath="/html/body/table[8]/tbody/tr/td[4]/form/fieldset/table[2]/tbody/tr[2]/td[1]/input") 
+		public WebElement APPRClientSchoolingClassSearchButton;
+		
+		@FindBy(xpath="//*[@id=\"0\"]") 
+		public WebElement APPRClientSchoolingClassRadioButton;
+		
+		@FindBy(xpath="/html/body/table[8]/tbody/tr/td[4]/form/fieldset/table[9]/tbody/tr/td/input") 
+		public WebElement APPRClientSchoolingClassReturnButton;
+		
+		//--- Elements under View Class list page ---
+		@FindBy(xpath="/html/body/table[8]/tbody/tr/td[4]/form[1]/table[1]/tbody/tr/td") 
+		public WebElement APPRClientSchoolingClassListTxt;
+		
+		@FindBy(xpath="/html/body/table[8]/tbody/tr/td[4]/form[1]/table[4]/tbody/tr/td[2]/select/option[5]") 
+		public WebElement APPRClientSchoolingClassStatusOffered;
+		
+		@FindBy(xpath="/html/body/table[8]/tbody/tr/td[4]/form[1]/table[4]/tbody/tr/td[2]/select/option[4]") 
+		public WebElement APPRClientSchoolingClassStatusConfirmed;
+		
+		@FindBy(xpath="/html/body/table[8]/tbody/tr/td[4]/form[1]/table[4]/tbody/tr/td[2]/select/option[8]") 
+		public WebElement APPRClientSchoolingClassStatusEnrolled;
+		
+		@FindBy(xpath="/html/body/table[8]/tbody/tr/td[4]/form[1]/table[4]/tbody/tr/td[2]/select/option[9]") 
+		public WebElement APPRClientSchoolingClassStatusValidated;
+		
+		@FindBy(xpath="//*[@id=\"what\"]/option[3]") 
+		public WebElement APPRClientSchoolingClassConfirmOption;
+		
+		@FindBy(xpath="//*[@id=\"what\"]/option[4]") 
+		public WebElement APPRClientSchoolingClassEnrollOption;
+		
+		@FindBy(xpath="//*[@id=\"what\"]/option[16]") 
+		public WebElement APPRClientSchoolingClassValidateOption;
+		
+		@FindBy(xpath="//*[@id=\"what\"]/option[11]") 
+		public WebElement APPRClientSchoolingClassPassOption;
+		
+		@FindBy(xpath="//*[@id=\"participant0\"]") 
+		public WebElement APPRClientSchoolingClassClientSelectCheckbox;
+		
+		@FindBy(xpath="/html/body/table[8]/tbody/tr/td[4]/form[1]/table[3]/tbody/tr/td[3]/input") 
+		public WebElement APPRClientSchoolingClassListGoButton;
+
+		//--- Elements under Class Change Status page ---
+		@FindBy(xpath="/html/body/table[8]/tbody/tr/td[4]/table/tbody/tr/td") 
+		public WebElement APPRClientSchoolingClassChangeStatusTxt;
+		
+		@FindBy(xpath="//*[@id=\"saveButton\"]") 
+		public WebElement APPRClientSchoolingClassChangeStatusSaveButton;
+		
+		@FindBy(xpath="/html/body/table[4]/tbody/tr/td[3]/a[4]") 
+		public WebElement APPRClientSchoolingClassListNav;
+		
+		@FindBy(xpath="/html/body/table[4]/tbody/tr/td[3]/a[3]") 
+		public WebElement APPRClientSchoolingNav;
+		
+		//============= xPaths of Reportable Subjects Tabs Elements ==============
+		
+		@FindBy(xpath="/html/body/table[8]/tbody/tr/td[4]/form/table[1]/tbody/tr/td") 
+		public WebElement APPRClientReportableSubjectTxt;
+		
+		//--- Elements under Reportable Subjects Level 1 ---
+		@FindBy(xpath="//*[@id=\"menu\"]/table[3]/tbody/tr/th[1]/h5/a") 
+		public WebElement APPRClientRSExpandLevel1;
+		
+		@FindBy(xpath="//*[@id=\"foo0\"]") 
+		public WebElement APPRClientRSTableLevel1;
+		
+		//--- Elements under Reportable Subjects Level 2 ---
+		@FindBy(xpath="//*[@id=\"menu\"]/table[5]/tbody/tr/th[1]/h5/a") 
+		public WebElement APPRClientRSExpandLevel2;
+		
+		@FindBy(xpath="//*[@id=\"foo1\"]") 
+		public WebElement APPRClientRSTableLevel2;
+		
+		//--- Elements under Reportable Subjects Level 3 ---
+		@FindBy(xpath="//*[@id=\"menu\"]/table[7]/tbody/tr/th[1]/h5/a") 
+		public WebElement APPRClientRSExpandLevel3;
+		
+		@FindBy(xpath="//*[@id=\"foo2\"]") 
+		public WebElement APPRClientRSTableLevel3;
+		
+		//============= xPaths of Skills Tabs Elements ==============
+		
+		@FindBy(xpath="/html/body/table[8]/tbody/tr/td[4]/form/table[1]/tbody/tr/td") 
+		public WebElement APPRClientSkillsTxt;
+		
+		@FindBy(xpath="//*[@id=\"menu\"]/table[2]/tbody/tr[2]/th/a") 
+		public WebElement APPRClientSkillsSelectAll;
+		
+		@FindBy(xpath="//*[@id=\"what\"]/option[2]") 
+		public WebElement APPRClientSkillsCompleteSkillOption;
+		
+		@FindBy(xpath="/html/body/table[8]/tbody/tr/td[4]/form/table[4]/tbody/tr/td[3]/input") 
+		public WebElement APPRClientSkillsGoButton;
+		
+		@FindBy(xpath="/html/body/table[8]/tbody/tr/td[4]/table/tbody/tr/td") 
+		public WebElement APPRClientSkillsChangeStatusTxt;
+		
+		@FindBy(xpath="//*[@id=\"saveButton\"]") 
+		public WebElement APPRClientSkillsChangeStatusSaveButton;
+		
+		@FindBy(xpath="/html/body/table[4]/tbody/tr/td[3]/a[3]") 
+		public WebElement APPRClientSkillsNav;
+		
+		@FindBy(xpath="//*[@id=\"menu\"]/table[2]/tbody/tr/td[1]") 
+		public WebElement APPRClientSkillsNoneTxt;
+		
+		//============= xPaths of Completion Tabs Elements ==============
+
+		@FindBy(xpath="/html/body/table[8]/tbody/tr/td[4]/table/tbody/tr/td") 
+		public WebElement APPRClientCompletionTxt;
+		
+		@FindBy(xpath="/html/body/table[8]/tbody/tr/td[4]/form[2]/table[2]/tbody/tr[3]/td[2]/input") 
+		public WebElement APPRClientCompletionTSSignedOffCheckbox;
+		
+		@FindBy(xpath="/html/body/table[8]/tbody/tr/td[4]/form[2]/table[2]/tbody/tr[5]/td[2]/input") 
+		public WebElement APPRClientCompletionDurationMetRadioButton;
+		
+		@FindBy(xpath="/html/body/table[8]/tbody/tr/td[4]/form[2]/table[2]/tbody/tr[9]/td[2]/select/option[2]") 
+		public WebElement APPRClientCompletionProofOfCompletionSelection;
+		
+		@FindBy(xpath="//*[@id=\"file\"]") 
+		public WebElement APPRClientCompletionUploadButton;
+		
+		@FindBy(xpath="/html/body/table[8]/tbody/tr/td[4]/form[2]/table[2]/tbody/tr[11]/td[2]/input") 
+		public WebElement APPRClientCompletionReviewer;
+		
+		@FindBy(xpath="/html/body/table[8]/tbody/tr/td[4]/form[2]/input[5]") 
+		public WebElement APPRClientCompletionSaveButton;
+		
 }

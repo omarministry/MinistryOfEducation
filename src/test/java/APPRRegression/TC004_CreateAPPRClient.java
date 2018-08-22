@@ -1,16 +1,13 @@
 package APPRRegression;
 
-import org.openqa.selenium.By;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import com.github.javafaker.Faker;
-import com.github.javafaker.IdNumber;
 import com.relevantcodes.extentreports.LogStatus;
 
 import APPR.APPRCreateClientElements;
-import APPR.APPRCreateSponsorElements;
 import APPR.APPRLeftNavElements;
 import APPR.APPRLoginPageElements;
 import support.ReadWriteDataToExcel;
@@ -187,7 +184,8 @@ public class TC004_CreateAPPRClient extends testbaseforproject{
 		
 		String filePath = System.getProperty("user.dir") + "\\src";
 		ReadWriteDataToExcel dataExcel = new ReadWriteDataToExcel();
-		dataExcel.writeExcel(filePath, "Data.xlsx", "Client", clientID);
+		int value = Integer.parseInt(clientID);
+		dataExcel.writeExcel(filePath, "Data.xlsx", "Client", value);
 		System.out.println("Client ID is written to the file");
 		logger.log(LogStatus.PASS, "Client ID is written to the file");
 		

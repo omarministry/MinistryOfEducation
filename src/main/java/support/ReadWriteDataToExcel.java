@@ -14,7 +14,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class ReadWriteDataToExcel {
 
-	public void writeExcel(String filePath, String fileName, String sheetName, String data) throws IOException {
+	public void writeExcel(String filePath, String fileName, String sheetName, int data) throws IOException {
 		//create an object of File class to open xlsx file
 		File file = new File(filePath + "\\" + fileName);
 		
@@ -34,7 +34,6 @@ public class ReadWriteDataToExcel {
 		Sheet sheet = workbook.getSheet(sheetName);
 		
 		//create a new row and append it at the last of sheet
-		int firstRow = sheet.getFirstRowNum();
 		int lastRow = sheet.getLastRowNum();
 
 		Row row = sheet.getRow(lastRow);
@@ -65,7 +64,7 @@ public class ReadWriteDataToExcel {
 		outputStream.close();
 	}
 	
-	public String readExcel(String filePath, String fileName, String sheetName) throws IOException {
+	public int readExcel(String filePath, String fileName, String sheetName) throws IOException {
 		File file = new File(filePath + "\\" + fileName);
 		FileInputStream inputStream = new FileInputStream(file);
 		Workbook workbook = null;
@@ -81,8 +80,9 @@ public class ReadWriteDataToExcel {
 		int lastRowNum = sheet.getLastRowNum();
 		Row row = sheet.getRow(lastRowNum);
 		Cell cell = row.getCell(0);
-		String cellValue = cell.getStringCellValue();
-		
+//		String cellValue = cell.getStringCellValue();
+		int cellValue = (int)(cell.getNumericCellValue());
+
 		return cellValue;
 	}
 }
