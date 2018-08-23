@@ -1,5 +1,11 @@
 package APPRRegression;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 import org.apache.poi.util.SystemOutLogger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -84,6 +90,12 @@ public class TC005_AddTrainingAgreement extends testbaseforproject{
 		String programParticipationTxt = acte.APPRClientProgramParticipationTxt.getText().trim();
 		AssertTextPresentmethodWithExtendPassFail(programParticipationTxt, "Program Participation");
 		logger.log(LogStatus.PASS, "Landing on Program Participation tab");
+		
+		//Validate the Program participation status is Active
+		String PPstatus = acte.APPRClientProgramParticipationStatus.getText().trim();
+		AssertTextPresentmethodWithExtendPassFail(PPstatus, "Active");
+		System.out.println("Program Paricipation status is " + PPstatus);
+		logger.log(LogStatus.PASS, "Program Paricipation status is " + PPstatus);
 		
 		//Add training agreement
 		acte.APPRClientProgramParticipationCheckbox.click();
@@ -296,9 +308,57 @@ public class TC005_AddTrainingAgreement extends testbaseforproject{
 		acte.APPRClientCompletionSaveButton.click();
 		System.out.println("Completion Save button clicked");
 		logger.log(LogStatus.PASS, "Completion Save button clicked");
+		
+		//update OCOT
+		String url = "jdbc:oracle:thin:@cscdtovsdbor045:1521/EOISQA_APPR";
+		String DBusername = "asaqa";
+		String DBpassword = "asaqa";
+		updateDB(Integer.parseInt(clientID), url, DBusername, DBpassword);
+		Thread.sleep(1000);
 
+		//Complete Training Agreement
+		acte.APPRClientTATab.click();
+		Thread.sleep(1000);
+		acte.APPRClientTACheckbox.click();
+		acte.APPRClientTACompleteOption.click();
+		acte.APPRClientTAGoButton.click();
+		System.out.println("Complete Training Agreement option clicked");
+		logger.log(LogStatus.PASS, "Complete Training Agreement option clicked");
+		Thread.sleep(1000);
 		
+		//Save change status
+		acte.APPRClientTASaveButton.click();
+		Thread.sleep(1000);
+		acte.APPRClientTANav.click();
+		Thread.sleep(1000);
 		
+		//Validate the TA status as completed
+		TAstatus = acte.APPRClientTAStatus.getText().trim();
+		AssertTextPresentmethodWithExtendPassFail(TAstatus, "Completed");
+		System.out.println("TA status is: " + TAstatus);
+		logger.log(LogStatus.PASS, "TA status is:" + TAstatus);
+		
+		//Change Program participation status to Completed Training
+		acte.APPRClientProgramParticipationTab.click();
+		Thread.sleep(1000);
+		acte.APPRClientProgramParticipationCheckbox.click();
+		acte.APPRClientProgramParticipationCompleteOption.click();
+		acte.APPRClientProgramParticipationGoButton.click();
+		Thread.sleep(1000);
+		System.out.println("Complete PP option clicked");
+		logger.log(LogStatus.PASS, "Complete PP option clicked");
+		
+		//Save change status
+		acte.APPRClientProgramParticipationSaveButton.click();
+		Thread.sleep(1000);
+		acte.APPRClientPPNav.click();
+		Thread.sleep(1000);
+		
+		//Validate the Program Participation status is Completed Training
+		PPstatus = acte.APPRClientProgramParticipationStatus.getText().trim();
+		AssertTextPresentmethodWithExtendPassFail(PPstatus, "Completed Training");
+		System.out.println("PP status is: " + PPstatus);
+		logger.log(LogStatus.PASS, "PP status is: " + PPstatus);
 		
 		}catch (Exception e) {
 			
@@ -428,5 +488,95 @@ public class TC005_AddTrainingAgreement extends testbaseforproject{
 		//Validate the status of the client in a class
 		classStatus = acte.APPRClientSchoolingStatusCompleted.getText().trim();
 		AssertTextPresentmethodWithExtendPassFail(classStatus, "Completed");
+	}
+	
+	public void updateDB(int clientID, String url, String username, String password) throws SQLException {
+		Connection con = null;
+		int result = 0;
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			con = DriverManager.getConnection(url, username, password);
+			System.out.println("Connected to DB....");
+			
+			//queries
+			String updateOCOTInClient = "update CLIENT set OCOT_MEMBERSHIP_ID = ? where PARTY_ID = ?";
+			String getPPID = "select PROGRAM_PARTICIPATION_ID from PROGRAM_PARTICIPATION where PARTY_ID = ?";
+			String insertOCOT_CLIENT = "INSERT INTO OCOT_CLIENT (PROGRAM_PARTICIPATION_ID,  CLASS, EFFECTIVE_DATE_TIME, DATE_CREATED, DATE_LAST_MODIFIED, UPDATING_USER_ID ) "
+					+ "VALUES( ?, 'APPR', sysdate, SYSDATE, SYSDATE, 'OCOT')";
+			String insertOCOTHistory = "INSERT INTO OCOT_CLIENT_STATUS_HIST (STATUS_ID, PROGRAM_PARTICIPATION_ID, CODE_ID, CODE_VALUE, EFFECTIVE_DATE_TIME, UPDATING_USER_ID, UPDATE_TIMESTAMP) " + 
+					"VALUES (STATUS_ID_SEQ.NEXTVAL, ?,'OCOT_Client_Status','ACT', sysdate,'OCOT', SYSDATE)"; 
+			String updateTA = "update TRAINING_AGREEMENT_STATUS_HIST set EFFECTIVE_DATE_TIME = (sysdate - 1) where PROGRAM_PARTICIPATION_ID = ?";
+			
+			//Update OCOT_MEMBERSHIP_ID in CLIENT table
+			PreparedStatement pstmt = null;
+			pstmt = con.prepareStatement(updateOCOTInClient);
+			pstmt.setInt(1, 13100282);
+			pstmt.setInt(2, clientID);
+			result = pstmt.executeUpdate();
+			
+			con.setAutoCommit(false);
+			if(result == 1) {
+				con.commit();
+				System.out.println("Updated successfully");
+			}else {
+				System.out.println("0 row is updated");
+			}
+			
+			//Get PROGRAM_PARTICIPATION_ID
+			int PPID = 0;
+			pstmt = con.prepareStatement(getPPID);
+			pstmt.setInt(1, clientID);
+			
+			ResultSet rs = pstmt.executeQuery();
+			while(rs.next()) {
+				PPID = rs.getInt(1);
+				System.out.println("Program Participation ID is : " + PPID);
+			}
+			
+			//Insert record to OCOT_CLIENT table
+			pstmt = con.prepareStatement(insertOCOT_CLIENT);
+			pstmt.setInt(1, PPID);
+			result = pstmt.executeUpdate();
+			if(result == 1) {
+				con.commit();
+				System.out.println("Inserted OCOT_CLIENT successfully");
+			}else {
+				System.out.println("0 row is inserted to OCOT_CLIENT");
+			}
+			
+			//Insert record to OCOT_CLIENT_STATUS_HIST table
+			pstmt = con.prepareStatement(insertOCOTHistory);
+			pstmt.setInt(1, PPID);
+			result = pstmt.executeUpdate();
+			if(result == 1) {
+				con.commit();
+				System.out.println("Inserted OCOT_CLIENT_STATUS_HIST successfully");
+			}else {
+				System.out.println("0 row is inserted to OCOT_CLIENT_STATUS_HIST");
+			}
+			
+			//update the EFFECTIVE_DATE_TIME in TRAINING_AGREEMENT_STATUS_HIST Table
+			pstmt = con.prepareStatement(updateTA);
+			pstmt.setInt(1, PPID);
+			result = pstmt.executeUpdate();
+			if(result == 1) {
+				con.commit();
+				System.out.println("Updated EFFECTIVE_DATE_TIME in TRAINING_AGREEMENT_STATUS_HIST successfully");
+			}else {
+				System.out.println("0 row is updated in TRAINING_AGREEMENT_STATUS_HIST");
+			}
+			
+			rs.close();
+			pstmt.close();
+			con.close();
+			
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("Roll back database....");
+			if(con != null) 
+				con.rollback();
+		}
+		
 	}
 }

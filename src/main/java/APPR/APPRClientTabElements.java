@@ -59,11 +59,13 @@ public class APPRClientTabElements extends testbaseforproject{
 		public WebElement APPRClientCompletionTab;
 		
 		
-		//============= xPaths of Client Tabs Elements ==============
+		//============= xPaths of General Tabs Elements ==============
 		
 		//--- Elements under General Tab ---
 		@FindBy(xpath="/html/body/table[8]/tbody/tr/td[4]/table/tbody/tr/td") 
 		public WebElement APPRClientGeneralTxt;
+		
+		//============= xPaths of Program Participation Tabs Elements ==============
 		
 		//--- Elements under Program Participation tab---
 		@FindBy(xpath="/html/body/table[8]/tbody/tr/td[4]/form/table[1]/tbody/tr/td") 
@@ -75,8 +77,17 @@ public class APPRClientTabElements extends testbaseforproject{
 		@FindBy(xpath="//*[@id=\"what\"]/option[5]") 
 		public WebElement APPRClientProgramParticipationAddTAOption;
 		
+		@FindBy(xpath="//*[@id=\"what\"]/option[14]") 
+		public WebElement APPRClientProgramParticipationCompleteOption;
+		
 		@FindBy(xpath="/html/body/table[8]/tbody/tr/td[4]/form/table[4]/tbody/tr/td[3]/input") 
 		public WebElement APPRClientProgramParticipationGoButton;
+		
+		@FindBy(xpath="//*[@id=\"saveButton\"]") 
+		public WebElement APPRClientProgramParticipationSaveButton;
+		
+		@FindBy(xpath="/html/body/table[8]/tbody/tr/td[4]/form/table[9]/tbody/tr[3]/td[2]/table/tbody/tr/td[2]/a") 
+		public WebElement APPRClientProgramParticipationStatus;
 		
 		//--- Elements under Add New Training Agreement ---
 		@FindBy(xpath="/html/body/table[8]/tbody/tr/td[4]/fieldset/form/table[1]/tbody/tr/td") 
@@ -131,6 +142,8 @@ public class APPRClientTabElements extends testbaseforproject{
 		@FindBy(xpath="/html/body/table[8]/tbody/tr/td[4]/form/fieldset/table[6]/tbody/tr/td/input") 
 		public WebElement APPRClientPPAddNewTASponsorSearchReturnButton;
 		
+		//============= xPaths of TA Tabs Elements ==============
+		
 		//--- Elements under TA tab ---
 		@FindBy(xpath="/html/body/table[8]/tbody/tr/td[4]/form/table[1]/tbody/tr/td") 
 		public WebElement APPRClientTATxt;
@@ -140,6 +153,9 @@ public class APPRClientTabElements extends testbaseforproject{
 		
 		@FindBy(xpath="//*[@id=\"what\"]/option[10]") 
 		public WebElement APPRClientTARegisterOption;
+		
+		@FindBy(xpath="//*[@id=\"what\"]/option[5]") 
+		public WebElement APPRClientTACompleteOption;
 		
 		@FindBy(xpath="/html/body/table[8]/tbody/tr/td[4]/form/table[4]/tbody/tr/td[3]/input") 
 		public WebElement APPRClientTAGoButton;
