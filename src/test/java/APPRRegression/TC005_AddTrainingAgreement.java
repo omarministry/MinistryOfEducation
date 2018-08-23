@@ -311,8 +311,8 @@ public class TC005_AddTrainingAgreement extends testbaseforproject{
 		
 		//update OCOT
 		String url = "jdbc:oracle:thin:@cscdtovsdbor045:1521/EOISQA_APPR";
-		String DBusername = "asaqa";
-		String DBpassword = "asaqa";
+		String DBusername = "*****";
+		String DBpassword = "*****";
 		updateDB(Integer.parseInt(clientID), url, DBusername, DBpassword);
 		Thread.sleep(1000);
 
