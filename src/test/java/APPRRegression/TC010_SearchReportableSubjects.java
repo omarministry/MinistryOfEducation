@@ -30,7 +30,7 @@ public class TC010_SearchReportableSubjects extends testbaseforproject{
 	public void verifySearchReportableSubject(){
 		try {
 			
-			logger = report.startTest("Search for Examination/Test");
+			logger = report.startTest("Search for Reportable Subject");
 			lpe = new APPRLoginPageElements(driver);
 			
 			//logging into APPR

@@ -1,6 +1,5 @@
 package APPRRegression;
 
-import java.awt.AWTException;
 
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -32,15 +31,18 @@ public class TC003_CreateAPPRSponsor extends testbaseforproject {
 	}
 
 	@Test
-	public void verifyLoginWithValidCredentials() throws Throwable {
+	public void verifyCreateSponsor() throws Throwable {
 		
 		try {
 	
-		logger = report.startTest("Successful Login");
+		logger = report.startTest("Create Sponsor");
 		
 		alpe = new APPRLoginPageElements(driver);
 		
-		//driver.navigate().to("javascript:document.getElementById('overridelink').click()");
+		String browser = config.getProperty("browser");
+		if (browser.equalsIgnoreCase("IE")){
+			driver.navigate().to("javascript:document.getElementById('overridelink').click()");
+		}
 		Thread.sleep(2000);
 		String username = config.getProperty("userNameAPPR");
 		String password = config.getProperty("PasswordAPPR");

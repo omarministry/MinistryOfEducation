@@ -26,7 +26,7 @@ public class TC009_SearchPrograms extends testbaseforproject{
 	public void verifySearchPrograms(){
 		try {
 			
-			logger = report.startTest("Search for Examination/Test");
+			logger = report.startTest("Search for Programs");
 			lpe = new APPRLoginPageElements(driver);
 			
 			//logging into APPR

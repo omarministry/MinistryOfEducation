@@ -36,7 +36,10 @@ public class TC005_CreateClass extends testbaseforproject {
 			lpe = new APPRLoginPageElements(driver);
 			
 			//logging into APPR
-			driver.navigate().to("javascript:document.getElementById('overridelink').click()");
+			String browser = config.getProperty("browser");
+			if (browser.equalsIgnoreCase("IE")){
+				driver.navigate().to("javascript:document.getElementById('overridelink').click()");
+			}
 			Thread.sleep(5000);
 			String username = config.getProperty("userNameAPPR");
 			String password = config.getProperty("PasswordAPPR");

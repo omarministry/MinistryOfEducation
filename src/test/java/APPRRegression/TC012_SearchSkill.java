@@ -1,7 +1,4 @@
 package APPRRegression;
-
-import java.awt.AWTException;
-
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -9,30 +6,25 @@ import org.testng.annotations.Test;
 import com.relevantcodes.extentreports.LogStatus;
 
 import APPR.APPRLeftNavElements;
-import APPR.APPRFormDocument;
 import APPR.APPRLoginPageElements;
-
+import APPR.APPRSkillElements;
 import testbase.testbaseforproject;
 
-public class TC007_SearchFormDocument extends testbaseforproject {
-
-	
+public class TC012_SearchSkill extends testbaseforproject{
 	APPRLeftNavElements lne;
-	APPRFormDocument fd;
 	APPRLoginPageElements lpe;
-	
+	APPRSkillElements se;
 	
 	@BeforeClass
 	public void setup() {
 		init();
 	}
-
-	@Test
-	public void verifySearchFormDocument() throws InterruptedException, AWTException {
-		
-		try {
 	
-			logger = report.startTest("Search for Examination/Test");
+	@Test
+	public void verifySearchSkill(){
+		try {
+			
+			logger = report.startTest("Search for Skill");
 			lpe = new APPRLoginPageElements(driver);
 			
 			//logging into APPR
@@ -40,6 +32,7 @@ public class TC007_SearchFormDocument extends testbaseforproject {
 			if (browser.equalsIgnoreCase("IE")){
 				driver.navigate().to("javascript:document.getElementById('overridelink').click()");
 			}
+			
 			Thread.sleep(5000);
 			String username = config.getProperty("userNameAPPR");
 			String password = config.getProperty("PasswordAPPR");
@@ -49,29 +42,34 @@ public class TC007_SearchFormDocument extends testbaseforproject {
 			
 			//Clicking on the left nav element
 			lne = new APPRLeftNavElements(driver);
-			lne.APPRFormDocumentLeftNav.click();
-			Thread.sleep(1000);
-			logger.log(LogStatus.PASS, "Clicked on Form/Document tab");
-			
-			fd = new APPRFormDocument(driver);
-			
-			//Search for a form/document
-			fd.tossCode.sendKeys("415A");
-			fd.searchButton.click();
+			lne.APPRSkillLeftNav.click();
 			Thread.sleep(2000);
 			
-			//Selecting first search result
-			fd.firstResult.click();
+			//On Skill Search page
+			se = new APPRSkillElements(driver);
+			String skillSearchTxt = se.SkillSearchTxt.getText().trim();
+			AssertTextPresentmethodWithExtendPassFail(skillSearchTxt, "Skill Search");
+			System.out.println("On Skill Search page");
+			logger.log(LogStatus.PASS, "Land on Skill Search page");
 			
-			//Checking if the page loaded correctly
-			String formDocument = fd.formDocument.getText();
-			AssertTextPresentmethodWithExtendPassFail(formDocument, "Form/Document ID:");
+			//Search Skill by TOSS code and program
+			se.SkillTOSSField.sendKeys("268R");
+			se.SkillProgramOption.click();
+			se.SkillSearchButton.click();
+			System.out.println("Search Button clicked");
+			logger.log(LogStatus.PASS, "Search button clicked");
+			
+			//Click on the first result to go to skill page
+			se.SkillFirstResult.click();
+			String skillTxt = se.SkillTxt.getText().trim();
+			AssertTextPresentmethodWithExtendPassFail(skillTxt, "Skill");
+			System.out.println("On Skill page");
+			logger.log(LogStatus.PASS, "Land on Skill page");
 			
 			
+		}catch (Exception e) {
 			
-		} catch (Exception e) {
 			
-		
 			logger.log(LogStatus.FAIL, " Test is NOT successful due to the following exception " + logger.addScreenCapture(testbaseforproject.screenshot()));
 			logger.log(LogStatus.INFO, e);
 			
@@ -81,7 +79,6 @@ public class TC007_SearchFormDocument extends testbaseforproject {
 		}
 	
 	
-	
 
 	@AfterClass
 	public void endTest() {
@@ -89,5 +86,4 @@ public class TC007_SearchFormDocument extends testbaseforproject {
 		report.flush();
 		driver.quit();
 	}
-
 }

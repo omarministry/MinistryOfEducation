@@ -6,6 +6,20 @@
 <!-- 	   <class name="login.TC0001_loginwithInavlidCredentials"/> -->
        <class name="APPRRegression.TC001_LoginwithValidCredentials"/>
        <class name="APPRRegression.TC003_CreateAPPRSponsor"/>
+       <class name="APPRRegression.TC004_CreateAPPRClient"/>
+       <class name="APPRRegression.TC005_AddTrainingAgreement"/>
+       <class name="APPRRegression.TC005_CreateClass"/>
+       <class name="APPRRegression.TC006_SearchExaminations"/>
+       <class name="APPRRegression.TC007_SearchFormDocument"/>
+       <class name="APPRRegression.TC008_SearchLocation"/>
+       <class name="APPRRegression.TC009_SearchPrograms"/>
+       <class name="APPRRegression.TC010_SearchReportableSubjects"/>
+       <class name="APPRRegression.TC011_SearchSchoolBoard"/>
+       <class name="APPRRegression.TC012_SearchSkill"/>
+       <class name="APPRRegression.TC013_SearchSkillSet"/>
+       <class name="APPRRegression.TC014_SearchStaffUser"/>
+       <class name="APPRRegression.TC015_SearchToss"/>
+       <class name="APPRRegression.TC016_SearchVender"/>
    
     </classes>
   </test> <!-- TestLogin -->

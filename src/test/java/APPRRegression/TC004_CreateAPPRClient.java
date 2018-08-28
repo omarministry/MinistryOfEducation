@@ -34,7 +34,7 @@ public class TC004_CreateAPPRClient extends testbaseforproject{
 		
 		try {
 	
-		logger = report.startTest("Successful Login");
+		logger = report.startTest("Create Client");
 		
 		alpe = new APPRLoginPageElements(driver);
 		

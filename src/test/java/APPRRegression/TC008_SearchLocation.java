@@ -8,7 +8,6 @@ import org.testng.annotations.Test;
 
 import com.relevantcodes.extentreports.LogStatus;
 
-import APPR.APPRFormDocument;
 import APPR.APPRLeftNavElements;
 import APPR.APPRLocationElements;
 import APPR.APPRLoginPageElements;
@@ -31,7 +30,7 @@ public class TC008_SearchLocation extends testbaseforproject{
 		
 		try {
 	
-			logger = report.startTest("Search for Examination/Test");
+			logger = report.startTest("Search for Locations");
 			lpe = new APPRLoginPageElements(driver);
 			
 			//logging into APPR

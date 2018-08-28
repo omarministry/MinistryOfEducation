@@ -6,10 +6,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import org.apache.poi.util.SystemOutLogger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -40,7 +38,7 @@ public class TC005_AddTrainingAgreement extends testbaseforproject{
 		
 		try {
 	
-		logger = report.startTest("Successful Login");
+		logger = report.startTest("Client Complete flow");
 		
 		alpe = new APPRLoginPageElements(driver);
 		
@@ -69,6 +67,7 @@ public class TC005_AddTrainingAgreement extends testbaseforproject{
 		ReadWriteDataToExcel dataExcel = new ReadWriteDataToExcel();
 		int clientIDValue = dataExcel.readExcel(filePath, "Data.xlsx", "Client");
 		String clientID = Integer.toString(clientIDValue);
+		logger.log(LogStatus.INFO, "Client ID: " + clientID);
 		cseor = new ClientSearchElementsOnRight(driver);
 		cseor.clientID.sendKeys(clientID);
 		cseor.SearchButtonClientSearch.click();
@@ -98,55 +97,9 @@ public class TC005_AddTrainingAgreement extends testbaseforproject{
 		logger.log(LogStatus.PASS, "Program Paricipation status is " + PPstatus);
 		
 		//Add training agreement
-		acte.APPRClientProgramParticipationCheckbox.click();
-		acte.APPRClientProgramParticipationAddTAOption.click();
-		acte.APPRClientProgramParticipationGoButton.click();
-		System.out.println("Add new Training Agreement option clicked");
-		Thread.sleep(1000);
-		
-		//On Add New training agreement page
-		String newTATxt = acte.APPRClientPPAddNewTATxt.getText().trim();
-		AssertTextPresentmethodWithExtendPassFail(newTATxt, "Add a New Competency-based Training Agreement");
-		logger.log(LogStatus.PASS, "Landing on Add new TA page");
-		acte.APPRClientPPAddNewTAYesRadioButton.click();
-		acte.APPRClientPPAddNewTASearchSponsorButton.click();
-		System.out.println("Search Sponsor button clicked");
-		Thread.sleep(1000);
-		
-		//On Search sponsor page
-		String sponsorTxt = acte.APPRClientPPAddNewTASponsorTxt.getText().trim();
-		AssertTextPresentmethodWithExtendPassFail(sponsorTxt, "Search Sponsor/Employer");
-		logger.log(LogStatus.PASS, "Landing on Search Sponsor page");
-		
-		//Read sponsor from data file and search
 		int sponsorIDvalue = dataExcel.readExcel(filePath, "Data.xlsx", "Sponsor");
 		String sponsorID = Integer.toString(sponsorIDvalue);
-		acte.APPRClientPPAddNewTASponsorIDField.sendKeys(sponsorID);
-		acte.APPRClientPPAddNewTASponsorSearchButton.click();
-		Thread.sleep(1000);
-		
-		acte.APPRClientPPAddNewTASponsorSearchRadioButton.click();
-		acte.APPRClientPPAddNewTASponsorSearchReturnButton.click();
-		System.out.println("Sponsor was selected successfully");
-		logger.log(LogStatus.PASS, "Sponsor was selected successfully");
-		Thread.sleep(1000);
-		
-		//Enter Employed date
-		acte.APPRClientPPAddNewTADayofEmployed.sendKeys("01");
-		acte.APPRClientPPAddNewTAMonthofEmployed.sendKeys("12");
-		acte.APPRClientPPAddNewTAYearofEmployed.sendKeys("2017");
-		System.out.println("Employed date entered");
-		
-		//Enter Registration Date
-		acte.APPRClientPPAddNewTADayofReg.sendKeys("02");
-		acte.APPRClientPPAddNewTAMonthofReg.sendKeys("12");
-		acte.APPRClientPPAddNewTAYearofReg.sendKeys("2017");
-		System.out.println("Registration date entered");
-		
-		//Save Training Agreement
-		acte.APPRClientPPAddNewTASaveButton.click();
-		System.out.println("Save button clicked");
-		Thread.sleep(2000);
+		addNewTrainingAgreement(sponsorID);
 		
 		//Back to Program Participation tab
 		acte.APPRClientPPNav.click();
@@ -310,9 +263,20 @@ public class TC005_AddTrainingAgreement extends testbaseforproject{
 		logger.log(LogStatus.PASS, "Completion Save button clicked");
 		
 		//update OCOT
-		String url = "jdbc:oracle:thin:@cscdtovsdbor045:1521/EOISQA_APPR";
-		String DBusername = "*****";
-		String DBpassword = "*****";
+		String url = null;
+		String DBusername = null;
+		String DBpassword = null;
+		if(config.getProperty("url").contains("DEVFST")) {
+			url = "jdbc:oracle:thin:@10.200.18.174:1521/ASA10G";
+			DBusername = "asafstc";
+			DBpassword = "asafstc";
+		}else if (config.getProperty("url").contains("QA")){
+			url = "jdbc:oracle:thin:@cscdtovsdbor045:1521/EOISQA_APPR";
+			DBusername = "asaqa";
+			DBpassword = "asaqa";
+		}
+		
+
 		updateDB(Integer.parseInt(clientID), url, DBusername, DBpassword);
 		Thread.sleep(1000);
 
@@ -376,6 +340,56 @@ public class TC005_AddTrainingAgreement extends testbaseforproject{
 		report.endTest(logger);
 		report.flush();
 		driver.quit();
+	}
+	
+	public void addNewTrainingAgreement(String sponsorID) throws InterruptedException {
+		acte.APPRClientProgramParticipationCheckbox.click();
+		acte.APPRClientProgramParticipationAddTAOption.click();
+		acte.APPRClientProgramParticipationGoButton.click();
+		System.out.println("Add new Training Agreement option clicked");
+		Thread.sleep(1000);
+		
+		//On Add New training agreement page
+		String newTATxt = acte.APPRClientPPAddNewTATxt.getText().trim();
+		AssertTextPresentmethodWithExtendPassFail(newTATxt, "Add a New Competency-based Training Agreement");
+		logger.log(LogStatus.PASS, "Landing on Add new TA page");
+		acte.APPRClientPPAddNewTAYesRadioButton.click();
+		acte.APPRClientPPAddNewTASearchSponsorButton.click();
+		System.out.println("Search Sponsor button clicked");
+		Thread.sleep(1000);
+		
+		//On Search sponsor page
+		String sponsorTxt = acte.APPRClientPPAddNewTASponsorTxt.getText().trim();
+		AssertTextPresentmethodWithExtendPassFail(sponsorTxt, "Search Sponsor/Employer");
+		logger.log(LogStatus.PASS, "Landing on Search Sponsor page");
+		
+		//Read sponsor from data file and search
+		acte.APPRClientPPAddNewTASponsorIDField.sendKeys(sponsorID);
+		acte.APPRClientPPAddNewTASponsorSearchButton.click();
+		Thread.sleep(1000);
+		
+		acte.APPRClientPPAddNewTASponsorSearchRadioButton.click();
+		acte.APPRClientPPAddNewTASponsorSearchReturnButton.click();
+		System.out.println("Sponsor was selected successfully");
+		logger.log(LogStatus.PASS, "Sponsor was selected successfully");
+		Thread.sleep(1000);
+		
+		//Enter Employed date
+		acte.APPRClientPPAddNewTADayofEmployed.sendKeys("01");
+		acte.APPRClientPPAddNewTAMonthofEmployed.sendKeys("12");
+		acte.APPRClientPPAddNewTAYearofEmployed.sendKeys("2017");
+		System.out.println("Employed date entered");
+		
+		//Enter Registration Date
+		acte.APPRClientPPAddNewTADayofReg.sendKeys("02");
+		acte.APPRClientPPAddNewTAMonthofReg.sendKeys("12");
+		acte.APPRClientPPAddNewTAYearofReg.sendKeys("2017");
+		System.out.println("Registration date entered");
+		
+		//Save Training Agreement
+		acte.APPRClientPPAddNewTASaveButton.click();
+		System.out.println("Save button clicked");
+		Thread.sleep(2000);
 	}
 	
 	public void completeClassChangeStatus() throws InterruptedException {

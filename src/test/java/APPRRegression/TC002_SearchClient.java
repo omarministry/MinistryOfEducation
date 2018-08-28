@@ -18,7 +18,6 @@ import testbase.testbaseforproject;
 public class TC002_SearchClient extends testbaseforproject {
 	
 	homepage homepage;
-	//LeftNavElementsUnderSearch lne;
 	APPRLeftNavElements alne;
 	ClientSearchElementsOnRight cse;
 	
