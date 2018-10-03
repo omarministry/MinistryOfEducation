@@ -1,6 +1,9 @@
 package testbase;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Random;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
@@ -339,6 +342,33 @@ public class testbaseforproject {
 		String randomString = Integer.toString(random);
 		return randomString;
 	}
+	
+	public String generalRandomNumber(int min, int max) {
+		Random rand = new Random();
+		int random = rand.nextInt(max) + min;
+		String randomString = Integer.toString(random);
+		return randomString;
+	}
+	
+	public String setDate(int shiftDays) {
+		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+		Date date = new Date();
+		Calendar c = Calendar.getInstance();
+		c.setTime(date);
+		c.add(Calendar.DATE, shiftDays);
+		Date newDate = c.getTime();
+		return formatter.format(newDate);
+	}
+	
+	public String setSunday(int days) {
+		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+		Calendar c = Calendar.getInstance();
+		c.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
+		c.add(Calendar.DATE, days);
+		Date date = c.getTime();
+		return formatter.format(date);
+	}
+	
 		
 }
 	
