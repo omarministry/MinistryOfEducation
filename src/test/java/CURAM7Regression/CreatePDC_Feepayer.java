@@ -9,6 +9,7 @@ import com.relevantcodes.extentreports.LogStatus;
 
 import CURAM7.LoginElements;
 import CURAM7.PDCElements;
+import CURAM7.RegisterPersonElements;
 import support.ReadWriteDataToExcel;
 import testbase.testbaseforproject;
 
@@ -19,6 +20,8 @@ public class CreatePDC_Feepayer extends testbaseforproject{
 	String filePath = System.getProperty("user.dir") + "//TestData";
 	ReadWriteDataToExcel data = new ReadWriteDataToExcel();
 	CreatePDC createPDC;
+	RegisterPerson register;
+	RegisterPersonElements rpe;
 	
 	@BeforeClass
 	public void setup() {
@@ -54,11 +57,27 @@ public class CreatePDC_Feepayer extends testbaseforproject{
 		AssertTextPresentmethodWithExtendPassFail(header, "CASE MANAGEMENT SYSTEM - MINISTRY CASEWORKER APPLICATION");
 		System.out.println("Login Successfully");
 		
+		register = new RegisterPerson();
+		rpe = new RegisterPersonElements(driver);
+		
+		//Click on Cases and Outcomes tab
+		rpe.CasesAndOutComesTab.click();
+		System.out.println("Cases and Outcomes tab clicked");
+		logger.log(LogStatus.PASS, "Cases and Outcomes tab clicked");
+		
+		//click on Expand Arrow
+		rpe.ExpandArrow.click();
+		System.out.println("Expand Arror clicked");
+		logger.log(LogStatus.PASS, "Expand Arrow clicked");
+		Thread.sleep(1000);
+		
+		register.registerAPerson(rpe);
+		
 		createPDC = new CreatePDC();
 		pdc = new PDCElements(driver);
 		
 		//Search Case
-		createPDC.globalLoookupByCaseID("EOCaseID", "Employment Ontario Home");
+		createPDC.globalLoookupByCaseID("EOCaseID");
 		
 		//Create Apprenticeship
 		createPDC.createNewProduct("Feepayer", "");
@@ -125,6 +144,28 @@ public class CreatePDC_Feepayer extends testbaseforproject{
 
 		//Apply Evidence
 		createPDC.applyEvidence();
+		
+		//Switch back to Main window
+		mainWindowHandle = driver.getWindowHandle();
+		driver.switchTo().window(mainWindowHandle);
+		
+		//Click on logout
+		createPDC.logoutCAMS();
+		
+		Thread.sleep(1000);
+		//Re-login
+		createPDC.reloginAsManager(login, "Feepayer");
+		
+		Thread.sleep(1000);
+		//Search case
+		createPDC.globalLoookupByCaseID("PDC_FeepayerCaseID");
+		
+		Thread.sleep(1000);
+		//Approve Evidence
+		createPDC.approveEvidence();
+
+		//Re-Apply Evidence
+		createPDC.reApplyEvidence();
 	
 		} catch (Exception e) {
 			
@@ -141,7 +182,7 @@ public class CreatePDC_Feepayer extends testbaseforproject{
 	public void endTest() {
 		report.endTest(logger);
 		report.flush();
-//		driver.quit();
+		driver.quit();
 	}
 	
 }

@@ -9,6 +9,7 @@ import com.relevantcodes.extentreports.LogStatus;
 
 import CURAM7.LoginElements;
 import CURAM7.PDCElements;
+import CURAM7.RegisterPersonElements;
 import support.ReadWriteDataToExcel;
 import testbase.testbaseforproject;
 
@@ -19,6 +20,8 @@ public class CreatePDC_SNEB extends testbaseforproject{
 	String filePath = System.getProperty("user.dir") + "//TestData";
 	ReadWriteDataToExcel data;
 	CreatePDC createPDC;
+	RegisterPerson register;
+	RegisterPersonElements rpe;
 	
 	@BeforeClass
 	public void setup() {
@@ -54,15 +57,31 @@ public class CreatePDC_SNEB extends testbaseforproject{
 		AssertTextPresentmethodWithExtendPassFail(header, "CASE MANAGEMENT SYSTEM - MINISTRY CASEWORKER APPLICATION");
 		System.out.println("Login Successfully");
 		
+		register = new RegisterPerson();
+		rpe = new RegisterPersonElements(driver);
+		
+		//Click on Cases and Outcomes tab
+		rpe.CasesAndOutComesTab.click();
+		System.out.println("Cases and Outcomes tab clicked");
+		logger.log(LogStatus.PASS, "Cases and Outcomes tab clicked");
+		
+		//click on Expand Arrow
+		rpe.ExpandArrow.click();
+		System.out.println("Expand Arror clicked");
+		logger.log(LogStatus.PASS, "Expand Arrow clicked");
+		Thread.sleep(1000);
+		
+		register.registerAPerson(rpe);
+		
 		createPDC = new CreatePDC();
 		pdc = new PDCElements(driver);
 		data = new ReadWriteDataToExcel();
 		
 		//Search Case
-		createPDC.globalLoookupByCaseID("EOCaseID", "Employment Ontario Home");
+		createPDC.globalLoookupByCaseID("EOCaseID");
 		
 		//Create SNEB
-		createPDC.createNewProduct("SNEB", "EFT");
+		createPDC.createNewProduct("SNEB", "Cheque");
 		
 		//Switch back to main window
 		String mainWindowHandle = driver.getWindowHandle();
@@ -103,7 +122,7 @@ public class CreatePDC_SNEB extends testbaseforproject{
 		
 		//Create Lumnp Sum Benefit Type
 		Thread.sleep(1000);
-		createPDC.createNewBenefit("", "Bonus Level 1", "1000", "SNEB");
+		createPDC.createNewBenefit("Lump Sum", "Bonus Level 4", "1500", "SNEB");
 		
 																										
 		//Switch back to Main window
@@ -121,6 +140,25 @@ public class CreatePDC_SNEB extends testbaseforproject{
 
 		//Apply Evidence
 		createPDC.applyEvidence();
+		
+		//Switch back to Main window
+		mainWindowHandle = driver.getWindowHandle();
+		driver.switchTo().window(mainWindowHandle);
+		
+		//Click on logout
+		createPDC.logoutCAMS();
+		
+		//Re-login
+		createPDC.reloginAsManager(login, "SNEB");
+		
+		//Search case
+		createPDC.globalLoookupByCaseID("PDC_SNEBCaseID");
+		
+		//Approve Evidence
+		createPDC.approveEvidence();
+		
+		//Re-Apply Evidence
+		createPDC.reApplyEvidence();
 	
 		} catch (Exception e) {
 			
@@ -137,7 +175,7 @@ public class CreatePDC_SNEB extends testbaseforproject{
 	public void endTest() {
 		report.endTest(logger);
 		report.flush();
-//		driver.quit();
+		driver.quit();
 	}
 	
 }

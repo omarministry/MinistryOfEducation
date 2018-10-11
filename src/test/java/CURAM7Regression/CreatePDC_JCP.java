@@ -9,6 +9,7 @@ import com.relevantcodes.extentreports.LogStatus;
 
 import CURAM7.LoginElements;
 import CURAM7.PDCElements;
+import CURAM7.RegisterPersonElements;
 import support.ReadWriteDataToExcel;
 import testbase.testbaseforproject;
 
@@ -19,6 +20,8 @@ public class CreatePDC_JCP extends testbaseforproject{
 	String filePath = System.getProperty("user.dir") + "//TestData";
 	ReadWriteDataToExcel data;
 	CreatePDC createPDC;
+	RegisterPerson register;
+	RegisterPersonElements rpe;
 	
 	@BeforeClass
 	public void setup() {
@@ -54,12 +57,28 @@ public class CreatePDC_JCP extends testbaseforproject{
 		AssertTextPresentmethodWithExtendPassFail(header, "CASE MANAGEMENT SYSTEM - MINISTRY CASEWORKER APPLICATION");
 		System.out.println("Login Successfully");
 		
+		register = new RegisterPerson();
+		rpe = new RegisterPersonElements(driver);
+		
+		//Click on Cases and Outcomes tab
+		rpe.CasesAndOutComesTab.click();
+		System.out.println("Cases and Outcomes tab clicked");
+		logger.log(LogStatus.PASS, "Cases and Outcomes tab clicked");
+		
+		//click on Expand Arrow
+		rpe.ExpandArrow.click();
+		System.out.println("Expand Arror clicked");
+		logger.log(LogStatus.PASS, "Expand Arrow clicked");
+		Thread.sleep(1000);
+		
+		register.registerAPerson(rpe);
+		
 		createPDC = new CreatePDC();
 		pdc = new PDCElements(driver);
 		data = new ReadWriteDataToExcel();
 		
 		//Search Case
-		createPDC.globalLoookupByCaseID("EOCaseID", "Employment Ontario Home");
+		createPDC.globalLoookupByCaseID("EOCaseID");
 		
 		//Create Apprenticeship
 		createPDC.createNewProduct("JCP", "EFT");
@@ -112,19 +131,20 @@ public class CreatePDC_JCP extends testbaseforproject{
 		driver.switchTo().frame(4);
 		System.out.println("Switch to Frame 4");
 		
-		//Create Lumnp Sum Benefit Type
+		//Create Benefit Type
 		Thread.sleep(1000);
-		createPDC.createNewBenefit("Lump Sum", "Basic Living Allowance on Claim", "2000", "JCP");
-		System.out.println("Lump Sum benefit is created");
+		createPDC.createNewBenefit("Weekly", "Basic Living Allowance on Claim", "100", "JCP");
+		System.out.println("Benefit is created");
 		
 		//Switch back to main window
 		driver.switchTo().window(driver.getWindowHandle());
 		driver.switchTo().frame(4);
 		
-		//Create Weekly benefit type
+		//Create benefit type
 		Thread.sleep(1000);
-		createPDC.createNewBenefit("Weekly", "Disability Expenses", "100", "JCP");
-		System.out.println("Weekly benefit is created");
+		createPDC.createNewBenefit("Lump Sum", "Living Away From Home", "300", "JCP");
+		System.out.println("Benefit is created");
+		
 		
 		//Go to Site Map
 		createPDC.goToSiteMap();
@@ -155,6 +175,25 @@ public class CreatePDC_JCP extends testbaseforproject{
 
 		//Apply Evidence
 		createPDC.applyEvidence();
+		
+		//Switch back to Main window
+		mainWindowHandle = driver.getWindowHandle();
+		driver.switchTo().window(mainWindowHandle);
+		
+		//Click on logout
+		createPDC.logoutCAMS();
+		
+		//Re-login
+		createPDC.reloginAsManager(login, "JCP");
+		
+		//Search case
+		createPDC.globalLoookupByCaseID("PDC_JCPCaseID");
+		
+		//Approve Evidence
+		createPDC.approveEvidence();
+		
+		//Re-Apply Evidence
+		createPDC.reApplyEvidence();
 	
 		} catch (Exception e) {
 			
@@ -171,7 +210,7 @@ public class CreatePDC_JCP extends testbaseforproject{
 	public void endTest() {
 		report.endTest(logger);
 		report.flush();
-//		driver.quit();
+		driver.quit();
 	}
 	
 }

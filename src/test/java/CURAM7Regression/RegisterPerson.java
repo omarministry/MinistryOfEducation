@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 import java.text.SimpleDateFormat;
 import java.util.logging.Logger;
 
@@ -143,13 +144,15 @@ public class RegisterPerson extends testbaseforproject{
 				lastName.replace("'", "");
 			}
 			
+			String name = firstName + lastName;
+			
 			//Enter lastName
-			rpe.LastnameField.sendKeys(lastName);
+			rpe.LastnameField.sendKeys("AutomationSelenium");
 			System.out.println("Last Name was entered");
 			logger.log(LogStatus.PASS, "Last Name was entered");
 			
 			//Enter firstName
-			rpe.FirstnameField.sendKeys(firstName);
+			rpe.FirstnameField.sendKeys(name);
 			System.out.println("First Name was entered");
 			logger.log(LogStatus.PASS, "First Name was entered");
 			
@@ -165,6 +168,7 @@ public class RegisterPerson extends testbaseforproject{
 			System.out.println("Continue button clicked");
 			logger.log(LogStatus.PASS, "Continue Button clicked");
 			
+			Thread.sleep(1000);
 			//Verify Register person main page is opened
 			String registerPersonTxt = rpe.RegisterPersonTxt.getText().trim();
 			AssertTextPresentmethodWithExtendPassFail(registerPersonTxt, "Register Person");
@@ -178,7 +182,7 @@ public class RegisterPerson extends testbaseforproject{
 			logger.log(LogStatus.PASS, "I Identify As field is entered");
 			
 			//Enter Registration date
-			String registerDate = setDate(-8);
+			String registerDate = setDate(-9);
 			rpe.RegistrationDate.clear();
 			rpe.RegistrationDate.sendKeys(registerDate);
 			System.out.println("Registration Date is entered: " + registerDate);
@@ -250,13 +254,14 @@ public class RegisterPerson extends testbaseforproject{
 			System.out.println("Switch back to Main window");
 			
 		
-			Thread.sleep(3000);
+			Thread.sleep(1000);
 			//Click on Register button
 			rpe.RegisterButton.click();
 			System.out.println("Register button clicked");
 			logger.log(LogStatus.PASS, "Register button clicked");
 			
-			Thread.sleep(10000);
+			Thread.sleep(1000);
+			driver.manage().timeouts().implicitlyWait(0, TimeUnit.MILLISECONDS);
 			if(driver.findElements(By.id("error-messages")).size() != 0) {
 				String error = rpe.ErrorMessageAPPRPartyIDExsits.getText().trim();
 				if(error.contains("E4285")) {
@@ -274,6 +279,16 @@ public class RegisterPerson extends testbaseforproject{
 					rpe.RegisterButton.click();
 					System.out.println("Register button clicked");
 					logger.log(LogStatus.PASS, "Register button clicked");
+				}else if (error.contains("E1710")) {
+					System.out.println("SIN already exists");
+					logger.log(LogStatus.INFO, "SIN already exists");
+					
+					//Enter another SIN
+					SIN = randomSIN();
+					rpe.SINField.sendKeys(SIN);
+					System.out.println("SIN Number is entered");
+					logger.log(LogStatus.PASS, "SIN Number is entered");
+					
 				}
 			}
 			
@@ -292,23 +307,23 @@ public class RegisterPerson extends testbaseforproject{
 			logger.log(LogStatus.PASS, "Client Reference Number: " + clientRefNum);
 			int clientRef = Integer.parseInt(clientRefNum);
 			
-			//Click to open the Employment Ontario Home page
+			//Click to open the Employment Ontario Home pages
 			rpe.EmploymentOntarioLink.click();
 			System.out.println("Employment Ontario link clicked");
 			logger.log(LogStatus.PASS, "Employment Ontario link clicked");
 			
 
 			
-			Thread.sleep(3000);
+			Thread.sleep(1000);
 			
 			//Get the Employment Ontario Case Reference number
 			ArrayList<String> tabs = new ArrayList<String>(driver.getWindowHandles());
 			System.out.println("Tabs size: " + tabs.size());
 			driver.switchTo().window(tabs.get(0));
-			Thread.sleep(2000);
+			Thread.sleep(1000);
 			driver.switchTo().frame(3);
 			System.out.println("Switch to frame 3");
-			Thread.sleep(2000);
+			Thread.sleep(1000);
 			String referenceNum = rpe.EmploymentOntarioCaseReference.getText().trim();
 			System.out.println("Employment Ontario case reference number: " + referenceNum);
 			int caseRefNum = Integer.parseInt(referenceNum);

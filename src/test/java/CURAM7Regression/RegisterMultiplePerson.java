@@ -66,7 +66,7 @@ public class RegisterMultiplePerson extends testbaseforproject{
 		//Call registration method
 		RegisterPerson rp = new RegisterPerson();
 		int i = 1;
-		while (i<=25) {
+		while (i<=3) {
 			rp.registerAPerson(rpe);
 			System.out.println("*********End loop " + i + "***********");
 //			driver.switchTo().frame(1);

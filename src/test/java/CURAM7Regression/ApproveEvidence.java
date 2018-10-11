@@ -59,20 +59,7 @@ public class ApproveEvidence extends testbaseforproject{
 		data = new ReadWriteDataToExcel();
 		
 		//Search case
-		createPDC.globalLoookupByCaseID("PDC_JCPCaseID", "Apprenticeship Program Home:");
-		
-		//Click on Evidence tab
-		driver.switchTo().window(driver.getWindowHandle());
-		pdc.EvidenceTab.click();
-		System.out.println("Evidence Tab is clicked");
-		logger.log(LogStatus.PASS, "Evidence Tab is clicked");
-		
-		//Verify Site Map title
-		driver.switchTo().frame(2);
-		String siteMapTxt = pdc.SiteMapTxt.getText().trim();
-		AssertTextPresentmethodWithExtendPassFail(siteMapTxt, "Site Map: Apprenticeship");
-		System.out.println("Site Map is opened");
-		logger.log(LogStatus.PASS, "Site Map is opened");
+		createPDC.globalLoookupByCaseID("PDC_SecondCareerCaseID");
 		
 		//Approve Evidence
 		createPDC.approveEvidence();

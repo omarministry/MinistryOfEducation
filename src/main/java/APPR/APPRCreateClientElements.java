@@ -117,7 +117,7 @@ public class APPRCreateClientElements extends testbaseforproject{
 		@FindBy(xpath="/html/body/table[8]/tbody/tr/td[4]/form/table[21]/tbody/tr/td[2]/input") 
 		public WebElement APPRClientProofOfEducationCheckbox;
 		
-		@FindBy(xpath="//*[@id=\"next.step\"]") 
+		@FindBy(xpath="//*[@name=\"next.step\"]")
 		public WebElement APPRClientRequiredDocumentNextStepButton;
 		
 		//--- Elements under Confirm Party Identification Page ---
@@ -137,7 +137,9 @@ public class APPRCreateClientElements extends testbaseforproject{
 		@FindBy(xpath="/html/body/table[8]/tbody/tr/td[4]/form/table[1]/tbody/tr/td") 
 		public WebElement APPRClientConfirmApplicationTxt;
 		
-		@FindBy(xpath="/html/body/table[8]/tbody/tr/td[4]/table/tbody/tr/td[1]/form/input[113]") 
+		@FindBy(xpath="html/body/table[8]/tbody/tr/td[4]/table/tbody/tr/td[1]/form/input[113]")
+//		/html/body/table[8]/tbody/tr/td[4]/table/tbody/tr/td[1]/form/input[114]
+		///html/body/table[8]/tbody/tr/td[4]/table/tbody/tr/td[1]/form/input[109]
 		public WebElement APPRClientSubmitAsApprovedButton;
 		
 		//--- Elements under Application summary Page ---

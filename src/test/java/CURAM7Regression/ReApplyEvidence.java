@@ -61,52 +61,10 @@ public class ReApplyEvidence extends testbaseforproject{
 		data = new ReadWriteDataToExcel();
 		
 		//Search case
-		createPDC.globalLoookupByCaseID("PDC_ACBCaseID", "Apprenticeship Program Home:");
+		createPDC.globalLoookupByCaseID("PDC_ACBCaseID");
 		
-		//Click on Evidence tab
-		driver.switchTo().window(driver.getWindowHandle());
-		pdc.EvidenceTab.click();
-		System.out.println("Evidence Tab is clicked");
-		logger.log(LogStatus.PASS, "Evidence Tab is clicked");
-		
-		//Verify Site Map title
-		driver.switchTo().frame(2);
-		String siteMapTxt = pdc.SiteMapTxt.getText().trim();
-		AssertTextPresentmethodWithExtendPassFail(siteMapTxt, "Site Map: Apprenticeship");
-		System.out.println("Site Map is opened");
-		logger.log(LogStatus.PASS, "Site Map is opened");
-		
-		//Click on Site Map action menu
-		pdc.SiteMapActionMenu.click();
-		System.out.println("Site Map action menu is clicked");
-		logger.log(LogStatus.PASS, "Site Map action menu is clicked");
-		
-		//CLick on Apply Evidence Option
-		pdc.ApplyEvidenceOption.click();
-		System.out.println("Apply Evidence Option is clicked");
-		logger.log(LogStatus.PASS, "Apply Evidence Option is clicked");
-		
-		//Switch to Apply Evidence window
-		String applyEvidenceWindow = driver.getWindowHandle();
-		driver.switchTo().window(applyEvidenceWindow);
-		System.out.println("Switch to Apply Evidence window");
-		
-		//Verify Apply Evidence window is opened
-		String applyEvidenceTxt = pdc.ModalDialogTxt.getText().trim();
-		AssertTextPresentmethodWithExtendPassFail(applyEvidenceTxt, "Apply Evidence Changes:");
-		System.out.println("Apply Evidence window is opened");
-		logger.log(LogStatus.PASS, "Apply Evidence window is opened");
-		
-		//Click on select all Evidence check box
-		driver.switchTo().frame(3);
-		pdc.AllEvidenceCheckbox.click();
-		System.out.println("All Evidence check box is clicked");
-		logger.log(LogStatus.PASS, "All Evidence check box is clicked");
-		
-		//Click on Apply Evidence button
-		pdc.ApplyApproveEvidenceButton.click();
-		System.out.println("Apply Evidence button is clicked");
-		logger.log(LogStatus.PASS, "Apply Evidence button is clicked");		
+		//Call reApplyEvidence
+		createPDC.reApplyEvidence();
 
 		
 		} catch (Exception e) {
@@ -124,6 +82,6 @@ public class ReApplyEvidence extends testbaseforproject{
 	public void endTest() {
 		report.endTest(logger);
 		report.flush();
-//		driver.quit();
+		driver.quit();
 	}
 }

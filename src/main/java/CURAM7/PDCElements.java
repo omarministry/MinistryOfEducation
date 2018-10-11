@@ -28,6 +28,9 @@ public class PDCElements extends testbaseforproject{
 	@FindBy(xpath="//*[@id=\"dijit_MenuItem_3_text\"]")
 	public WebElement EONewProductOption;
 	
+	@FindBy(xpath="//*[@id=\"content\"]/div[3]/div/div/h3/span")
+	public WebElement ProductTxt;
+	
 	@FindBy(xpath="//*[@id=\"sortable_N24447\"]/tbody/tr[1]/td[1]/span/a")
 	public WebElement ApprenticeshipSelectButton;
 	
@@ -49,6 +52,9 @@ public class PDCElements extends testbaseforproject{
 	@FindBy(xpath="//*[@id=\"sortable_N24447\"]/tbody/tr[7]/td[1]/span/a")
 	public WebElement SNEBSelectButton;
 	
+	@FindBy(xpath="//*[@id=\"content\"]/div[3]/div/table/tbody/tr/td/div/div/div/h3/span")
+	public WebElement DeliveryPatternTxt;
+	
 	@FindBy(xpath="//*[@id=\"sortable_N244C3\"]/tbody/tr[1]/td[1]/span/a[2]")
 	public WebElement EFTSelectActionButton;
 	
@@ -57,6 +63,9 @@ public class PDCElements extends testbaseforproject{
 	
 	@FindBy(xpath="//*[@id=\"sortable_N244C3\"]/tbody/tr/td[1]/span/a[2]")
 	public WebElement ECBCheqSelectActionButton;
+	
+	@FindBy(xpath="//*[@id=\"mainForm\"]/div/div[1]/div/div/h3/span")
+	public WebElement CreateDeliveryTxt;
 	
 	@FindBy(xpath="//*[@id=\"__o3id0\"]")
 	public WebElement CreateDeliveryStartDate;
@@ -88,6 +97,9 @@ public class PDCElements extends testbaseforproject{
 	@FindBy(xpath="//*[@id=\"Curam_MTCU_listEmploymentInsuranceProductEvidence\"]/div[1]/div/div[2]/a")
 	public WebElement EmploymentInsuranceNewButton;
 	
+	@FindBy(xpath="//*[@id=\"mainForm\"]/div/div[1]/div/div/h3/span")
+	public WebElement EmploymentInsuranceTxt;
+	
 	@FindBy(xpath="//*[@id=\"__o3id0\"]")
 	public WebElement EmploymentInsuranceVerificationDate;
 	
@@ -96,6 +108,9 @@ public class PDCElements extends testbaseforproject{
 	
 	@FindBy(xpath="//*[@id=\"__o3id4\"]")
 	public WebElement EmploymentInsuranceClaimStartDate;
+	
+	@FindBy(xpath="//*[@id=\"__o3id5\"]")
+	public WebElement EmploymentInsuranceClaimEndDate;
 	
 	@FindBy(xpath="//*[@id=\"__o3id6\"]")
 	public WebElement EmploymentInsuranceGrossAmount;
@@ -118,8 +133,14 @@ public class PDCElements extends testbaseforproject{
 	@FindBy(xpath="//*[@id=\"Curam_MTCU_listMTCUTrainingProductEvidence\"]/div[1]/div/div[2]/a")
 	public WebElement TrainingEvidenceNewButton;
 	
+	@FindBy(xpath="//*[@id=\"mainForm\"]/div/div[1]/div/div/h3/span")
+	public WebElement TrainingEvidenceTxt;
+	
 	@FindBy(xpath="//*[@id=\"__o3fwp.ACTION.dtls$dtls$concernRoleID_a\"]/img")
 	public WebElement TrainingInstitteLookupGlass;
+	
+	@FindBy(xpath="//*[@id=\"mainForm\"]/div/div[1]/div/div/h3/span")
+	public WebElement EducationalInstituteTxt;
 	
 	@FindBy(xpath="//*[@id=\"__o3id2\"]")
 	public WebElement EducationalInstituteName;
@@ -127,7 +148,7 @@ public class PDCElements extends testbaseforproject{
 	@FindBy(xpath="//*[@id=\"page-action-set-\"]/a[1]/span/span/span")
 	public WebElement EducationalInstituteSearchButton;
 	
-	@FindBy(xpath="//*[@id=\"sortable_N24AB7\"]/tbody/tr/td[1]/span/a/span/span/span")
+	@FindBy(xpath="//*[contains(@id, \"sortable_N\")]/tbody/tr/td[1]/span/a/span/span/span")
 	public WebElement EducationalInstituteSelectButton;
 	
 	@FindBy(xpath="//*[@id=\"__o3id1\"]")
@@ -172,6 +193,9 @@ public class PDCElements extends testbaseforproject{
 	@FindBy(xpath="//*[@id=\"Curam_MTCU_listMTCUBenefitProductEvidence\"]/div[1]/div/div[2]/a")
 	public WebElement BenefitNewButton;
 	
+	@FindBy(xpath="//*[@id=\"mainForm\"]/div/div[2]/div/div/h3/span")
+	public WebElement BenefitTxt;
+	
 	@FindBy(xpath="//*[@id=\"__o3id0\"]")
 	public WebElement BenefitType;
 	
@@ -184,11 +208,17 @@ public class PDCElements extends testbaseforproject{
 	@FindBy(xpath="//*[@id=\"__o3id4\"]")
 	public WebElement BenefitStartDate;
 	
+	@FindBy(xpath="//*[@id=\"__o3id3\"]")
+	public WebElement BenefitStartDateSNEB;
+	
 	@FindBy(xpath="//*[@id=\"__o3id2\"]")
 	public WebElement BenefitStartDateLumpSum;
 	
 	@FindBy(xpath="//*[@id=\"__o3id5\"]")
 	public WebElement BenefitEndDate;
+	
+	@FindBy(xpath="//*[@id=\"__o3id2\"]")
+	public WebElement BenefitEndDateSNEB;
 	
 	@FindBy(xpath="//*[@id=\"__o3id1\"]")
 	public WebElement BenefitEndDateLumpSum;
@@ -204,6 +234,9 @@ public class PDCElements extends testbaseforproject{
 	
 	@FindBy(xpath="//*[@id=\"bodyTitle\"]/span")
 	public WebElement MultiYearForecastingWorkspaceTxt;
+	
+	@FindBy(xpath="//*[@id=\"mainForm\"]/div/div[1]/div/div/h3/span")
+	public WebElement MultiYearForecastingTxt;
 	
 	@FindBy(xpath="//*[@id=\"Curam_MTCU_listMultiYearForecastingProductEvidence\"]/div[1]/div/div[2]/a")
 	public WebElement MultiYearForecastingNewButton;
@@ -235,13 +268,13 @@ public class PDCElements extends testbaseforproject{
 	@FindBy(xpath="//*[@id=\"page-action-set-\"]/a[1]/span/span/span")
 	public WebElement SupervisorSearchButton;
 	
-	@FindBy(xpath="//*[@id=\"sortable_N203F1\"]/tbody/tr[2]/td[1]/span/a/span/span/span")
+	@FindBy(xpath="//*[contains(@id, \"sortable_N\")]/tbody/tr[2]/td[1]/span/a/span/span/span")
 	public WebElement SupervisorSelectButtonSecondOption;
 	
-	@FindBy(xpath="//*[@id=\"sortable_N203F1\"]/tbody/tr[1]/td[1]/span/a/span/span/span")
+	@FindBy(xpath="//*[contains(@id, \"sortable_N\")]/tbody/tr[1]/td[1]/span/a/span/span/span")
 	public WebElement SupervisorSelectButtonFirstOption;
 	
-	@FindBy(xpath="//*[@id=\"sortable_N203F1\"]/tbody/tr/td[1]/span/a/span/span/span")
+	@FindBy(xpath="//*[contains(@id, \"sortable_N\")]/tbody/tr/td[1]/span/a/span/span/span")
 	public WebElement SupervisorSelectButtonSingle;
 	
 	@FindBy(xpath="//*[@id=\"modal-actions-panel\"]/div/a[1]/span/span/span")
@@ -259,6 +292,9 @@ public class PDCElements extends testbaseforproject{
 	@FindBy(xpath="//*[contains(@id, \"curam_ModalDialog_\")]")
 	public WebElement ModalDialogTxt;
 	
+	@FindBy(xpath="//*[@id=\"mainForm\"]/div/div[2]/div/div/h3/span")
+	public WebElement EvidenceTxt;
+	
 	@FindBy(xpath="//*[@class=\"checkbox-touchable-area\" and @title=\"Select/Deselect all rows\"]")
 	public WebElement AllEvidenceCheckbox;
 	
@@ -270,6 +306,9 @@ public class PDCElements extends testbaseforproject{
 	
 	@FindBy(xpath="//*[@id=\"bodyTitle\"]/span")
 	public WebElement ClientContributionWorkspaceTxt;
+	
+	@FindBy(xpath="//*[@id=\"mainForm\"]/div/div[1]/div/div/h3/span")
+	public WebElement ClientContributionTxt;
 	
 	@FindBy(xpath="//*[@id=\"Curam_MTCU_listClientContributionProductEvidence\"]/div[1]/div/div[2]/a")
 	public WebElement ClientContributionNewButton;
@@ -289,6 +328,9 @@ public class PDCElements extends testbaseforproject{
 	@FindBy(xpath="//*[@id=\"bodyTitle\"]/span")
 	public WebElement JCPWorkspaceTxt;
 	
+	@FindBy(xpath="//*[@id=\"mainForm\"]/div/div[1]/div/div/h3/span")
+	public WebElement JCPTxt;
+	
 	@FindBy(xpath="//*[@id=\"Curam_MTCU_listJobCreationPartnershipProductEvidence\"]/div[1]/div/div[2]/a")
 	public WebElement JCPNewButton;
 	
@@ -298,13 +340,16 @@ public class PDCElements extends testbaseforproject{
 	@FindBy(xpath="//*[@id=\"__o3fwp.ACTION.dtls$dtls$seCoordinator_a\"]/img")
 	public WebElement JCPEmployer;
 	
+	@FindBy(xpath="//*[@id=\"mainForm\"]/div/div[1]/div/div/h3/span")
+	public WebElement ServiceDeliverySiteTxt;
+	
 	@FindBy(xpath="//*[@id=\"__o3id0\"]")
 	public WebElement ServiceDeliverySiteRefNum;
 	
 	@FindBy(xpath="//*[@id=\"page-action-set-\"]/a[1]/span/span/span")
 	public WebElement ServiceDeliverySiteSearchButton;
 	
-	@FindBy(xpath="//*[@id=\"sortable_N230A0\"]/tbody/tr/td[1]/span/a/span/span/span")
+	@FindBy(xpath="//*[contains(@id, \"sortable_N\")]/tbody/tr/td[1]/span/a/span/span/span")
 	public WebElement ServiceDeliverySiteSelectButton;
 	
 	@FindBy(xpath="//*[@id=\"page-action-set-\"]/a[1]/span/span/span")
@@ -318,6 +363,9 @@ public class PDCElements extends testbaseforproject{
 	
 	@FindBy(xpath="//*[@id=\"bodyTitle\"]/span")
 	public WebElement ApprenticeshipWorkspaceTxt;
+	
+	@FindBy(xpath="//*[@id=\"mainForm\"]/div/div[2]/div/div/h3/span")
+	public WebElement ApprenticeshipTxt;
 	
 	@FindBy(xpath="//*[@id=\"Curam_MTCU_listMTCUAPPREmployerProductEvidence\"]/div[1]/div/div[2]/a")
 	public WebElement ApprenticeshipNewButton;
@@ -343,6 +391,12 @@ public class PDCElements extends testbaseforproject{
 	@FindBy(xpath="//*[@id=\"page-action-set-\"]/a[1]/span/span/span")
 	public WebElement AAPPREmployerSearchButton;
 	
-	@FindBy(xpath="//*[@id=\"sortable_N201C6\"]/tbody/tr/td[1]/span/a/span/span/span")
+	@FindBy(xpath="//*[contains(@id, \"sortable_N\")]/tbody/tr/td[1]/span/a/span/span/span")
 	public WebElement AAPPREmployerSelectButton;
+	
+	@FindBy(xpath="//*[@id=\"curam_widget_DropDownButton_0_label\"]/img")
+	public WebElement PersonMenu;
+	
+	@FindBy(xpath="//*[@id=\"dijit_MenuItem_2_text\"]")
+	public WebElement LogoutButton;
 }

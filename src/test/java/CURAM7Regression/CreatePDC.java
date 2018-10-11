@@ -1,16 +1,10 @@
 package CURAM7Regression;
 
-import java.awt.AWTException;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
-import org.openqa.selenium.support.ui.ExpectedCondition;
-import org.testng.Assert;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Test;
 
 import com.relevantcodes.extentreports.LogStatus;
 
@@ -27,7 +21,7 @@ public class CreatePDC extends testbaseforproject{
 	ReadWriteDataToExcel data = new ReadWriteDataToExcel();
 	
 	
-	public void globalLoookupByCaseID(String sheetName, String hometitleTxt) throws InterruptedException, IOException {
+	public void globalLoookupByCaseID(String sheetName) throws InterruptedException, IOException {
 		//Get EOCaseID from the file
 		String CaseID = Integer.toString(data.readExcel(filePath, "CaseID.xlsx", sheetName));
 		
@@ -49,11 +43,11 @@ public class CreatePDC extends testbaseforproject{
 		driver.switchTo().frame(2);
 		System.out.println("Switch to Frame 2");
 		
-		//Verify Case Home page is opened
+/*		//Verify Case Home page is opened
 		String HomeTxt = pdc.HomeTxt.getText().trim();
 		AssertTextPresentmethodWithExtendPassFail(HomeTxt, hometitleTxt);
 		System.out.println("Case Home page is opened");
-		logger.log(LogStatus.PASS, "Case Home page is opened");
+		logger.log(LogStatus.PASS, "Case Home page is opened");*/
 	}
 
 	public void createNewProduct(String selectProductType, String deliveryPattern) throws InterruptedException {
@@ -62,6 +56,7 @@ public class CreatePDC extends testbaseforproject{
 		System.out.println("EO Edit Action clicked");
 		logger.log(LogStatus.PASS, "EO Edit Action clicked");
 		
+		Thread.sleep(1000);
 		//Create New Product
 		pdc.EONewProductOption.click();
 		System.out.println("New Product option clicked");
@@ -76,14 +71,15 @@ public class CreatePDC extends testbaseforproject{
 		
 		Thread.sleep(2000);
 		
+		driver.switchTo().frame(3);
+		
 		//Verify Select Product Type popup windown is opened
-		String selectProductTypeTxt = pdc.ModalDialogTxt.getText().trim();
-		AssertTextPresentmethodWithExtendPassFail(selectProductTypeTxt, "Select Product Type");
+		String selectProductTypeTxt = pdc.ProductTxt.getText().trim();
+		AssertTextPresentmethodWithExtendPassFail(selectProductTypeTxt, "Products");
 		System.out.println("Select Product Type popup window is opened");
 		
 		//Click on Select button of Apprenticeship
-		driver.switchTo().frame(3);
-		Thread.sleep(1000);
+
 		
 		if(selectProductType.equalsIgnoreCase("Apprenticeship")) {
 			pdc.ApprenticeshipSelectButton.click();
@@ -124,11 +120,13 @@ public class CreatePDC extends testbaseforproject{
 			driver.switchTo().window(selectDeliveryPatternWindow);
 			System.out.println("Switch to select Delivery pattern popup window");
 			
-			String selectDeliveryPatternTxt = pdc.ModalDialogTxt.getText().trim();
-			AssertTextPresentmethodWithExtendPassFail(selectDeliveryPatternTxt, "Select Delivery Pattern");
+			driver.switchTo().frame(3);
+			
+			String selectDeliveryPatternTxt = pdc.DeliveryPatternTxt.getText().trim();
+			AssertTextPresentmethodWithExtendPassFail(selectDeliveryPatternTxt, "Available Delivery Patterns");
 			System.out.println("Select Delivery Pattern window is navigated");
 			
-			driver.switchTo().frame(3);
+
 		}
 		
 
@@ -165,14 +163,14 @@ public class CreatePDC extends testbaseforproject{
 		//Verify Create Delivery window is navigated
 		String createDeliveryWindow = driver.getWindowHandle();
 		driver.switchTo().window(createDeliveryWindow);
+		driver.switchTo().frame(3);
 		
-		String createDeliveryTxt = pdc.ModalDialogTxt.getText().trim();
-		AssertTextPresentmethodWithExtendPassFail(createDeliveryTxt, "Create Delivery");
+		String createDeliveryTxt = pdc.CreateDeliveryTxt.getText().trim();
+		AssertTextPresentmethodWithExtendPassFail(createDeliveryTxt, "Details");
 		System.out.println("Create Delivery window is navigated");
 		
 		//Enter Start Date field
-		driver.switchTo().frame(3);
-		String createDeliveryStartDate = setDate(-8);
+		String createDeliveryStartDate = setDate(-9);
 		pdc.CreateDeliveryStartDate.clear();
 		pdc.CreateDeliveryStartDate.sendKeys(createDeliveryStartDate);
 		System.out.println("Start Date is entered: " + createDeliveryStartDate);
@@ -241,20 +239,20 @@ public class CreatePDC extends testbaseforproject{
 		
 		Thread.sleep(2000);
 		
-		//Verify New Employment Insurance Evidence Details popup window is opened
-		String employmentInsuranceDetailsTxt = pdc.ModalDialogTxt.getText().trim();
-		AssertTextPresentmethodWithExtendPassFail(employmentInsuranceDetailsTxt, "New Employment Insurance Evidence Details:");
-		System.out.println("New Employment Insurance Evidence Details popup window is opened");
-		logger.log(LogStatus.PASS, "New Employment Insurance Evidence Details popup window is opened");
-		
 		//Switch the frame
 		driver.switchTo().frame(5);
 		System.out.println("Switch to Frame 5");
 		
+		//Verify New Employment Insurance Evidence Details popup window is opened
+		String employmentInsuranceDetailsTxt = pdc.EmploymentInsuranceTxt.getText().trim();
+		AssertTextPresentmethodWithExtendPassFail(employmentInsuranceDetailsTxt, "Employment Insurance Details");
+		System.out.println("New Employment Insurance Evidence Details popup window is opened");
+		logger.log(LogStatus.PASS, "New Employment Insurance Evidence Details popup window is opened");
+		
 		
 		//Enter value to Verification Date
 		pdc.EmploymentInsuranceVerificationDate.clear();
-		pdc.EmploymentInsuranceVerificationDate.sendKeys(setDate(-8));
+		pdc.EmploymentInsuranceVerificationDate.sendKeys(setDate(-9));
 		System.out.println("Verification Date is entered");
 		logger.log(LogStatus.PASS, "Verification Date is entered");
 		
@@ -265,7 +263,14 @@ public class CreatePDC extends testbaseforproject{
 		
 		//Enter value to Claim Start Date
 		pdc.EmploymentInsuranceClaimStartDate.clear();
-		pdc.EmploymentInsuranceClaimStartDate.sendKeys(setDate(-8));
+		pdc.EmploymentInsuranceClaimStartDate.sendKeys(setDate(-9));
+		System.out.println("Claim Start Date is entered");
+		logger.log(LogStatus.PASS, "Claim Start Date is entered");
+		
+		//Enter value to Claim Start Date
+		String endDate = setSunday(35);
+		pdc.EmploymentInsuranceClaimEndDate.clear();
+		pdc.EmploymentInsuranceClaimEndDate.sendKeys(endDate);
 		System.out.println("Claim Start Date is entered");
 		logger.log(LogStatus.PASS, "Claim Start Date is entered");
 		
@@ -311,6 +316,11 @@ public class CreatePDC extends testbaseforproject{
 		
 		//Click on Training Institute lookup glass
 		driver.switchTo().frame(5);
+		
+		String trainingEvidenceTxt = pdc.TrainingEvidenceTxt.getText().trim();
+		AssertTextPresentmethodWithExtendPassFail(trainingEvidenceTxt, "MTCU Training");
+		System.out.println("New Training Evidence window is opened");
+		
 		pdc.TrainingInstitteLookupGlass.click();
 		System.out.println("Training Institute lookup glass is clicked");
 		logger.log(LogStatus.PASS, "Training Institute lookup glass is clicked");
@@ -322,15 +332,17 @@ public class CreatePDC extends testbaseforproject{
 		
 		Thread.sleep(1000);
 		
-		//Verify Educational Institute Search window is opened
-		String educationInstituteTxt = pdc.ModalDialogTxt.getText().trim();
-		AssertTextPresentmethodWithExtendPassFail(educationInstituteTxt, "Educational Institute Search");
-		System.out.println("Educational Institute Search window is opened");
-		logger.log(LogStatus.PASS, "Educational Institute Search window is opened");
-		
 		//Switch to frame 6
 		driver.switchTo().frame(6);
 		System.out.println("Switch to Frame 6");
+		
+		//Verify Educational Institute Search window is opened
+		String educationInstituteTxt = pdc.EducationalInstituteTxt.getText().trim();
+		AssertTextPresentmethodWithExtendPassFail(educationInstituteTxt, "Search Criteria");
+		System.out.println("Educational Institute Search window is opened");
+		logger.log(LogStatus.PASS, "Educational Institute Search window is opened");
+		
+
 		
 		//Enter Educational Institute Name
 		pdc.EducationalInstituteName.sendKeys("Algonquin College - Pembroke Campus");
@@ -397,13 +409,14 @@ public class CreatePDC extends testbaseforproject{
 	public void createNewBenefit(String benefitPaymentType, String benefitType, String benefitAmount, String type) throws InterruptedException {
 		String endDate = "";
 		if(benefitPaymentType.equalsIgnoreCase("Lump Sum")) {
-			endDate = setDate(-8);
+			endDate = setDate(-9);
 		}else {
 			endDate = setSunday(35);
 		}
 		
 		//Click on Benefit link
 		if(type.equalsIgnoreCase("JCP")) {
+			driver.manage().timeouts().implicitlyWait(0, TimeUnit.MILLISECONDS);
 			if(driver.findElements(By.xpath("//*[@id=\"content\"]/div[3]/div/table/tbody/tr[2]/td/div/div/table/tbody/tr[3]/td[2]/span/a")).size() != 0) {
 				//Click on Benefit link
 				pdc.BenefitLinkJCP.click();
@@ -425,6 +438,7 @@ public class CreatePDC extends testbaseforproject{
 			System.out.println("Benefit link is clicked");
 			logger.log(LogStatus.PASS, "Benefit link is clicked");
 		}else {
+			driver.manage().timeouts().implicitlyWait(0, TimeUnit.MILLISECONDS);
 			if(driver.findElements(By.xpath("//*[@id=\"content\"]/div[3]/div/table/tbody/tr[2]/td/div/div/table/tbody/tr[3]/td[2]/span/a")).size() != 0) {
 				//Click on Benefit link
 				pdc.BenefitLink.click();
@@ -439,7 +453,7 @@ public class CreatePDC extends testbaseforproject{
 			}
 		}
 		
-		
+		Thread.sleep(2000);
 		//Click on New button
 		pdc.BenefitNewButton.click();
 		System.out.println("Benefit create New button is clicked");
@@ -451,18 +465,19 @@ public class CreatePDC extends testbaseforproject{
 		System.out.println("switch to New Benefit Window");
 		
 		Thread.sleep(1000);
+		driver.switchTo().frame(5);
 		//Verify the New Benefit window is opened
-		String newbenefitDetailsTxt = pdc.ModalDialogTxt.getText().trim();
-		AssertTextPresentmethodWithExtendPassFail(newbenefitDetailsTxt, "New Benefit Evidence Details:");
+		String newbenefitDetailsTxt = pdc.BenefitTxt.getText().trim();
+		AssertTextPresentmethodWithExtendPassFail(newbenefitDetailsTxt, "Benefit Evidence Details");
 		System.out.println("New Benefit Evidence Details window is opened");
 		logger.log(LogStatus.PASS, "New Benefit Evidence Details window is opened");
 		
 		//Enter Benefit Type
-		driver.switchTo().frame(5);
-		
+
 		//Enter Benefit Payment Type
-		if(type.equalsIgnoreCase("ACB") == false && type.equalsIgnoreCase("ECB") == false) {
+		if(type.equalsIgnoreCase("ACB") == false && type.equalsIgnoreCase("ECB") == false && type.equalsIgnoreCase("SNEB") == false) {
 			
+			pdc.BenefitType.clear();
 			pdc.BenefitType.sendKeys(benefitType);
 			System.out.println("Benefit Type: " + benefitType + " is entered");
 			logger.log(LogStatus.PASS, "Benefit Type: " + benefitType + " is entered");
@@ -472,19 +487,30 @@ public class CreatePDC extends testbaseforproject{
 			logger.log(LogStatus.PASS, "Benefit Payment type: " + benefitPaymentType + " is entered");
 			
 			//Enter Benefit Start date
-			pdc.BenefitStartDate.sendKeys(setDate(-8));
+			pdc.BenefitStartDate.sendKeys(setDate(-9));
 			System.out.println("Benefit Start Date is entered");
 			logger.log(LogStatus.PASS, "Benefit Start Date is entered");
+		}else if(type.equalsIgnoreCase("SNEB")) {
+			pdc.BenefitType.clear();
+			pdc.BenefitType.sendKeys(benefitType);
+			System.out.println("Benefit Type: " + benefitType + " is entered");
+			logger.log(LogStatus.PASS, "Benefit Type: " + benefitType + " is entered");
+			
+			pdc.BenefitStartDateSNEB.clear();
+			pdc.BenefitStartDateSNEB.sendKeys(setDate(-9));
+			System.out.println("SNEB Benefit Start Date is entered");
+			logger.log(LogStatus.PASS, "SNEB Benefit Start Date is entered");
+			
 		}else {
 			pdc.BenefitStartDateLumpSum.clear();
-			pdc.BenefitStartDateLumpSum.sendKeys(setDate(-8));
+			pdc.BenefitStartDateLumpSum.sendKeys(setDate(-9));
 			System.out.println("Benefit Start Date is entered");
 			logger.log(LogStatus.PASS, "Benefit Start Date is entered");
 		}
 
 		
 		//Enter Benefit Amount
-		if(type.equalsIgnoreCase("ACB") == false && type.equalsIgnoreCase("ECB") == false) {
+		if(type.equalsIgnoreCase("ACB") == false && type.equalsIgnoreCase("ECB") == false && type.equalsIgnoreCase("SNEB") == false) {
 			pdc.BenefitAmount.clear();
 			pdc.BenefitAmount.sendKeys(benefitAmount);
 			System.out.println("Benefit Amount is entered");
@@ -495,6 +521,16 @@ public class CreatePDC extends testbaseforproject{
 			pdc.BenefitEndDate.sendKeys(endDate);
 			System.out.println("Benefit End Date is entered");
 			logger.log(LogStatus.PASS, "Benefit End Date is entered");
+		}else if(type.equalsIgnoreCase("SNEB")) {
+			pdc.BenefitAmount.clear();
+			pdc.BenefitAmount.sendKeys(benefitAmount);
+			System.out.println("Benefit Amount is entered");
+			logger.log(LogStatus.PASS, "Benefit Amount is entered");
+			
+			pdc.BenefitEndDateSNEB.clear();
+			pdc.BenefitEndDateSNEB.sendKeys(setDate(-9));
+			System.out.println("SNEB Benefit End Date is entered");
+			logger.log(LogStatus.PASS, "SNEBBenefit End Date is entered");
 		}else {
 			pdc.BenefitEndDateLumpSum.clear();
 			pdc.BenefitEndDateLumpSum.sendKeys(endDate);
@@ -508,7 +544,7 @@ public class CreatePDC extends testbaseforproject{
 		logger.log(LogStatus.PASS, "Benefit Save button is clicked");
 	}
 	
-	public void addMultiYearForecasting(String type) {
+	public void addMultiYearForecasting(String type) throws InterruptedException {
 		 //Click on Multi Year Forcasting link
 		if(type.equalsIgnoreCase("Second Career")) {
 			pdc.MultiYearForecastingLinkSC.click();
@@ -525,6 +561,7 @@ public class CreatePDC extends testbaseforproject{
 		System.out.println("Multi Year Forecasting Evidence Workspace is opened");
 		logger.log(LogStatus.PASS, "Multi Year Forecasting Evidence Workspace is opened");
 		
+		Thread.sleep(1000);
 		//Click on New button
 		pdc.MultiYearForecastingNewButton.click();
 		System.out.println("Multi Year Forecasting New button is clicked");
@@ -535,14 +572,16 @@ public class CreatePDC extends testbaseforproject{
 		driver.switchTo().window(newMultiYearWindow);
 		System.out.println("Switch to New Multi Year Forecasting Evidence Details window");
 		
+		driver.switchTo().frame(5);
+		
 		//Verify New Multi Year Forecasting Evidence Details window is opened
-		String newMultiYearTxt = pdc.ModalDialogTxt.getText().trim();
-		AssertTextPresentmethodWithExtendPassFail(newMultiYearTxt, "New Multi Year Forecasting Evidence Details:");
+		String newMultiYearTxt = pdc.MultiYearForecastingTxt.getText().trim();
+		AssertTextPresentmethodWithExtendPassFail(newMultiYearTxt, "Multi Year Forecasting");
 		System.out.println("New Multi Year Forecasting Evidence Details window is opened");
 		logger.log(LogStatus.PASS, "New Multi Year Forecasting Evidence Details window is opened");
 		
 		//Enter Multi Year Forecasting Amount
-		driver.switchTo().frame(5);
+
 		pdc.MultiYearForecastingAmount.clear();
 		pdc.MultiYearForecastingAmount.sendKeys("5000");
 		System.out.println("Multi Year Forecasting Amount is entered");
@@ -567,6 +606,8 @@ public class CreatePDC extends testbaseforproject{
 		System.out.println("Client Contribution Evidence Workspace is opened");
 		logger.log(LogStatus.PASS, "Client Contribution Evidence Workspace is opened");
 		
+		Thread.sleep(1000);
+		
 		//Click on New button
 		pdc.ClientContributionNewButton.click();
 		System.out.println("Client Contribution New button is clicked");
@@ -579,14 +620,16 @@ public class CreatePDC extends testbaseforproject{
 		driver.switchTo().window(newClientContributionWindow);
 		System.out.println("Switch to New client Contribution Evidence Details popup window");
 		
+		driver.switchTo().frame(5);
+		
 		//Verify the New client Contribution Evidence Details popup window is opened
-		String clientContributionDetailsTxt = pdc.ModalDialogTxt.getText().trim();
-		AssertTextPresentmethodWithExtendPassFail(clientContributionDetailsTxt, "New Client Contribution Evidence Details:");
+		String clientContributionDetailsTxt = pdc.ClientContributionTxt.getText().trim();
+		AssertTextPresentmethodWithExtendPassFail(clientContributionDetailsTxt, "Client Contribution Details");
 		System.out.println("New client Contribution Evidence Details popup window is opened");
 		logger.log(LogStatus.PASS, "New client Contribution Evidence Details popup window is opened");
 		
 		//Enter Contribution Type
-		driver.switchTo().frame(5);
+
 		pdc.ClientContributionType.sendKeys("Tuition");
 		System.out.println("Contribution Type is entered");
 		logger.log(LogStatus.PASS, "Contribution Type is entered");
@@ -611,10 +654,10 @@ public class CreatePDC extends testbaseforproject{
 		logger.log(LogStatus.PASS, "Job Creation Partnership link is clicked");
 		
 		//Verify Job Creation Partnership link is opened
-		String JCPWorkspaceTxt = pdc.JCPWorkspaceTxt.getText().trim();
-		AssertTextPresentmethodWithExtendPassFail(JCPWorkspaceTxt, "Job Creation Partnership Evidence Workspace:");
-		System.out.println("Job Creation Partnership link is opened");
-		logger.log(LogStatus.PASS, "Job Creation Partnership link is opened");
+//		String JCPWorkspaceTxt = pdc.JCPWorkspaceTxt.getText().trim();
+//		AssertTextPresentmethodWithExtendPassFail(JCPWorkspaceTxt, "Job Creation Partnership Evidence Workspace:");
+//		System.out.println("Job Creation Partnership link is opened");
+//		logger.log(LogStatus.PASS, "Job Creation Partnership link is opened");
 		
 		//Click on New button
 		pdc.JCPNewButton.click();
@@ -627,14 +670,15 @@ public class CreatePDC extends testbaseforproject{
 		driver.switchTo().window(JCPPopupWindow);
 		System.out.println("Switch to JCP Evidence Details popup window");
 		
+		driver.switchTo().frame(5);
+		
 		//Verify JCP Evidence Details popup window is opened
-		String JCPDetailsTxt = pdc.ModalDialogTxt.getText().trim();
-		AssertTextPresentmethodWithExtendPassFail(JCPDetailsTxt, "New Job Creation Partnership Evidence Details:");
+		String JCPDetailsTxt = pdc.JCPTxt.getText().trim();
+		AssertTextPresentmethodWithExtendPassFail(JCPDetailsTxt, "Job Creation Partnership");
 		System.out.println("JCP Evidence Details popup window is opened");
 		logger.log(LogStatus.PASS, "JCP Evidence Details popup window is opened");
 		
 		//Enter JCP Contract Number
-		driver.switchTo().frame(5);
 		pdc.JCPContractNumber.sendKeys(generalRandomNumber(1000000, 9000000));
 		System.out.println("JCP contract Number is entered");
 		logger.log(LogStatus.PASS, "JCP contract Number is entered");
@@ -650,14 +694,16 @@ public class CreatePDC extends testbaseforproject{
 		driver.switchTo().window(serviceDeliveryWindow);
 		System.out.println("Switch to Service Delivery Site Search window");
 		
+		driver.switchTo().frame(6);
+		
 		//Verify Service Delivery Site window is opened
-		String serviceDeliverySiteTxt = pdc.ModalDialogTxt.getText().trim();
-		AssertTextPresentmethodWithExtendPassFail(serviceDeliverySiteTxt, "Service Delivery Site Search");
+		String serviceDeliverySiteTxt = pdc.ServiceDeliverySiteTxt.getText().trim();
+		AssertTextPresentmethodWithExtendPassFail(serviceDeliverySiteTxt, "Search Criteria");
 		System.out.println("Service Delivery Site window is opened");
 		logger.log(LogStatus.PASS, "Service Delivery Site window is opened");
 		
 		//Enter Reference Number
-		driver.switchTo().frame(6);
+
 		pdc.ServiceDeliverySiteRefNum.sendKeys("3002B");
 		System.out.println("Reference number 3002B is entered");
 		logger.log(LogStatus.PASS, "Reference number 3002B is entered");
@@ -709,15 +755,16 @@ public class CreatePDC extends testbaseforproject{
 		System.out.println("Switch to the Apprenticeship Employer Evidence Details window");
 		logger.log(LogStatus.PASS, "Switch to the Apprenticeship Employer Evidence Details window");
 		
+		driver.switchTo().frame(5);
+		
 		Thread.sleep(1000);
 		//Verify Apprenticeship Employer Evidence Details window is opened
-		String apprEvidenceDetailsTxt = pdc.ModalDialogTxt.getText().trim();
-		AssertTextPresentmethodWithExtendPassFail(apprEvidenceDetailsTxt, "New Apprenticeship Employer Evidence Details");
+		String apprEvidenceDetailsTxt = pdc.ApprenticeshipTxt.getText().trim();
+		AssertTextPresentmethodWithExtendPassFail(apprEvidenceDetailsTxt, "Apprenticeship Employer");
 		System.out.println("Apprenticeship Employer Evidence Details window is opened");
 		logger.log(LogStatus.PASS, "Apprenticeship Employer Evidence Details window is opened");
 		
 		//Click on APPR Employer Lookup Glass
-		driver.switchTo().frame(5);
 		pdc.ApprenticeshipEmployerLookupGlass.click();
 		System.out.println("Employer Lookup glass is clicked");
 		logger.log(LogStatus.PASS, "Employer Lookup glass is clicked");
@@ -760,13 +807,13 @@ public class CreatePDC extends testbaseforproject{
 		logger.log(LogStatus.PASS, "APPR Training Agreement Number " + APPRTANum + " is entered");
 		
 		//Enter APPR Certification Date
-		pdc.ApprenticeshipCertificationDate.sendKeys(setDate(-8));
+		pdc.ApprenticeshipCertificationDate.sendKeys(setDate(-9));
 		System.out.println("APPR Certification Date is entered");
 		logger.log(LogStatus.PASS, "APPR Certification Date is entered");
 		
 		//Enter Received Date
 		pdc.ApprenticeshipReceivedDate.clear();
-		pdc.ApprenticeshipReceivedDate.sendKeys(setDate(-8));
+		pdc.ApprenticeshipReceivedDate.sendKeys(setDate(-9));
 		System.out.println("Received Date is entered");
 		logger.log(LogStatus.PASS, "Received Date is entered");
 		
@@ -803,10 +850,10 @@ public class CreatePDC extends testbaseforproject{
 		
 		Thread.sleep(1000);
 		//Verify the Set Case SuperVisor window is opened
-		String setCaseSupervisorTxt = pdc.ModalDialogTxt.getText().trim();
-		AssertTextPresentmethodWithExtendPassFail(setCaseSupervisorTxt, "Set Case Supervisor");
-		System.out.println("Set Case Suprvisor window is opened");
-		logger.log(LogStatus.PASS, "Set Case Suprvisor window is opened");
+//		String setCaseSupervisorTxt = pdc.ModalDialogTxt.getText().trim();
+//		AssertTextPresentmethodWithExtendPassFail(setCaseSupervisorTxt, "Set Case Supervisor");
+//		System.out.println("Set Case Suprvisor window is opened");
+//		logger.log(LogStatus.PASS, "Set Case Suprvisor window is opened");
 		
 		//Click on New Supervisor lookup glass
 		driver.switchTo().frame(5);
@@ -821,10 +868,10 @@ public class CreatePDC extends testbaseforproject{
 		
 		Thread.sleep(1000);
 		//Verify select a user window is opened
-		String selectAUserTxt = pdc.ModalDialogTxt.getText().trim();
-		AssertTextPresentmethodWithExtendPassFail(selectAUserTxt, "Select a user:");
-		System.out.println("Select a user window is opened");
-		logger.log(LogStatus.PASS, "Select a user window is opened");
+//		String selectAUserTxt = pdc.ModalDialogTxt.getText().trim();
+//		AssertTextPresentmethodWithExtendPassFail(selectAUserTxt, "Select a user:");
+//		System.out.println("Select a user window is opened");
+//		logger.log(LogStatus.PASS, "Select a user window is opened");
 		
 		//Enter Supervisor First Name
 		driver.switchTo().frame(6);
@@ -940,14 +987,15 @@ public class CreatePDC extends testbaseforproject{
 		System.out.println("Switch to Apply Evidence window");
 		
 		Thread.sleep(1000);
+		
+		driver.switchTo().frame(5);
 		//Verify Apply Evidence window is opened
-		String applyEvidenceTxt = pdc.ModalDialogTxt.getText().trim();
-		AssertTextPresentmethodWithExtendPassFail(applyEvidenceTxt, "Apply Evidence Changes:");
+		String applyEvidenceTxt = pdc.EvidenceTxt.getText().trim();
+		AssertTextPresentmethodWithExtendPassFail(applyEvidenceTxt, "List of New and Updated Evidence");
 		System.out.println("Apply Evidence window is opened");
 		logger.log(LogStatus.PASS, "Apply Evidence window is opened");
 		
 		//Click on select all Evidence check box
-		driver.switchTo().frame(5);
 		pdc.AllEvidenceCheckbox.click();
 		System.out.println("All Evidence check box is clicked");
 		logger.log(LogStatus.PASS, "All Evidence check box is clicked");
@@ -958,7 +1006,20 @@ public class CreatePDC extends testbaseforproject{
 		logger.log(LogStatus.PASS, "Apply Evidence button is clicked");
 	}
 	
-	public void approveEvidence() {
+	public void approveEvidence() {		
+		//Click on Evidence tab
+		driver.switchTo().window(driver.getWindowHandle());
+		pdc.EvidenceTab.click();
+		System.out.println("Evidence Tab is clicked");
+		logger.log(LogStatus.PASS, "Evidence Tab is clicked");
+		
+		//Verify Site Map title
+		driver.switchTo().frame(2);
+//		String siteMapTxt = pdc.SiteMapTxt.getText().trim();
+//		AssertTextPresentmethodWithExtendPassFail(siteMapTxt, "Site Map: Apprenticeship");
+//		System.out.println("Site Map is opened");
+//		logger.log(LogStatus.PASS, "Site Map is opened");
+		
 		//Click on Site Map action menu
 		pdc.SiteMapActionMenu.click();
 		System.out.println("Site Map action menu is clicked");
@@ -974,14 +1035,15 @@ public class CreatePDC extends testbaseforproject{
 		driver.switchTo().window(approveEvidenceWindow);
 		System.out.println("Switch to Approve Evidence window");
 		
+		driver.switchTo().frame(3);
+		
 		//Verify Approve Evidence window is opened
-		String approveEvidenceTxt = pdc.ModalDialogTxt.getText().trim();
-		AssertTextPresentmethodWithExtendPassFail(approveEvidenceTxt, "Approve Evidence Changes: Apprenticeship");
+		String applyEvidenceTxt = pdc.EvidenceTxt.getText().trim();
+		AssertTextPresentmethodWithExtendPassFail(applyEvidenceTxt, "List of Evidence for Approval");
 		System.out.println("Approve Evidence window is opened");
 		logger.log(LogStatus.PASS, "Approve Evidence window is opened");
 		
 		//Click on select all Evidence check box
-		driver.switchTo().frame(3);
 		pdc.AllEvidenceCheckbox.click();
 		System.out.println("All Evidence check box is clicked");
 		logger.log(LogStatus.PASS, "All Evidence check box is clicked");
@@ -995,4 +1057,97 @@ public class CreatePDC extends testbaseforproject{
 		Alert alert = driver.switchTo().alert();
 		alert.accept();
 	}
+	
+	public void reApplyEvidence() {
+		//Click on Evidence tab
+		driver.switchTo().window(driver.getWindowHandle());
+//		pdc.EvidenceTab.click();
+//		System.out.println("Evidence Tab is clicked");
+//		logger.log(LogStatus.PASS, "Evidence Tab is clicked");
+//		
+//		//Verify Site Map title
+		driver.switchTo().frame(2);
+////		String siteMapTxt = pdc.SiteMapTxt.getText().trim();
+////		AssertTextPresentmethodWithExtendPassFail(siteMapTxt, "Site Map: Apprenticeship");
+////		System.out.println("Site Map is opened");
+////		logger.log(LogStatus.PASS, "Site Map is opened");
+//		
+		//Click on Site Map action menu
+		pdc.SiteMapActionMenu.click();
+		System.out.println("Site Map action menu is clicked");
+		logger.log(LogStatus.PASS, "Site Map action menu is clicked");
+		
+		//CLick on Apply Evidence Option
+		pdc.ApplyEvidenceOption.click();
+		System.out.println("Apply Evidence Option is clicked");
+		logger.log(LogStatus.PASS, "Apply Evidence Option is clicked");
+		
+		//Switch to Apply Evidence window
+		String applyEvidenceWindow = driver.getWindowHandle();
+		driver.switchTo().window(applyEvidenceWindow);
+		System.out.println("Switch to Apply Evidence window");
+		
+		driver.switchTo().frame(3);
+		
+		//Verify Apply Evidence window is opened
+		String applyEvidenceTxt = pdc.EvidenceTxt.getText().trim();
+		AssertTextPresentmethodWithExtendPassFail(applyEvidenceTxt, "List of New and Updated Evidence");
+		System.out.println("Apply Evidence window is opened");
+		logger.log(LogStatus.PASS, "Apply Evidence window is opened");
+		
+		//Click on select all Evidence check box
+
+		pdc.AllEvidenceCheckbox.click();
+		System.out.println("All Evidence check box is clicked");
+		logger.log(LogStatus.PASS, "All Evidence check box is clicked");
+		
+		//Click on Apply Evidence button
+		pdc.ApplyApproveEvidenceButton.click();
+		System.out.println("Apply Evidence button is clicked");
+		logger.log(LogStatus.PASS, "Apply Evidence button is clicked");	
+	}
+	
+	public void logoutCAMS() throws InterruptedException {
+		//Click on person menu
+		pdc.PersonMenu.click();
+		System.out.println("Person Menu is clicked");
+		logger.log(LogStatus.PASS, "Person Menu is clicked");
+		
+		
+		Thread.sleep(1000);
+		//click on logout option
+		pdc.LogoutButton.click();
+		System.out.println("Logout option is clicked");
+		logger.log(LogStatus.PASS, "Logout option is clicked");
+	}
+	
+	public void reloginAsManager(LoginElements login, String caseName) throws InterruptedException {
+		//get the url
+		String url = config.getProperty("url");
+		getUrl(url);
+		
+		String username = config.getProperty("userCURAM7Manager");
+		String password = config.getProperty("pwdCURAM7Manager");
+		String usernameRL = config.getProperty("userCURAM7RegionalLead");
+		String passwordRL = config.getProperty("pwdCURAM7RegionalLead");
+		
+		if(caseName.equalsIgnoreCase("ACB") || caseName.equalsIgnoreCase("ECB") || caseName.equalsIgnoreCase("SNEB")) {
+			login.curam7Login(usernameRL, passwordRL);
+		}else {
+			login.curam7Login(username, password);
+		}
+
+	}
+	
+	public void reloginAsCaseWorker(LoginElements login) throws InterruptedException {
+		//get the url
+		String url = config.getProperty("url");
+		getUrl(url);
+		
+		String username = config.getProperty("userCURAM7CaseWorker");
+		String password = config.getProperty("pwdCURAM7CaseWorker");
+		
+		login.curam7Login(username, password);
+	}
+	
 }
