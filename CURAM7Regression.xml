@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="SuiteLogin">
+  <test name="TestLogin">
+    <classes>
+       <class name="CURAM7Regression.CreatePDC_ACB"/>
+       <class name="CURAM7Regression.CreatePDC_ECB"/>
+       <class name="CURAM7Regression.CreatePDC_SNEB"/>
+       <class name="CURAM7Regression.CreatePDC_Feepayer"/>
+       <class name="CURAM7Regression.CreatePDC_JCP"/>
+       <class name="CURAM7Regression.CreatePDC_Apprenticeship"/>
+       <class name="CURAM7Regression.CreatePDC_SecondCareer"/>
+	
+    </classes>
+  </test> <!-- TestLogin -->
+</suite> <!-- SuiteLogin -->
