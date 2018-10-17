@@ -5,11 +5,13 @@ import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
+import org.testng.Assert;
 
 import com.relevantcodes.extentreports.LogStatus;
 
 import CURAM7.LoginElements;
 import CURAM7.PDCElements;
+import CURAM7.RegisterPersonElements;
 import support.ReadWriteDataToExcel;
 import testbase.testbaseforproject;
 
@@ -27,6 +29,7 @@ public class CreatePDC extends testbaseforproject{
 		
 		//Search EOCaseID by global search
 		pdc = new PDCElements(driver);
+		pdc.ReferenceNumberSearchField.clear();
 		pdc.ReferenceNumberSearchField.sendKeys(CaseID);
 		
 		System.out.println("Case Reference Number " + CaseID + " is entered");
@@ -43,11 +46,6 @@ public class CreatePDC extends testbaseforproject{
 		driver.switchTo().frame(2);
 		System.out.println("Switch to Frame 2");
 		
-/*		//Verify Case Home page is opened
-		String HomeTxt = pdc.HomeTxt.getText().trim();
-		AssertTextPresentmethodWithExtendPassFail(HomeTxt, hometitleTxt);
-		System.out.println("Case Home page is opened");
-		logger.log(LogStatus.PASS, "Case Home page is opened");*/
 	}
 
 	public void createNewProduct(String selectProductType, String deliveryPattern) throws InterruptedException {
@@ -423,6 +421,7 @@ public class CreatePDC extends testbaseforproject{
 				System.out.println("Benefit link is clicked");
 				logger.log(LogStatus.PASS, "Benefit link is clicked");
 				
+				Thread.sleep(2000);
 				//Verify Benefit Evidence Workspace is opened
 				String benefitEvidenceWorkspaceTxt = pdc.BenefitWorkspaceTxt.getText().trim();
 				AssertTextPresentmethodWithExtendPassFail(benefitEvidenceWorkspaceTxt, "Benefit Evidence Workspace");
@@ -433,10 +432,24 @@ public class CreatePDC extends testbaseforproject{
 			pdc.BenefitLinkACB.click();
 			System.out.println("Benefit link is clicked");
 			logger.log(LogStatus.PASS, "Benefit link is clicked");
+			
+			Thread.sleep(2000);
+			//Verify Benefit Evidence Workspace is opened
+			String benefitEvidenceWorkspaceTxt = pdc.BenefitWorkspaceTxt.getText().trim();
+			AssertTextPresentmethodWithExtendPassFail(benefitEvidenceWorkspaceTxt, "Benefit Evidence Workspace");
+			System.out.println("Benefit Evidence workspace is opened");
+			logger.log(LogStatus.PASS, "Benefit Evidence workspace is opened");
 		}else if(type.equalsIgnoreCase("ECB")) {
 			pdc.BenefitLinkECB.click();
 			System.out.println("Benefit link is clicked");
 			logger.log(LogStatus.PASS, "Benefit link is clicked");
+			
+			Thread.sleep(2000);
+			//Verify Benefit Evidence Workspace is opened
+			String benefitEvidenceWorkspaceTxt = pdc.BenefitWorkspaceTxt.getText().trim();
+			AssertTextPresentmethodWithExtendPassFail(benefitEvidenceWorkspaceTxt, "Benefit Evidence Workspace");
+			System.out.println("Benefit Evidence workspace is opened");
+			logger.log(LogStatus.PASS, "Benefit Evidence workspace is opened");
 		}else {
 			driver.manage().timeouts().implicitlyWait(0, TimeUnit.MILLISECONDS);
 			if(driver.findElements(By.xpath("//*[@id=\"content\"]/div[3]/div/table/tbody/tr[2]/td/div/div/table/tbody/tr[3]/td[2]/span/a")).size() != 0) {
@@ -445,6 +458,7 @@ public class CreatePDC extends testbaseforproject{
 				System.out.println("Benefit link is clicked");
 				logger.log(LogStatus.PASS, "Benefit link is clicked");
 				
+				Thread.sleep(2000);
 				//Verify Benefit Evidence Workspace is opened
 				String benefitEvidenceWorkspaceTxt = pdc.BenefitWorkspaceTxt.getText().trim();
 				AssertTextPresentmethodWithExtendPassFail(benefitEvidenceWorkspaceTxt, "Benefit Evidence Workspace");
@@ -555,6 +569,7 @@ public class CreatePDC extends testbaseforproject{
 		System.out.println("Multi Year Forcasting link is clicked");
 		logger.log(LogStatus.PASS, "Multi Year Forcasting link is clicked");
 		
+		Thread.sleep(2000);
 		//Verify Multi Year Forecasting Evidence Workspace is opened
 		String multiYearTxt = pdc.MultiYearForecastingWorkspaceTxt.getText().trim();
 		AssertTextPresentmethodWithExtendPassFail(multiYearTxt, "Multi Year Forecasting Evidence Workspace");
@@ -600,6 +615,7 @@ public class CreatePDC extends testbaseforproject{
 		System.out.println("Client Contribution Link is clicked");
 		logger.log(LogStatus.PASS, "Client Contribution Link is clicked");
 		
+		Thread.sleep(2000);
 		//Verify Client Contribution Evidence Workspace is opened
 		String clientContributionWorkspaceTxt = pdc.ClientContributionWorkspaceTxt.getText().trim();
 		AssertTextPresentmethodWithExtendPassFail(clientContributionWorkspaceTxt, "Client Contribution Evidence Workspace");
@@ -659,6 +675,7 @@ public class CreatePDC extends testbaseforproject{
 //		System.out.println("Job Creation Partnership link is opened");
 //		logger.log(LogStatus.PASS, "Job Creation Partnership link is opened");
 		
+		Thread.sleep(1000);
 		//Click on New button
 		pdc.JCPNewButton.click();
 		System.out.println("JCP New button is clicked");
@@ -738,12 +755,14 @@ public class CreatePDC extends testbaseforproject{
 		System.out.println("Aprrenticeship Link is clicked");
 		logger.log(LogStatus.PASS, "Aprrenticeship Link is clicked");
 		
+		Thread.sleep(2000);
 		//Verify Apprenticeship Employer Evidence Workspace is opened
 		String apprEvidenceWorkspaceTxt = pdc.ApprenticeshipWorkspaceTxt.getText().trim();
 		AssertTextPresentmethodWithExtendPassFail(apprEvidenceWorkspaceTxt, "Apprenticeship Employer Evidence Workspace");
 		System.out.println("Apprenticeship Employer Evidence Workspace is opened");
 		logger.log(LogStatus.PASS, "Apprenticeship Employer Evidence Workspace is opened");
 		
+		Thread.sleep(1000);
 		//Click on New button
 		pdc.ApprenticeshipNewButton.click();
 		System.out.println("Apprenticeship New Button is clicked");
@@ -1006,7 +1025,8 @@ public class CreatePDC extends testbaseforproject{
 		logger.log(LogStatus.PASS, "Apply Evidence button is clicked");
 	}
 	
-	public void approveEvidence() {		
+	public void approveEvidence() throws InterruptedException {	
+		Thread.sleep(1000);
 		//Click on Evidence tab
 		driver.switchTo().window(driver.getWindowHandle());
 		pdc.EvidenceTab.click();
@@ -1059,19 +1079,9 @@ public class CreatePDC extends testbaseforproject{
 	}
 	
 	public void reApplyEvidence() {
-		//Click on Evidence tab
 		driver.switchTo().window(driver.getWindowHandle());
-//		pdc.EvidenceTab.click();
-//		System.out.println("Evidence Tab is clicked");
-//		logger.log(LogStatus.PASS, "Evidence Tab is clicked");
-//		
-//		//Verify Site Map title
 		driver.switchTo().frame(2);
-////		String siteMapTxt = pdc.SiteMapTxt.getText().trim();
-////		AssertTextPresentmethodWithExtendPassFail(siteMapTxt, "Site Map: Apprenticeship");
-////		System.out.println("Site Map is opened");
-////		logger.log(LogStatus.PASS, "Site Map is opened");
-//		
+		
 		//Click on Site Map action menu
 		pdc.SiteMapActionMenu.click();
 		System.out.println("Site Map action menu is clicked");
@@ -1150,4 +1160,328 @@ public class CreatePDC extends testbaseforproject{
 		login.curam7Login(username, password);
 	}
 	
+	public boolean checkEFT(RegisterPersonElements rpe) {
+		boolean EFT = false;
+		//Check Deliver Pattern
+		String deliveryPatternTxt = rpe.HomeDeliveryPatternTxt.getText().trim();
+		System.out.println("Delivery pattern is : " + deliveryPatternTxt);
+		if(deliveryPatternTxt.contains("EFT")) {
+			EFT = true;
+			System.out.println("Delivery type is EFT");
+		}else {
+			System.out.println("Delivery type is Cheque");
+		}
+		
+		return EFT;
+	}
+	
+	public void changeNominee() throws InterruptedException {
+		//Go to Financial
+		pdc.FinancialTab.click();
+		System.out.println("Finacial Tab is clicked");
+		logger.log(LogStatus.PASS, "Finacial Tab is clicked");
+		
+		//Click on Nominees
+		pdc.NomineesTab.click();
+		System.out.println("Nominees is clicked");
+		logger.log(LogStatus.PASS, "Nominees is clicked");
+		
+		//Verify Nominees is opened
+		Thread.sleep(1000);
+		driver.switchTo().frame(2);
+		String nomineesTxt = pdc.NomineesTxt.getText().trim();
+		AssertTextPresentmethodWithExtendPassFail(nomineesTxt, "Nominees");
+		System.out.println("Nominees is opened");
+		logger.log(LogStatus.PASS, "Nominees is opened");
+		
+		//Click on Action Button
+		pdc.NomineesActionMenu.click();
+		System.out.println("Action Menu is clicked");
+		logger.log(LogStatus.PASS, "Action Menu is clicked");
+		
+		//Click on Change Bank Account option
+		pdc.NomineesChangeBankAccountAction.click();
+		System.out.println("Change Bank Account option is clicked");
+		logger.log(LogStatus.PASS, "Change Bank Account option is clicked");
+		
+		//Click on Select bank
+		driver.switchTo().window(driver.getWindowHandle());
+		driver.switchTo().frame(3);
+		pdc.NomineesChangeBankAccountSelectButton.click();
+		System.out.println("Select Bank Account button is clicked");
+		logger.log(LogStatus.PASS, "Select Bank Account button is clicked");
+		
+		//Click on Yes button to confirm
+		driver.switchTo().window(driver.getWindowHandle());
+		driver.switchTo().frame(3);
+		pdc.NomineesChangeBankAccountConfirmButton.click();
+		System.out.println("Yes button is clicked");
+		logger.log(LogStatus.PASS, "Yes button is clicked");
+
+		
+	}
+	
+	public void activateCase(String type) throws InterruptedException {
+		//Click on Home Tab
+		driver.switchTo().window(driver.getWindowHandle());
+		pdc.HomeTab.click();
+		System.out.println("Home Tab is clicked");
+		logger.log(LogStatus.PASS, "Home Tab is clicked");
+		
+		if(type.equalsIgnoreCase("ACB") || type.equalsIgnoreCase("ECB") || type.equalsIgnoreCase("SNEB")) {
+			//Click on Home Action menu
+			driver.switchTo().frame(2);
+			pdc.HomeActionMenu.click();
+			System.out.println("Home Action menu is clicked");
+			logger.log(LogStatus.PASS, "Home Action menu is clicked");
+			
+			//Click on Activate option
+			pdc.ActivateButton.click();
+			System.out.println("Activate option is clicked");
+			logger.log(LogStatus.PASS, "Activate option is clicked");
+		}else {
+			driver.switchTo().frame(2);
+			pdc.HomePageAction.click();
+			System.out.println("Home Action menu is clicked");
+			logger.log(LogStatus.PASS, "Home Action menu is clicked");
+			
+			//Click on Activate option
+			pdc.ActivateButton2.click();
+			System.out.println("Activate option is clicked");
+			logger.log(LogStatus.PASS, "Activate option is clicked");
+		}
+		
+		//Click on Yes to confirm
+		driver.switchTo().window(driver.getWindowHandle());
+		driver.switchTo().frame(3);
+		String activateTxt = pdc.ActivateTxt.getText().trim();
+		AssertTextPresentmethodWithExtendPassFail(activateTxt, "Are you sure you want to activate this case?");
+		System.out.println("Activate case window is opened");
+		logger.log(LogStatus.PASS, "Activate case window is opened");
+		
+		//Click on Yes button
+		pdc.ActivateYesButton.click();
+		System.out.println("Activate Yes button is clicked");
+		logger.log(LogStatus.PASS, "Activate Yes button is clicked");
+		
+		//CLick on Refresh button
+		driver.switchTo().window(driver.getWindowHandle());
+		driver.switchTo().frame(2);
+		Thread.sleep(3000);
+		pdc.RefreshButton.click();
+		System.out.println("Refresh button is clicked");
+		logger.log(LogStatus.PASS, "Refresh button is clicked");
+		
+		//Check the Status
+		String status = pdc.CaseStatus.getText().trim();
+		while(!status.equalsIgnoreCase("Active")) {
+			Thread.sleep(1000);
+			pdc.RefreshButton.click();
+			System.out.println("Refresh button is clicked again");
+			logger.log(LogStatus.PASS, "Refresh button is clicked again");
+			status = pdc.CaseStatus.getText().trim();
+		}
+		AssertTextPresentmethodWithExtendPassFail(status, "Active");
+		System.out.println("The Status is: " + status);
+		
+	}
+	
+	public void submitForApproval() throws InterruptedException {
+		//Click on Home Tab
+		driver.switchTo().window(driver.getWindowHandle());
+		pdc.HomeTab.click();
+		System.out.println("Home Tab is clicked");
+		logger.log(LogStatus.PASS, "Home Tab is clicked");
+		
+		//Click on Home Action menu
+		driver.switchTo().frame(2);
+		pdc.HomePageAction.click();
+		System.out.println("Home Action menu is clicked");
+		logger.log(LogStatus.PASS, "Home Action menu is clicked");
+		
+		//Click on Submit for Approval option
+		pdc.SubmitApprovealButton.click();
+		System.out.println("Submit for Approval option is clicked");
+		logger.log(LogStatus.PASS, "Submit for Approval option is clicked");
+		
+		//Click on Yes to confirm
+		driver.switchTo().window(driver.getWindowHandle());
+		driver.switchTo().frame(3);
+		String activateTxt = pdc.ActivateTxt.getText().trim();
+		AssertTextPresentmethodWithExtendPassFail(activateTxt, "Are you sure you want to submit this case for approval?");
+		System.out.println("Submit for Approval case window is opened");
+		logger.log(LogStatus.PASS, "Submit for Approval case window is opened");
+		
+		//Click on Yes button
+		pdc.ActivateYesButton.click();
+		System.out.println("Submit for Approval Yes button is clicked");
+		logger.log(LogStatus.PASS, "Submit for Approval Yes button is clicked");
+		
+		//CLick on Refresh button
+		driver.switchTo().window(driver.getWindowHandle());
+		driver.switchTo().frame(2);
+		Thread.sleep(3000);
+		pdc.RefreshButton.click();
+		System.out.println("Refresh button is clicked");
+		logger.log(LogStatus.PASS, "Refresh button is clicked");
+		
+		//Check the Status
+		String status = pdc.CaseStatus.getText().trim();
+		while(!status.equalsIgnoreCase("Approved")) {
+			Thread.sleep(1000);
+			pdc.RefreshButton.click();
+			System.out.println("Refresh button is clicked again");
+			logger.log(LogStatus.PASS, "Refresh button is clicked again");
+			status = pdc.CaseStatus.getText().trim();
+		}
+		AssertTextPresentmethodWithExtendPassFail(status, "Approved");
+		System.out.println("The Status is: " + status);
+		
+	}
+	
+	public void addContracts() throws InterruptedException {
+		//Go to Contracts Tab
+		driver.switchTo().window(driver.getWindowHandle());
+		pdc.ContractsTab.click();
+		System.out.println("Contract tab is clicked");
+		logger.log(LogStatus.PASS, "Contract tab is clicked");
+		
+		//Verify Contracts is opened
+		driver.switchTo().frame(2);
+		String contractsTxt = pdc.ContractsTxt.getText().trim();
+		AssertTextPresentmethodWithExtendPassFail(contractsTxt, "Contracts");
+		System.out.println("Contracts is opened");
+		logger.log(LogStatus.PASS, "Contracts is opened");
+		
+		//Click on New Button
+		pdc.ContractsNewButton.click();
+		System.out.println("Contract New button is clicked");
+		logger.log(LogStatus.PASS, "Contract New button is clicked");
+		
+		//Verify the New Contract window is opened
+		driver.switchTo().window(driver.getWindowHandle());
+		driver.switchTo().frame(3);
+		String contractDetailsTxt = pdc.ContractsDetailsTxt.getText().trim();
+		AssertTextPresentmethodWithExtendPassFail(contractDetailsTxt, "Details");
+		System.out.println("Contract window is opened");
+		logger.log(LogStatus.PASS, "Contract window is opened");
+		
+		//Click on Save button
+		pdc.ContractsSaveButton.click();
+		System.out.println("Contract Save button is clicked");
+		logger.log(LogStatus.PASS, "Contract Save button is clicked");
+		
+		//Click on Action menu
+		driver.switchTo().window(driver.getWindowHandle());
+		driver.switchTo().frame(2);
+		Thread.sleep(1000);
+		pdc.ContractsActionMenu.click();
+		System.out.println("Contract Action Menu is clicked");
+		logger.log(LogStatus.PASS, "Contract Action Menu is clicked");
+		
+		//Click on Edit option
+		pdc.ContractsEditOption.click();
+		System.out.println("Contract Edit option is clicked");
+		logger.log(LogStatus.PASS, "Contract Edit option is clicked");
+		
+		//Enter date signed
+		driver.switchTo().window(driver.getWindowHandle());
+		driver.switchTo().frame(3);
+		pdc.ContractsDateSigned.sendKeys(setDate(0));
+		System.out.println("Contract Date Signed is entered");
+		logger.log(LogStatus.PASS, "Contract Date Signed is entered");
+		
+		//Contract Save button is clicked
+		pdc.ContractsSaveButton.click();
+		System.out.println("Contract Save button is clicked");
+		logger.log(LogStatus.PASS, "Contract Save button is clicked");
+		
+		//Check the Contract status
+		driver.switchTo().window(driver.getWindowHandle());
+		driver.switchTo().frame(2);
+		Thread.sleep(2000);
+		String contractStatusTxt = pdc.ContractsStatus.getText().trim();
+		AssertTextPresentmethodWithExtendPassFail(contractStatusTxt, "Active");
+		System.out.println("Contract status is: " + contractStatusTxt);
+		logger.log(LogStatus.PASS, "Contract status is: " + contractStatusTxt);
+		
+	}
+	
+	public void addMonitors() {
+		//Go to Monitors tab
+		driver.switchTo().window(driver.getWindowHandle());
+//		verifyErrorsNotPresentWithOutPassReport();
+		pdc.MonitorsTab.click();
+		System.out.println("Monitors tab is clicked");
+		logger.log(LogStatus.PASS, "Monitors tab is clicked");
+		
+		//Verify Monitors tab is opened
+		driver.switchTo().frame(2);
+		String monitorsTxt = pdc.MonitorsText.getText().trim();
+		AssertTextPresentmethodWithExtendPassFail(monitorsTxt, "Monitors");
+		System.out.println("Monitors tab is opened");
+		logger.log(LogStatus.PASS, "Monitors tab is opened");
+		
+		//Click the Initial Monitor Action button
+		pdc.MonitorsActionInitial.click();
+		System.out.println("Initial Monitor Action button is clicked");
+		logger.log(LogStatus.PASS, "Initial Monitor Action button is clicked");
+		
+		//Click the Record Monitor Option
+		pdc.MonitorsInitalRecordOption.click();
+		System.out.println("Record Monitor Option for Initial is clicked");
+		logger.log(LogStatus.PASS, "Record Monitor Option for Initial is clicked");
+		
+		//Verify the Monitor window is opened
+		driver.switchTo().window(driver.getWindowHandle());
+		driver.switchTo().frame(3);
+//		verifyErrorsNotPresentWithOutPassReport();
+		String monitorsWindowTxt = pdc.MonitorsClientInfoTxt.getText().trim();
+		AssertTextPresentmethodWithExtendPassFail(monitorsWindowTxt, "Client Information");
+		System.out.println("Monitor window is opened");
+		logger.log(LogStatus.PASS, "Monitor window is opened");
+		
+		//Enter Monitor schedule
+		pdc.MonitorsScheduleDate.sendKeys(setDate(0));
+		System.out.println("Initial Monitor Schedule Date is entered");
+		logger.log(LogStatus.PASS, "Initial Monitor Schedule Date is entered");
+		
+		//Click on Save button
+		pdc.MonitorsSaveButton.click();
+		System.out.println("Initial Monitor Save button is clicked");
+		logger.log(LogStatus.PASS, "Initial Monitor Save button is clicked");
+		
+		//Click on Final Monitor action menu
+		driver.switchTo().window(driver.getWindowHandle());
+		driver.switchTo().frame(2);
+//		verifyErrorsNotPresentWithOutPassReport();
+		pdc.MonitorsActionFinal.click();
+		System.out.println("Final Monitor Action menu is clicked");
+		logger.log(LogStatus.PASS, "Final Monitor Action menu is clicked");
+		
+		//Click on Record Monitor option
+		pdc.MonitorsFinalRecordOption.click();
+		System.out.println("Final Record Monitor option is clicked");
+		logger.log(LogStatus.PASS, "Final Record Monitor option is clicked");
+		
+		//Verify the Monitor window is opened
+		driver.switchTo().window(driver.getWindowHandle());
+		driver.switchTo().frame(3);
+//		verifyErrorsNotPresentWithOutPassReport();
+		monitorsWindowTxt = pdc.MonitorsClientInfoTxt.getText().trim();
+		AssertTextPresentmethodWithExtendPassFail(monitorsWindowTxt, "Client Information");
+		System.out.println("Monitor window is opened");
+		logger.log(LogStatus.PASS, "Monitor window is opened");
+		
+		//Enter Monitor schedule
+		pdc.MonitorsScheduleDate.sendKeys(setDate(0));
+		System.out.println("Initial Monitor Schedule Date is entered");
+		logger.log(LogStatus.PASS, "Initial Monitor Schedule Date is entered");
+		
+		//Click on Save button
+		pdc.MonitorsSaveButton.click();
+		System.out.println("Initial Monitor Save button is clicked");
+		logger.log(LogStatus.PASS, "Initial Monitor Save button is clicked");
+		
+	}
 }

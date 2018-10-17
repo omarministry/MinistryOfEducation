@@ -43,8 +43,8 @@ public class ApproveEvidence extends testbaseforproject{
 
 		Thread.sleep(2000);
 		
-		String username = config.getProperty("userCURAM7Manager");
-		String password = config.getProperty("pwdCURAM7Manager");
+		String username = config.getProperty("userCURAM7RegionalLead");
+		String password = config.getProperty("pwdCURAM7RegionalLead");
 		System.out.println("User Name from Config file...." + username);
 		login.curam7Login(username, password);
 		
@@ -59,7 +59,7 @@ public class ApproveEvidence extends testbaseforproject{
 		data = new ReadWriteDataToExcel();
 		
 		//Search case
-		createPDC.globalLoookupByCaseID("PDC_SecondCareerCaseID");
+		createPDC.globalLoookupByCaseID("PDC_ECBCaseID");
 		
 		//Approve Evidence
 		createPDC.approveEvidence();

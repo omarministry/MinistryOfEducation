@@ -33,7 +33,7 @@ public class CreatePDC_Feepayer extends testbaseforproject{
 		
 		try {
 	
-		logger = report.startTest("Create PDC");
+		logger = report.startTest("Create Feepayer PDC");
 		
 		//Login
 		login = new LoginElements(driver);
@@ -166,6 +166,31 @@ public class CreatePDC_Feepayer extends testbaseforproject{
 
 		//Re-Apply Evidence
 		createPDC.reApplyEvidence();
+		
+		//Switch back to Main window
+		mainWindowHandle = driver.getWindowHandle();
+		driver.switchTo().window(mainWindowHandle);
+		
+		//Click on logout
+		createPDC.logoutCAMS();
+		
+		//Re-login as Caseworker
+		createPDC.reloginAsCaseWorker(login);
+		
+		//Search case
+		createPDC.globalLoookupByCaseID("PDC_FeepayerCaseID");
+		
+		//Add Contracts
+		createPDC.addContracts();
+		
+		//Add Monitors
+		createPDC.addMonitors();
+		
+		//Submit for Approval
+		createPDC.submitForApproval();
+		
+		//Activate the case
+		createPDC.activateCase("Feepayer");
 	
 		} catch (Exception e) {
 			

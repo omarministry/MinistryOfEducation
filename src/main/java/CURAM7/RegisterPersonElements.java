@@ -97,7 +97,6 @@ public class RegisterPersonElements extends testbaseforproject{
 	public WebElement EmploymentOntarioCaseReference;
 	
 	@FindBy(xpath="//*[@id=\"MTCUETCWorkspaceSection-stc_tablist\"]/div[4]/div/div[2]/div/div/div/span[2]")
-	//*[@id="MTCUETCWorkspaceSection-stc_tablist"]/div[4]/div/div[1]/div/div/div/span[2]
 	public WebElement CloseEO;
 	
 	@FindBy(xpath="//*[@id=\"MTCUETCWorkspaceSection-stc_tablist\"]/div[4]/div/div/div/div/div/span[2]")
@@ -105,4 +104,79 @@ public class RegisterPersonElements extends testbaseforproject{
 	
 	@FindBy(xpath="//*[@id=\"error-messages\"]/li/div")
 	public WebElement ErrorMessageAPPRPartyIDExsits;
+	
+	@FindBy(xpath="//*[@id=\"content\"]/div[3]/div/table/tbody/tr[2]/td[1]/a")
+	public WebElement ClientCaseLink;
+	
+	@FindBy(xpath="//*[@id=\"bodyTitle\"]/span")
+	public WebElement PersonHomeTxt;
+	
+	@FindBy(xpath="//*[contains(@id,\"FinancialGroup_tabLabel\")]")
+	public WebElement FinancialsTab;
+	
+	@FindBy(xpath="//*[@id=\"FinancialGroup-BankAccounts\"]/div")
+	public WebElement BankAccountsTab;
+	
+	@FindBy(xpath="//*[@id=\"bodyTitle\"]/span")
+	public WebElement BankAccountsTxt;
+	
+	@FindBy(xpath="//*[@id=\"Curam_Person_listBankAccount\"]/div[1]/div/div[2]/a")
+	public WebElement BankAccountsNewButton;
+	
+	@FindBy(xpath="//*[@id=\"mainForm\"]/div/div[2]/div/div/h3/span")
+	public WebElement BankAccountsDetailsTxt;
+	
+	@FindBy(xpath="//*[@id=\"__o3id0\"]")
+	public WebElement BankAccountsName;
+	
+	@FindBy(xpath="//*[@id=\"__o3id2\"]")
+	public WebElement BankAccountsNumber;
+	
+	@FindBy(xpath="//*[@id=\"__o3fwp.ACTION.details$participantBankAccountDetails$bankBranchID_a\"]/img")
+	public WebElement BankBranchLookupGlass;
+	
+	@FindBy(xpath="//*[@id=\"__o3id3\"]")
+	public WebElement BankFrom;
+	
+	@FindBy(xpath="//*[@id=\"modal-actions-panel\"]/div/a[1]/span/span/span")
+	public WebElement BankSaveButton;
+	
+	@FindBy(xpath="//*[@id=\"mainForm\"]/div/div[1]/div/div/h3/span")
+	public WebElement BankSearchTxt;
+	
+	@FindBy(xpath="//*[@id=\"__o3id0\"]")
+	public WebElement BankInstitutionNumber;
+	
+	@FindBy(xpath="//*[@id=\"__o3id1\"]")
+	public WebElement BankNumber;
+	
+	@FindBy(xpath="//*[@id=\"page-action-set-\"]/a[1]/span/span/span")
+	public WebElement BankSearchButton;
+	
+	@FindBy(xpath="//*[contains(@id,\"sortable_N\")]/tbody/tr/td[1]/span/a/span/span/span")
+	public WebElement BankSelectButton;
+	
+	@FindBy(xpath="//*[@id=\"__o3id0\"]")
+	public WebElement ReEnterAccountNumber;
+	
+	@FindBy(xpath="//*[@id=\"Curam_Participant_reEnterBankAccount\"]/div[1]/div[1]/div[2]/a[1]/span/span/span")
+	public WebElement SaveAccountButton;
+	
+	@FindBy(xpath="//*[@id=\"dijit_layout_AccordionPane_0\"]/ul/li[7]/a")
+	public WebElement FindPersonLeftPanel;
+	
+	@FindBy(xpath="//*[@id=\"__o3id0\"]")
+	public WebElement PersonReferenceNumber;
+	
+	@FindBy(xpath="//*[@id=\"page-action-set-\"]/a[1]/span/span/span")
+	public WebElement PersonSearchButton;
+	
+	@FindBy(xpath="//*[contains(id,\"sortable_N\")]/tbody/tr/td[1]/a")
+	public WebElement PersonSelectButton;
+	
+	@FindBy(xpath="//*[@id=\"content\"]/div[3]/div/table/tbody/tr[7]/td[1]/span")
+	public WebElement HomeDeliveryPatternTxt;
+	
+	@FindBy(xpath="//*[contains(id,\"Home_tabLabel\")]")
+	public WebElement HomeTab;
 }

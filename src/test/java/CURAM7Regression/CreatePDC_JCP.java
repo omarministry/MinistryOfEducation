@@ -33,7 +33,7 @@ public class CreatePDC_JCP extends testbaseforproject{
 		
 		try {
 	
-		logger = report.startTest("Create PDC");
+		logger = report.startTest("Create JCP PDC");
 		
 		//Login
 		login = new LoginElements(driver);
@@ -81,7 +81,7 @@ public class CreatePDC_JCP extends testbaseforproject{
 		createPDC.globalLoookupByCaseID("EOCaseID");
 		
 		//Create Apprenticeship
-		createPDC.createNewProduct("JCP", "EFT");
+		createPDC.createNewProduct("JCP", "Cheque");
 		
 		//Switch back to main window
 		String mainWindowHandle = driver.getWindowHandle();
@@ -194,6 +194,37 @@ public class CreatePDC_JCP extends testbaseforproject{
 		
 		//Re-Apply Evidence
 		createPDC.reApplyEvidence();
+		
+		//Switch back to Main window
+		mainWindowHandle = driver.getWindowHandle();
+		driver.switchTo().window(mainWindowHandle);
+		
+		//Click on logout
+		createPDC.logoutCAMS();
+		
+		//Re-login as Caseworker
+		createPDC.reloginAsCaseWorker(login);
+		
+		//Search case
+		createPDC.globalLoookupByCaseID("PDC_JCPCaseID");
+		
+		//Check EFT
+		boolean EFT = createPDC.checkEFT(rpe);
+		if(EFT) {
+			
+			register.addBankAccount(rpe);
+			//change Nominees bank account
+			createPDC.changeNominee();
+		}
+		
+		//Add Contracts
+		createPDC.addContracts();
+		
+		//Submit for approval
+		createPDC.submitForApproval();
+		
+		//Activate the case
+		createPDC.activateCase("JCP");
 	
 		} catch (Exception e) {
 			

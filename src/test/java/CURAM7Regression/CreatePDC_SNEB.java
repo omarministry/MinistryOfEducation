@@ -33,7 +33,7 @@ public class CreatePDC_SNEB extends testbaseforproject{
 		
 		try {
 	
-		logger = report.startTest("Create PDC");
+		logger = report.startTest("Create SNEB PDC");
 		
 		//Login
 		login = new LoginElements(driver);
@@ -81,7 +81,7 @@ public class CreatePDC_SNEB extends testbaseforproject{
 		createPDC.globalLoookupByCaseID("EOCaseID");
 		
 		//Create SNEB
-		createPDC.createNewProduct("SNEB", "Cheque");
+		createPDC.createNewProduct("SNEB", "EFT");
 		
 		//Switch back to main window
 		String mainWindowHandle = driver.getWindowHandle();
@@ -159,6 +159,33 @@ public class CreatePDC_SNEB extends testbaseforproject{
 		
 		//Re-Apply Evidence
 		createPDC.reApplyEvidence();
+		
+		//Switch back to Main window
+		mainWindowHandle = driver.getWindowHandle();
+		driver.switchTo().window(mainWindowHandle);
+		
+		//Click on logout
+		createPDC.logoutCAMS();
+		
+		//Re-login as Caseworker
+		createPDC.reloginAsCaseWorker(login);
+		
+		//Search case
+		createPDC.globalLoookupByCaseID("PDC_SNEBCaseID");
+		
+		//Check EFT
+		boolean EFT = createPDC.checkEFT(rpe);
+		if(EFT) {
+			
+			register.addBankAccount(rpe);
+			
+			//change Nominees bank account
+			createPDC.changeNominee();
+		}
+		
+
+		//Activate the case
+		createPDC.activateCase("SNEB");
 	
 		} catch (Exception e) {
 			

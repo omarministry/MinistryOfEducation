@@ -34,7 +34,7 @@ public class CreatePDC_ACB extends testbaseforproject{
 	
 		try {
 	
-		logger = report.startTest("Create PDC");
+		logger = report.startTest("Create ACB PDC");
 		
 		//Login
 		login = new LoginElements(driver);
@@ -65,6 +65,7 @@ public class CreatePDC_ACB extends testbaseforproject{
 		System.out.println("Cases and Outcomes tab clicked");
 		logger.log(LogStatus.PASS, "Cases and Outcomes tab clicked");
 		
+		Thread.sleep(1000);
 		//click on Expand Arrow
 		rpe.ExpandArrow.click();
 		System.out.println("Expand Arror clicked");
@@ -81,7 +82,7 @@ public class CreatePDC_ACB extends testbaseforproject{
 		createPDC.globalLoookupByCaseID("EOCaseID");
 		
 		//Create Apprenticeship
-		createPDC.createNewProduct("ACB", "Cheque");
+		createPDC.createNewProduct("ACB", "EFT");
 		
 		//Switch back to main window
 		String mainWindowHandle = driver.getWindowHandle();
@@ -145,6 +146,7 @@ public class CreatePDC_ACB extends testbaseforproject{
 		mainWindowHandle = driver.getWindowHandle();
 		driver.switchTo().window(mainWindowHandle);
 		
+		Thread.sleep(1000);
 		//Click on logout
 		createPDC.logoutCAMS();
 		
@@ -159,6 +161,32 @@ public class CreatePDC_ACB extends testbaseforproject{
 		
 		//Re-Apply Evidence
 		createPDC.reApplyEvidence();
+		
+		//Switch back to Main window
+		mainWindowHandle = driver.getWindowHandle();
+		driver.switchTo().window(mainWindowHandle);
+		
+		//Click on logout
+		createPDC.logoutCAMS();
+		
+		//Re-login as Caseworker
+		createPDC.reloginAsCaseWorker(login);
+		
+		//Search case
+		createPDC.globalLoookupByCaseID("PDC_ACBCaseID");
+		
+		//Check EFT
+		boolean EFT = createPDC.checkEFT(rpe);
+		if(EFT) {
+			
+			register.addBankAccount(rpe);
+			//change Nominees bank account
+			createPDC.changeNominee();
+		}
+		
+
+		//Activate the case
+		createPDC.activateCase("ACB");
 	
 		} catch (Exception e) {
 			

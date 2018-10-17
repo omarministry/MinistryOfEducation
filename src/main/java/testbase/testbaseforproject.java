@@ -15,6 +15,7 @@ import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxProfile;
 import org.openqa.selenium.firefox.internal.ProfilesIni;
@@ -92,8 +93,11 @@ public class testbaseforproject {
 		else if(browser.equalsIgnoreCase("chrome")){
 			//System.out.println(System.getProperty("user.dir"));
 			//System.setProperty("webdriver.chrome.marionette", System.getProperty("user.dir") + "drivers\\chromedriver");
+			ChromeOptions options = new ChromeOptions();
+			options.setExperimentalOption("useAutomationExtension", false);
+			
 			System.setProperty("webdriver.chrome.driver", "drivers\\chromedriver.exe");
-			driver = new ChromeDriver();
+			driver = new ChromeDriver(options);
 			
 		}
 		
@@ -231,37 +235,18 @@ public class testbaseforproject {
 	}
 	
 	public void verifyErrorsNotPresentWithOutPassReport() {
-		if(driver.getPageSource().contains("Oh la la") && driver.getPageSource().contains("Il semble que cette page est introuvable") )
+		if(driver.getPageSource().contains("An un-handled server exception occurred. Please contact your administrator.") )
 		{
-			logger.log(LogStatus.FAIL,  "Error message " +  " Oh la la  " + "Displayed" );
-			System.out.println(" Oh la la ");
+			logger.log(LogStatus.FAIL,  "Error message " +  " An un-handled server exception occurred. Please contact your administrator. " + "Displayed" );
+			System.out.println(" An un-handled server exception occurred. Please contact your administrator. ");
 		}
-		else if(driver.getPageSource().contains("Oh zut") )
-		{
-			logger.log(LogStatus.FAIL,  "Error message " +  " Oh zut  " + "Displayed" );
-		}
-		else if(driver.getPageSource().contains("Oh snap") && driver.getPageSource().contains("Looks like this page wasn't found on our server.") ) {
-			logger.log(LogStatus.FAIL,  "Error message " +  " Oh snap  " + "Displayed" );
-		}
-		else if(driver.getPageSource().contains("Oh no!") && driver.getPageSource().contains("That page cannot be found")){
-			System.out.println("Oh no Found");
+		else if(driver.getPageSource().contains(" An appication error has occured ")){
 			
-			logger.log(LogStatus.FAIL,  "Error message " +  " Oh no!  " + "Displayed" );
-		}
-		else if(driver.getPageSource().contains("Access Denied")){
-			System.out.println("Access Denied Found");
 			
-			logger.log(LogStatus.FAIL,  "Error message " +  " Access Denied  " + "Displayed" );
+			logger.log(LogStatus.FAIL,  "Error message " +  " An appication error has occured  " + "Displayed" );
+			System.out.println("*****An appication error has occured......****");
 		}
-		else if(driver.getPageSource().contains("Page not found")){
-			System.out.println("*****Page Not Found......****");
-			
-			logger.log(LogStatus.FAIL,  "Error message " +  " Page not found  " + "Displayed" );
-		}
-		else {
-			//logger.log(LogStatus.PASS, "No errors displayed on the page");
-			
-		}
+		
 
 	}
 	
@@ -365,6 +350,15 @@ public class testbaseforproject {
 		Calendar c = Calendar.getInstance();
 		c.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
 		c.add(Calendar.DATE, days);
+		Date date = c.getTime();
+		return formatter.format(date);
+	}
+	
+	public String setMonday(int days) {
+		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+		Calendar c = Calendar.getInstance();
+		c.add(Calendar.DATE, days);
+		c.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
 		Date date = c.getTime();
 		return formatter.format(date);
 	}

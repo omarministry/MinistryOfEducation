@@ -399,4 +399,110 @@ public class PDCElements extends testbaseforproject{
 	
 	@FindBy(xpath="//*[@id=\"dijit_MenuItem_2_text\"]")
 	public WebElement LogoutButton;
+	
+	@FindBy(xpath="//*[contains(@id,\"Financials_tabLabel\")]")
+	public WebElement FinancialTab;
+	
+	@FindBy(xpath="//*[@id=\"Financials-ICProduct_listNominee\"]/div")
+	public WebElement NomineesTab;
+	
+	@FindBy(xpath="//*[@id=\"bodyTitle\"]/span")
+	public WebElement NomineesTxt;
+	
+	@FindBy(xpath="//*[contains(@id,\"list-actions-menu-N\")]")
+	public WebElement NomineesActionMenu;
+	
+	@FindBy(xpath="//*[@id=\"dijit_MenuItem_1_text\"]")
+	public WebElement NomineesChangeBankAccountAction;
+	
+	@FindBy(xpath="//*[contains(@id, \"sortable_N\")]/tbody/tr[1]/td[2]/span/a")
+	public WebElement NomineesChangeBankAccountSelectButton;
+	
+	@FindBy(xpath="//*[@id=\"modal-actions-panel\"]/div/a[1]/span/span/span")
+	public WebElement NomineesChangeBankAccountConfirmButton;
+	
+	@FindBy(xpath="//*[contains(@id,\"Home_tabLabel\")]")
+	public WebElement HomeTab;
+	
+	@FindBy(xpath="//*[@id=\"Curam_MTCU_APPRProgram_home\"]/div[1]/div/div[2]/span/span")
+	public WebElement HomeActionMenu;
+	
+	@FindBy(xpath="//*[@id=\"page-level-action-menu\"]")
+	public WebElement HomePageAction;
+	
+	@FindBy(xpath="//*[@id=\"dijit_MenuItem_2_text\"]")
+	public WebElement ActivateButton;
+	
+	@FindBy(xpath="//*[@id=\"dijit_MenuItem_3_text\"]")
+	public WebElement ActivateButton2;
+	
+	@FindBy(xpath="//*[@id=\"dijit_MenuItem_2_text\"]")
+	public WebElement SubmitApprovealButton;
+	
+	@FindBy(xpath="//*[@id=\"mainForm\"]/div/div[1]/div/table/tbody/tr/td")
+	public WebElement ActivateTxt;
+	
+	@FindBy(xpath="//*[@id=\"modal-actions-panel\"]/div/a[1]/span/span/span")
+	public WebElement ActivateYesButton;
+	
+	@FindBy(xpath="//*[@class=\"refresh enabled\"]")
+	public WebElement RefreshButton;
+	
+	@FindBy(xpath="//*[@id=\"content\"]/div[3]/div/table/tbody/tr[1]/td[2]")
+	public WebElement CaseStatus;
+	
+	@FindBy(xpath="//*[contains(@id,\"Contracts_tabLabel\")]")//*[@id="MTCUPDCHomeTab-uid__o3uid11242-parent-nav_tablist_MTCUPDCHomeTab-uid__o3uid11242-Contracts_tabLabel"]
+	public WebElement ContractsTab;
+	
+	@FindBy(xpath="//*[@id=\"bodyTitle\"]/span")
+	public WebElement ContractsTxt;
+	
+	@FindBy(xpath="//*[@id=\"Curam_ProductDelivery_listContracts\"]/div[1]/div/div[2]/a")
+	public WebElement ContractsNewButton;
+	
+	@FindBy(xpath="//*[@id=\"mainForm\"]/div/div[1]/div/div/h3/span")
+	public WebElement ContractsDetailsTxt;
+	
+	@FindBy(xpath="//*[@id=\"modal-actions-panel\"]/div/a[1]/span/span/span")
+	public WebElement ContractsSaveButton;
+	
+	@FindBy(xpath="//*[contains(@id,\"list-actions-menu-N\")]")
+	public WebElement ContractsActionMenu;
+	
+	@FindBy(xpath="//*[@id=\"dijit_MenuItem_0_text\"]")
+	public WebElement ContractsEditOption;
+	
+	@FindBy(xpath="//*[@id=\"__o3id0\"]")
+	public WebElement ContractsDateSigned;
+	
+	@FindBy(xpath="//*[contains(@id,\"sortable_N\")]/tbody/tr[1]/td[5]")
+	public WebElement ContractsStatus;
+	
+	@FindBy(xpath="//*[contains(@id,\"ListMonitors_tabLabel\")]")
+	public WebElement MonitorsTab;
+	
+	@FindBy(xpath="//*[@id=\"bodyTitle\"]/span")
+	public WebElement MonitorsText;
+	
+	@FindBy(xpath="//div[@class='title-exists  action-exists']/div[3]/div/table/tbody/tr[1]/td[6]")
+	public WebElement MonitorsActionInitial;
+	
+	@FindBy(xpath="//div[@class='title-exists  action-exists']/div[3]/div/table/tbody/tr[3]/td[6]")
+	public WebElement MonitorsActionFinal;
+	
+	@FindBy(xpath="//*[@id=\"dijit_MenuItem_0_text\"]")
+	public WebElement MonitorsInitalRecordOption;
+	
+	@FindBy(xpath="//*[@id=\"dijit_MenuItem_1_text\"]")
+	public WebElement MonitorsFinalRecordOption;
+	
+	@FindBy(xpath="//*[@id=\"mainForm\"]/div/div[2]/div/div/h3/span")
+	public WebElement MonitorsClientInfoTxt;
+	
+	@FindBy(xpath="//*[@id=\"__o3id0\"]")
+	public WebElement MonitorsScheduleDate;
+	
+	@FindBy(xpath="//*[@id=\"modal-actions-panel\"]/div/a[1]/span/span/span")
+	public WebElement MonitorsSaveButton;
+
 }

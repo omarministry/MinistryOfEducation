@@ -33,7 +33,7 @@ public class CreatePDC_ECB extends testbaseforproject{
 		
 		try {
 	
-		logger = report.startTest("Create PDC");
+		logger = report.startTest("Create ECB PDC");
 		
 		//Login
 		login = new LoginElements(driver);
@@ -172,6 +172,22 @@ public class CreatePDC_ECB extends testbaseforproject{
 		
 		//Re-Apply Evidence
 		createPDC.reApplyEvidence();
+		
+		//Switch back to Main window
+		mainWindowHandle = driver.getWindowHandle();
+		driver.switchTo().window(mainWindowHandle);
+		
+		//Click on logout
+		createPDC.logoutCAMS();
+		
+		//Re-login as Caseworker
+		createPDC.reloginAsCaseWorker(login);
+		
+		//Search case
+		createPDC.globalLoookupByCaseID("PDC_ECBCaseID");
+
+		//Activate the case
+		createPDC.activateCase("ECB");
 	
 		} catch (Exception e) {
 			

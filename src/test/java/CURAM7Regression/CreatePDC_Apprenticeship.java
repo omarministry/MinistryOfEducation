@@ -34,7 +34,7 @@ public class CreatePDC_Apprenticeship extends testbaseforproject{
 		
 		try {
 	
-		logger = report.startTest("Create PDC");
+		logger = report.startTest("Create APPR PDC");
 		
 		//Login
 		login = new LoginElements(driver);
@@ -202,6 +202,37 @@ public class CreatePDC_Apprenticeship extends testbaseforproject{
 		
 		//Re-Apply Evidence
 		createPDC.reApplyEvidence();
+		
+		//Switch back to Main window
+		mainWindowHandle = driver.getWindowHandle();
+		driver.switchTo().window(mainWindowHandle);
+		
+		//Click on logout
+		createPDC.logoutCAMS();
+		
+		//Re-login as Caseworker
+		createPDC.reloginAsCaseWorker(login);
+		
+		//Search case
+		createPDC.globalLoookupByCaseID("PDC_APPRCaseID");
+		
+		//Check EFT
+		boolean EFT = createPDC.checkEFT(rpe);
+		if(EFT) {
+			
+			register.addBankAccount(rpe);
+			//change Nominees bank account
+			createPDC.changeNominee();
+		}
+		
+		//Add Contracts
+		createPDC.addContracts();
+		
+		//Submit for approval
+		createPDC.submitForApproval();
+		
+		//Activate the case
+		createPDC.activateCase("APPR");
 	
 		} catch (Exception e) {
 			
@@ -218,7 +249,7 @@ public class CreatePDC_Apprenticeship extends testbaseforproject{
 	public void endTest() {
 		report.endTest(logger);
 		report.flush();
-//		driver.quit();
+		driver.quit();
 	}
 	
 }

@@ -35,6 +35,7 @@ public class RegisterPerson extends testbaseforproject{
 
 	LoginElements login;
 	RegisterPersonElements rpe;
+	ReadWriteDataToExcel data = new ReadWriteDataToExcel();
 	
 	@BeforeClass
 	public void setup() {
@@ -341,6 +342,145 @@ public class RegisterPerson extends testbaseforproject{
 			
 			//Close Register Person tab
 			rpe.CloseRegisterPerson.click();
+	}
+	
+	public void addBankAccount(RegisterPersonElements rpe) throws InterruptedException, IOException {
+		Thread.sleep(1000);
+		//Click on Client
+		rpe.ClientCaseLink.click();
+		System.out.println("Client lick is clicked");
+		logger.log(LogStatus.PASS, "Client lick is clicked");
+		Thread.sleep(1000);
+		
+		//Get the array of tabs
+		ArrayList<String> tabs = new ArrayList<String>(driver.getWindowHandles());
+		System.out.println("Number of tabs: " + tabs.size());
+		driver.switchTo().window(tabs.get(0));
+		System.out.println("Switch to tab 1");
+		Thread.sleep(1000);
+//		driver.switchTo().frame(4);
+//		System.out.println("Switch to frame 4");
+		
+		//Verify Person Home is opened
+//		String personHomeTxt = rpe.PersonHomeTxt.getText().trim();
+//		AssertTextPresentmethodWithExtendPassFail(personHomeTxt, "Person Home");
+//		System.out.println("Person Home is opened");
+//		logger.log(LogStatus.PASS, "Person Home is opened");
+		
+		
+//		Thread.sleep(1000);
+		rpe.FinancialsTab.click();
+		System.out.println("Finalcials Tab is clicked");
+		logger.log(LogStatus.PASS, "Finalcials Tab is clicked");
+		
+		//Go to Bank Accounts
+		rpe.BankAccountsTab.click();
+		System.out.println("Bank Accounts is clicked");
+		logger.log(LogStatus.PASS, "Bank Accounts is clicked");
+		
+		//Verify Bank Accounts is opened
+		driver.switchTo().frame(4);
+		String bankAccountsTxt = rpe.BankAccountsTxt.getText().trim();
+		AssertTextPresentmethodWithExtendPassFail(bankAccountsTxt, "Bank Accounts");
+		System.out.println("Bank Accounts page is opened");
+		logger.log(LogStatus.PASS, "Bank Accounts page is opened");
+		
+		//Click on Bank Account New button
+		rpe.BankAccountsNewButton.click();
+		System.out.println("Bank Account New button is clicked");
+		logger.log(LogStatus.PASS, "Bank Account New button is clicked");
+		
+		Thread.sleep(1000);
+		
+		//Verify the Create Bank account popup window is open
+		String bankAccountWindow = driver.getWindowHandle();
+		driver.switchTo().window(bankAccountWindow);
+		driver.switchTo().frame(5);
+		String detalsTxt = rpe.BankAccountsDetailsTxt.getText().trim();
+		AssertTextPresentmethodWithExtendPassFail(detalsTxt, "Details");
+		System.out.println("Create Bank Account popup window is opened");
+		logger.log(LogStatus.PASS, "Create Bank Account popup window is opened");
+		
+		//Enter Account Name
+		rpe.BankAccountsName.sendKeys("Automation Test");
+		System.out.println("Bank Account Name is entered");
+		logger.log(LogStatus.PASS, "Bank Account Name is entered");
+		
+		//Enter Account Number
+		String accountNumber = generalRandomNumber(100000000, 999999999);
+		rpe.BankAccountsNumber.sendKeys(accountNumber);
+		System.out.println("Bank Account Number is entered");
+		logger.log(LogStatus.PASS, "Bank Account Number is entered");
+		
+		//Click on Bank Branch lookup glass
+		rpe.BankBranchLookupGlass.click();
+		System.out.println("Bank Branch lookup glass is clicked");
+		logger.log(LogStatus.PASS, "Bank Branch lookup glass is clicked");
+		
+		//Switch to bank Branch Search window
+		String bankBranchWindow = driver.getWindowHandle();
+		driver.switchTo().window(bankBranchWindow);
+		driver.switchTo().frame(6);
+		String searchCritiriaTxt = rpe.BankSearchTxt.getText().trim();
+		AssertTextPresentmethodWithExtendPassFail(searchCritiriaTxt, "Search Criteria");
+		System.out.println("Bank Branch Search Window is opened");
+		logger.log(LogStatus.PASS, "Bank Branch Search Window is opened");
+		
+		//Enter Institution Number
+		rpe.BankInstitutionNumber.sendKeys("0003");
+		System.out.println("Institution Number is entered");
+		logger.log(LogStatus.PASS, "Institution Number is entered");
+		
+		//Enter Branch Number
+		rpe.BankNumber.sendKeys("00616");
+		System.out.println("Bank Branch Number is entered");
+		logger.log(LogStatus.PASS, "Bank Branch Number is entered");
+		
+		//Click on Search Button
+		rpe.BankSearchButton.click();
+		System.out.println("Bank Search button is clicked");
+		logger.log(LogStatus.PASS, "Bank Search button is clicked");
+		
+		Thread.sleep(1000);
+		
+		//Click on Select bank button
+		rpe.BankSelectButton.click();
+		System.out.println("Bank Select Button is clicked");
+		logger.log(LogStatus.PASS, "Bank Select Button is clicked");
+		
+		//Enter From Date
+		bankAccountWindow = driver.getWindowHandle();
+		driver.switchTo().window(bankAccountWindow);
+		driver.switchTo().frame(5);
+		rpe.BankFrom.sendKeys(setMonday(-10));
+		System.out.println("From Date is set");
+		logger.log(LogStatus.PASS, "From Date is set");
+		
+		//Click on Save button
+		rpe.BankSaveButton.click();
+		System.out.println("Save Button is clicked");
+		logger.log(LogStatus.PASS, "Save Button is clicked");
+		
+		//Re-enter the Account Number
+		driver.switchTo().window(driver.getWindowHandle());
+		driver.switchTo().frame(4);
+		rpe.ReEnterAccountNumber.sendKeys(accountNumber);
+		System.out.println("Re-enter Account Number");
+		logger.log(LogStatus.PASS, "Re-enter Account Number");
+		
+		//Click on Save Button
+		rpe.SaveAccountButton.click();
+		System.out.println("Re-enter Account Number Save Button is clicked");
+		logger.log(LogStatus.PASS, "Re-enter Account Number Save Button is clicked");
+		
+		//Close Person tab
+		driver.switchTo().window(driver.getWindowHandle());
+		rpe.CloseEO.click();
+		System.out.println("Close the tab");
+		logger.log(LogStatus.PASS, "CLose the tab");
+		
+		driver.switchTo().window(driver.getWindowHandle());
+		
 	}
 	
 
