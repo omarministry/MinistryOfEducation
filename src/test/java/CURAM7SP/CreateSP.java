@@ -32,14 +32,23 @@ public class CreateSP extends testbaseforproject{
 		logger.log(LogStatus.INFO, "Switch to Create Service Plan popup window");
 		driver.switchTo().frame(3);
 		String selectProductTypeTxt = sp.PopupWindowTextDetails.getText().trim();
-		AssertTextPresentmethodWithExtendPassFail(selectProductTypeTxt, "Create Service Plan");
+		AssertTextPresentmethodWithExtendPassFail(selectProductTypeTxt, "Details");
 		System.out.println("Create Service Plan popup window is opened successfully");
 		
 		//Fill out the new service plan pop up window fields and save
 		sp.selectProgram.sendKeys(programName);
-		sp.referredIn.sendKeys(referredIn);
-		sp.SDS.sendKeys(serviceDeliverySite);	
 		
+		if (referredIn != "NA") {
+			sp.referredIn.sendKeys(referredIn);
+		}
+		
+		sp.SDS.sendKeys(serviceDeliverySite);
+		
+		if(programName.equalsIgnoreCase("Supported Employment")) {
+			sp.TransitionalClient.sendKeys("MVHE (MOHLTC)");
+		}
+		
+
 		//Checks if program has Self Initiated field
 		if (selfInitiated == "Yes") {
 			sp.selfInitiated.sendKeys(selfInitiated);
@@ -72,8 +81,29 @@ public class CreateSP extends testbaseforproject{
 		
 		//Write Case ID on excel file
 		int caseRefNum = Integer.parseInt(caseRef);
-		data.writeExcel(filePath, "CaseID.xlsx", "SP_ESCaseID", caseRefNum);
-		System.out.println("Client Reference Number is written to excel file");
+		if(programName.equalsIgnoreCase("Supported Employment")){
+			data.writeExcel(filePath, "CaseID.xlsx", "SP_SECaseID", caseRefNum);
+			System.out.println("SE case Reference Number is written to excel file");
+		}else if(programName.equalsIgnoreCase("Youth Job Connection")) {
+			data.writeExcel(filePath, "CaseID.xlsx", "SP_YJCCaseID", caseRefNum);
+			System.out.println("YJC case Reference Number is written to excel file");
+		}else if(programName.equalsIgnoreCase("Youth Job Connection Summer")) {
+			data.writeExcel(filePath, "CaseID.xlsx", "SP_YJCSCaseID", caseRefNum);
+			System.out.println("YJCS case Reference Number is written to excel file");
+		}else if(programName.equalsIgnoreCase("Literacy and Basic Skills")) {
+			data.writeExcel(filePath, "CaseID.xlsx", "SP_LBSCaseID", caseRefNum);
+			System.out.println("LBS case Reference Number is written to excel file");
+		}else if(programName.equalsIgnoreCase("Employment Service")) {
+			data.writeExcel(filePath, "CaseID.xlsx", "SP_ESCaseID", caseRefNum);
+			System.out.println("ES case Reference Number is written to excel file");
+		}else if(programName.equalsIgnoreCase("Employment Service")) {
+			data.writeExcel(filePath, "CaseID.xlsx", "SP_SAO2CaseID", caseRefNum);
+			System.out.println("SAO2 case Reference Number is written to excel file");
+		}else if(programName.equalsIgnoreCase("Youth Job Link")) {
+			data.writeExcel(filePath, "CaseID.xlsx", "SP_YJLCaseID", caseRefNum);
+			System.out.println("YJL case Reference Number is written to excel file");
+		}
+
 	}
 	
 	public void planSummary() throws InterruptedException {

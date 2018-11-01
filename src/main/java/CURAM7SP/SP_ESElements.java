@@ -128,7 +128,7 @@ public class SP_ESElements extends testbaseforproject {
 	@FindBy(xpath="//*[@id=\"N211E3-1-1\"]/span")
 	public WebElement ClientSummaryConfirmLabel;
 	
-	@FindBy(xpath="//*[@id=\"N2775F-3-1\"]/span")
+	@FindBy(xpath="//*[@id=\"N2775F-3-1\"]/span")//*[@id="N2775F-3-1"]/span
 	public WebElement ModifyPlanItemConfirmLabel;
 	
 	@FindBy(xpath="//*[@id=\"N26BD2-2-1\"]/span")

@@ -1,4 +1,4 @@
-package CURAM7;
+package CAMS6;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -7,24 +7,24 @@ import org.openqa.selenium.support.PageFactory;
 
 import testbase.testbaseforproject;
 
-public class RegisterPersonElements extends testbaseforproject{
+public class CAMS6_RegisterPersonElements extends testbaseforproject{
 
-	public RegisterPersonElements (WebDriver driver) {
+	public CAMS6_RegisterPersonElements (WebDriver driver) {
 		PageFactory.initElements(driver, this);
 	}
 	
 	//============= xPaths of the Elements to Register a Person ==============
 	
-	@FindBy(xpath="//*[contains(@id,\"WorkspaceSection-sbc_tabLabel\")]")
+	@FindBy(xpath="//*[@id=\"app-sections-container-dc_tablist\"]/div[4]/div/div[2]")
 	public WebElement CasesAndOutComesTab;
 	
-	@FindBy(xpath="//*[@id=\"curam_layout_ExpandoPane_0\"]/div[1]/div")
+	@FindBy(xpath="//*[@id=\"curam_layout_ExpandoPane_0\"]/div[1]")
 	public WebElement ExpandArrow;
 	
 	@FindBy(xpath="//*[@id=\"dijit_layout_AccordionPane_0\"]/ul/li[1]/a")
 	public WebElement RegisterPersonLeftPanelButton;
 	
-	@FindBy(xpath="//*[@id=\"bodyTitle\"]/span")
+	@FindBy(xpath="//*[@id=\"Curam_MTCU_searchPerson\"]/div[1]/div[1]/div[1]/h1/span")
 	public WebElement RegisterPersonTabOpenText;
 	
 	@FindBy(xpath="//*[@id=\"__o3id2\"]")
@@ -39,7 +39,7 @@ public class RegisterPersonElements extends testbaseforproject{
 	@FindBy(xpath="//*[@id=\"page-action-set-\"]/a[3]") 
 	public WebElement ContinueButton;
 	
-	@FindBy(xpath="//*[@id=\"bodyTitle\"]/span") 
+	@FindBy(xpath="//*[@id=\"Curam_Person_register\"]/div[1]/div[1]/div[1]/h1/span") 
 	public WebElement RegisterPersonTxt;
 	
 	@FindBy(xpath="//*[@id=\"__o3id9\"]")
@@ -81,7 +81,7 @@ public class RegisterPersonElements extends testbaseforproject{
 	@FindBy(xpath="//*[@id=\"Curam_Person_register\"]/div[1]/div[1]/div[2]/a[1]/span/span/span")
 	public WebElement RegisterButton;
 	
-	@FindBy(xpath="//*[@id=\"bodyTitle\"]/span")
+	@FindBy(xpath="//*[@id=\"Curam_MTCUPerson_registrationComplete\"]/div[1]/div/div[1]/h1/span")
 	public WebElement RegistrationCompletedTxt;
 	
 	@FindBy(xpath="//*[@id=\"content\"]/div[3]/div/table/tbody/tr/td/span/a")
@@ -117,13 +117,13 @@ public class RegisterPersonElements extends testbaseforproject{
 	@FindBy(xpath="//*[@id=\"FinancialGroup-BankAccounts\"]/div")
 	public WebElement BankAccountsTab;
 	
-	@FindBy(xpath="//*[@id=\"bodyTitle\"]/span")
+	@FindBy(xpath="//*[@id=\"Curam_Person_listBankAccount\"]/div[1]/div/div[1]/h1/span")
 	public WebElement BankAccountsTxt;
 	
 	@FindBy(xpath="//*[@id=\"Curam_Person_listBankAccount\"]/div[1]/div/div[2]/a")
 	public WebElement BankAccountsNewButton;
 	
-	@FindBy(xpath="//*[@id=\"mainForm\"]/div/div[2]/div/div/h3/span")
+	@FindBy(xpath="//*[@id=\"mainForm\"]/div/div[2]/div/div")
 	public WebElement BankAccountsDetailsTxt;
 	
 	@FindBy(xpath="//*[@id=\"__o3id0\"]")
@@ -141,7 +141,7 @@ public class RegisterPersonElements extends testbaseforproject{
 	@FindBy(xpath="//*[@id=\"modal-actions-panel\"]/div/a[1]/span/span/span")
 	public WebElement BankSaveButton;
 	
-	@FindBy(xpath="//*[@id=\"mainForm\"]/div/div[1]/div/div/h3/span")
+	@FindBy(xpath="//*[@id=\"mainForm\"]/div/div[1]/div/div/h2/span")
 	public WebElement BankSearchTxt;
 	
 	@FindBy(xpath="//*[@id=\"__o3id0\"]")

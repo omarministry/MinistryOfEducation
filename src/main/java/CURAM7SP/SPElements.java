@@ -25,6 +25,9 @@ public class SPElements extends testbaseforproject {
 	@FindBy(xpath="//*[@id=\"__o3id1\"]")
 	public WebElement referredIn;
 	
+	@FindBy(xpath="//*[@id=\"__o3id2\"]")
+	public WebElement TransitionalClient;
+	
 	@FindBy(xpath="//*[@id=\"__o3id4\"]")
 	public WebElement SDS;
 	

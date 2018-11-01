@@ -175,12 +175,13 @@ public class CreateSP_ES extends testbaseforproject{
 			driver.switchTo().window(selectProductTypeWindowHandle);
 			System.out.println("Switch to Modify Plan Item Type popup window");
 			logger.log(LogStatus.INFO, "Modify Plan Item Type Summary popup window");
+			driver.switchTo().frame(3);
+			Thread.sleep(1000);
 			selectProductTypeTxt = ese.ModifyPlanItemConfirmLabel.getText().trim();
 			AssertTextPresentmethodWithExtendPassFail(selectProductTypeTxt, "Actual Start Date");
 			System.out.println("Modify Plan Item Type popup window is opened successfully");
 			
 			//Fill out the fields
-			driver.switchTo().frame(3);
 			ese.Outcome.sendKeys("Attained");
 			ese.StartDate.sendKeys(date);
 			ese.EndDate.sendKeys(date);
@@ -207,12 +208,12 @@ public class CreateSP_ES extends testbaseforproject{
 			driver.switchTo().window(selectProductTypeWindowHandle);
 			System.out.println("Switch to Modify Sub Goal popup window");
 			logger.log(LogStatus.INFO, "Modify Sub Goal Summary popup window");
+			driver.switchTo().frame(3);
 			selectProductTypeTxt = ese.ModifySubGoalConfirmLabel.getText().trim();
 			AssertTextPresentmethodWithExtendPassFail(selectProductTypeTxt, "Outcome");
 			System.out.println("Modify Sub Goal popup window is opened successfully");
 			
 			//Complete sub-goal
-			driver.switchTo().frame(3);
 			ese.Outcome.sendKeys("Attained");
 			ese.Save.click();
 			
@@ -278,7 +279,7 @@ public class CreateSP_ES extends testbaseforproject{
 	public void endTest() {
 		report.endTest(logger);
 		report.flush();
-		driver.quit();
+//		driver.quit();
 	}
 	
 }

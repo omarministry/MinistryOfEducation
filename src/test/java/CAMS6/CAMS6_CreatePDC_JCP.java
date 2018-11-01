@@ -1,4 +1,4 @@
-package CURAM7Regression;
+package CAMS6;
 
 import java.awt.AWTException;
 import org.testng.annotations.AfterClass;
@@ -13,16 +13,15 @@ import CURAM7.RegisterPersonElements;
 import support.ReadWriteDataToExcel;
 import testbase.testbaseforproject;
 
-public class CreatePDC_ACB extends testbaseforproject{
+public class CAMS6_CreatePDC_JCP extends testbaseforproject{
 	
-	LoginElements login;
-	PDCElements pdc;
+	CAMS6_LoginElements login;
+	CAMS6_PDCElements pdc;
 	String filePath = System.getProperty("user.dir") + "//TestData";
 	ReadWriteDataToExcel data;
-	CreatePDC createPDC;
-	RegisterPerson register;
-	RegisterPersonElements rpe;
-	
+	CAMS6_CreatePDC createPDC;
+	CAMS6_RegisterPerson register;
+	CAMS6_RegisterPersonElements rpe;
 	
 	@BeforeClass
 	public void setup() {
@@ -31,23 +30,24 @@ public class CreatePDC_ACB extends testbaseforproject{
 	
 	@Test
 	public void createPDC() throws InterruptedException, AWTException {
-	
+		
 		try {
 	
-		logger = report.startTest("Create ACB PDC");
+		logger = report.startTest("Create JCP PDC");
 		
 		//Login
-		login = new LoginElements(driver);
+		login = new CAMS6_LoginElements(driver);
 		
 		String browser = config.getProperty("browser");
 		if (browser.equalsIgnoreCase("IE")){
 			driver.navigate().to("javascript:document.getElementById('overridelink').click()");
 		}
 		
+
 		Thread.sleep(2000);
 		
-		String username = config.getProperty("userCURAM7CaseWorker");
-		String password = config.getProperty("pwdCURAM7CaseWorker");
+		String username = config.getProperty("userCAMPSAdmin");
+		String password = config.getProperty("pwdCAMPSAdmin");
 		System.out.println("User Name from Config file...." + username);
 		login.curam7Login(username, password);
 		
@@ -57,15 +57,14 @@ public class CreatePDC_ACB extends testbaseforproject{
 		AssertTextPresentmethodWithExtendPassFail(header, "CASE MANAGEMENT SYSTEM - MINISTRY CASEWORKER APPLICATION");
 		System.out.println("Login Successfully");
 		
-		register = new RegisterPerson();
-		rpe = new RegisterPersonElements(driver);
+		register = new CAMS6_RegisterPerson();
+		rpe = new CAMS6_RegisterPersonElements(driver);
 		
 		//Click on Cases and Outcomes tab
 		rpe.CasesAndOutComesTab.click();
 		System.out.println("Cases and Outcomes tab clicked");
 		logger.log(LogStatus.PASS, "Cases and Outcomes tab clicked");
 		
-		Thread.sleep(1000);
 		//click on Expand Arrow
 		rpe.ExpandArrow.click();
 		System.out.println("Expand Arror clicked");
@@ -74,15 +73,15 @@ public class CreatePDC_ACB extends testbaseforproject{
 		
 		register.registerAPerson(rpe);
 		
-		createPDC = new CreatePDC();
-		pdc = new PDCElements(driver);
+		createPDC = new CAMS6_CreatePDC();
+		pdc = new CAMS6_PDCElements(driver);
 		data = new ReadWriteDataToExcel();
 		
 		//Search Case
 		createPDC.globalLoookupByCaseID("EOCaseID");
 		
 		//Create Apprenticeship
-		createPDC.createNewProduct("ACB", "EFT");
+		createPDC.createNewProduct("JCP", "EFT");
 		
 		//Switch back to main window
 		String mainWindowHandle = driver.getWindowHandle();
@@ -92,18 +91,18 @@ public class CreatePDC_ACB extends testbaseforproject{
 		
 		//Switch to frame
 		driver.switchTo().frame(4);
-		String homeTxt = pdc.HomeTxt.getText().trim();
-		AssertTextPresentmethodWithExtendPassFail(homeTxt, "Apprenticeship Completion Bonus Program Home:");
-		System.out.println("ACB Program home is opened");
-		logger.log(LogStatus.PASS, "ACB Program home is opened");
+		String homeTxt = pdc.ProgramHomeTxt.getText().trim();
+		AssertTextPresentmethodWithExtendPassFail(homeTxt, "Job Creation Partnership Program Home:");
+		System.out.println("JCP Program home is opened");
+		logger.log(LogStatus.PASS, "JCP Program home is opened");
 		
-		//Get ACB Case Reference
-		String ACBCaseRef = pdc.PDCCaseReference.getText().trim();
-		System.out.println("ACB case Ref: " + ACBCaseRef);
+		//Get JCP Case Reference
+		String JCPCaseRef = pdc.PDCCaseReference.getText().trim();
+		System.out.println("JCP case Ref: " + JCPCaseRef);
 		
-		//Write the ACB Case ID into file
-		data.writeExcel(filePath, "CaseID.xlsx", "PDC_ACBCaseID", Integer.parseInt(ACBCaseRef));
-		System.out.println("ACB Case Reference ID is written to the file");
+		//Write the APPR Case ID into file
+		data.writeExcel(filePath, "CaseID_CAMS6.xlsx", "PDC_JCPCaseID", Integer.parseInt(JCPCaseRef));
+		System.out.println("JCP Case Reference ID is written to the file");
 		
 		
 		//Go to Evidence Tab
@@ -116,22 +115,57 @@ public class CreatePDC_ACB extends testbaseforproject{
 		//Verify Site Map title
 		driver.switchTo().frame(4);
 		String siteMapTxt = pdc.SiteMapTxt.getText().trim();
-		AssertTextPresentmethodWithExtendPassFail(siteMapTxt, "Site Map");
+		AssertTextPresentmethodWithExtendPassFail(siteMapTxt, "Site Map:");
 		System.out.println("Site Map is opened");
 		logger.log(LogStatus.PASS, "Site Map is opened");
 		
+		//Add New Employment Insurance
+		createPDC.addNewEmploymentInsurance();
 		
-		//Create Lumnp Sum Benefit Type
+		//Click on Site Map
+		createPDC.goToSiteMap();
+		
 		Thread.sleep(1000);
-		createPDC.createNewBenefit("Lump Sum", "", "", "ACB");
 		
-																										
+		//Click on Training link
+		driver.switchTo().frame(4);
+		System.out.println("Switch to Frame 4");
+		
+		//Create Benefit Type
+		Thread.sleep(1000);
+		createPDC.createNewBenefit("Weekly", "Basic Living Allowance on Claim", "100", "JCP");
+		System.out.println("Benefit is created");
+		
+		//Switch back to main window
+		driver.switchTo().window(driver.getWindowHandle());
+		driver.switchTo().frame(4);
+		
+		//Create benefit type
+		Thread.sleep(1000);
+		createPDC.createNewBenefit("Lump Sum", "Living Away From Home", "300", "JCP");
+		System.out.println("Benefit is created");
+		
+		
+		//Go to Site Map
+		createPDC.goToSiteMap();
+		
+		Thread.sleep(1000);
+		
+		//Switch to Frame 4
+		driver.switchTo().frame(4);
+		System.out.println("Switch to Frame 4");
+		
+		Thread.sleep(1000);
+		
+	    //Create JCP Evidence
+		createPDC.addJobCreationPartnership();
+		
 		//Switch back to Main window
 		mainWindowHandle = driver.getWindowHandle();
 		driver.switchTo().window(mainWindowHandle);
 		
 		//Add a Supervisor
-		createPDC.addSupervisor("ACB");
+		createPDC.addSupervisor("JCP");
 		
 		//Go back to Site Map
 		createPDC.goToSiteMap();
@@ -146,15 +180,14 @@ public class CreatePDC_ACB extends testbaseforproject{
 		mainWindowHandle = driver.getWindowHandle();
 		driver.switchTo().window(mainWindowHandle);
 		
-		Thread.sleep(1000);
 		//Click on logout
 		createPDC.logoutCAMS();
 		
 		//Re-login
-		createPDC.reloginAsManager(login, "ACB");
+		createPDC.reloginAsManager(login, "JCP");
 		
 		//Search case
-		createPDC.globalLoookupByCaseID("PDC_ACBCaseID");
+		createPDC.globalLoookupByCaseID("PDC_JCPCaseID");
 		
 		//Approve Evidence
 		createPDC.approveEvidence();
@@ -173,7 +206,7 @@ public class CreatePDC_ACB extends testbaseforproject{
 		createPDC.reloginAsCaseWorker(login);
 		
 		//Search case
-		createPDC.globalLoookupByCaseID("PDC_ACBCaseID");
+		createPDC.globalLoookupByCaseID("PDC_JCPCaseID");
 		
 		//Check EFT
 		boolean EFT = createPDC.checkEFT(rpe);
@@ -184,9 +217,14 @@ public class CreatePDC_ACB extends testbaseforproject{
 			createPDC.changeNominee();
 		}
 		
-
+		//Add Contracts
+		createPDC.addContracts();
+		
+		//Submit for approval
+		createPDC.submitForApproval();
+		
 		//Activate the case
-		createPDC.activateCase("ACB");
+		createPDC.activateCase("JCP");
 	
 		} catch (Exception e) {
 			

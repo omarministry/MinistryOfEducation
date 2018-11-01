@@ -1,4 +1,4 @@
-package CURAM7Regression;
+package CAMS6;
 
 import java.awt.AWTException;
 import java.io.FileInputStream;
@@ -31,10 +31,10 @@ import CURAM7.RegisterPersonElements;
 import support.ReadWriteDataToExcel;
 import testbase.testbaseforproject;
 
-public class RegisterPerson extends testbaseforproject{
+public class CAMS6_RegisterPerson extends testbaseforproject{
 
-	LoginElements login;
-	RegisterPersonElements rpe;
+	CAMS6_LoginElements login;
+	CAMS6_RegisterPersonElements rpe;
 	ReadWriteDataToExcel data = new ReadWriteDataToExcel();
 	
 	@BeforeClass
@@ -50,7 +50,7 @@ public class RegisterPerson extends testbaseforproject{
 		logger = report.startTest("Register Person");
 		
 		//Login
-		login = new LoginElements(driver);
+		login = new CAMS6_LoginElements(driver);
 		
 		String browser = config.getProperty("browser");
 		if (browser.equalsIgnoreCase("IE")){
@@ -58,8 +58,8 @@ public class RegisterPerson extends testbaseforproject{
 		}
 		Thread.sleep(2000);
 		
-		String username = config.getProperty("userCURAM7CaseWorker");
-		String password = config.getProperty("pwdCURAM7CaseWorker");
+		String username = config.getProperty("userCAMPSAdmin");
+		String password = config.getProperty("pwdCAMPSAdmin");
 		System.out.println("User Name from Config file...." + username);
 		login.curam7Login(username, password);
 		
@@ -70,7 +70,7 @@ public class RegisterPerson extends testbaseforproject{
 		System.out.println("Login Successfully");
 		
 
-		rpe = new RegisterPersonElements(driver);
+		rpe = new CAMS6_RegisterPersonElements(driver);
 		
 		//Click on Cases and Outcomes tab
 		rpe.CasesAndOutComesTab.click();
@@ -112,7 +112,7 @@ public class RegisterPerson extends testbaseforproject{
 		return SINNumber;
 	}
 	
-	public void registerAPerson(RegisterPersonElements rpe) throws InterruptedException, IOException {
+	public void registerAPerson(CAMS6_RegisterPersonElements rpe) throws InterruptedException, IOException {
 		
 			
 			//click on Register a Person on the left panel
@@ -262,7 +262,7 @@ public class RegisterPerson extends testbaseforproject{
 			logger.log(LogStatus.PASS, "Register button clicked");
 			
 			Thread.sleep(1000);
-			/*driver.manage().timeouts().implicitlyWait(1000, TimeUnit.MILLISECONDS);
+			driver.manage().timeouts().implicitlyWait(1000, TimeUnit.MILLISECONDS);
 			if(driver.findElements(By.id("error-messages")).size() != 0) {
 				String error = rpe.ErrorMessageAPPRPartyIDExsits.getText().trim();
 				if(error.contains("E4285")) {
@@ -276,10 +276,7 @@ public class RegisterPerson extends testbaseforproject{
 					System.out.println("APPR ID is entered: " + APPRID);
 					logger.log(LogStatus.PASS, "APPR ID is entered: " + APPRID);
 					
-					//Click on Register button
-					rpe.RegisterButton.click();
-					System.out.println("Register button clicked");
-					logger.log(LogStatus.PASS, "Register button clicked");
+
 				}else if (error.contains("E1710")) {
 					System.out.println("SIN already exists");
 					logger.log(LogStatus.INFO, "SIN already exists");
@@ -291,8 +288,12 @@ public class RegisterPerson extends testbaseforproject{
 					System.out.println("SIN Number is entered");
 					logger.log(LogStatus.PASS, "SIN Number is entered");
 					
+					//Click on Register button
+					rpe.RegisterButton.click();
+					System.out.println("Register button clicked");
+					logger.log(LogStatus.PASS, "Register button clicked");
 				}
-			}*/
+			}
 			
 			//Verify Person Registration Completed
 			String completedTxt = rpe.RegistrationCompletedTxt.getText().trim();
@@ -332,9 +333,9 @@ public class RegisterPerson extends testbaseforproject{
 			
 			ReadWriteDataToExcel data = new ReadWriteDataToExcel();
 			String filePath = System.getProperty("user.dir") + "//TestData";
-			data.writeExcel(filePath, "CaseID.xlsx", "ClientReferenceNum", clientRef);
+			data.writeExcel(filePath, "CaseID_CAMS6.xlsx", "ClientReferenceNum", clientRef);
 			System.out.println("Client Reference Number is written to excel file");
-			data.writeExcel(filePath, "CaseID.xlsx", "EOCaseID", caseRefNum);
+			data.writeExcel(filePath, "CaseID_CAMS6.xlsx", "EOCaseID", caseRefNum);
 			System.out.println("EO Reference Number is written to excel file");
 			
 			//Close EO tab
@@ -345,7 +346,7 @@ public class RegisterPerson extends testbaseforproject{
 			rpe.CloseRegisterPerson.click();
 	}
 	
-	public void addBankAccount(RegisterPersonElements rpe) throws InterruptedException, IOException {
+	public void addBankAccount(CAMS6_RegisterPersonElements rpe) throws InterruptedException, IOException {
 		Thread.sleep(1000);
 		//Click on Client
 		rpe.ClientCaseLink.click();
@@ -489,7 +490,7 @@ public class RegisterPerson extends testbaseforproject{
 	public void endTest() {
 		report.endTest(logger);
 		report.flush();
-		driver.quit();
+//		driver.quit();
 	}
 	
 }

@@ -10,7 +10,11 @@
        <class name="CURAM7Regression.CreatePDC_JCP"/>
        <class name="CURAM7Regression.CreatePDC_Apprenticeship"/>
        <class name="CURAM7Regression.CreatePDC_SecondCareer"/>
-	
+       <class name="CURAM7SP.CreateSP_ES"/>
+       <class name="CURAM7SP.CreateSP_YJC"/>
+       <class name="CURAM7SP.CreateSP_YJCS"/>
+       <class name="CURAM7SP.CreateSP_LBS"/>
+       <class name="CURAM7SP.CreateSP_SE"/>
     </classes>
   </test> <!-- TestLogin -->
 </suite> <!-- SuiteLogin -->
